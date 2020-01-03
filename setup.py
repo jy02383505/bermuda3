@@ -82,7 +82,7 @@ setup(
         'pika==0.12.0',
         'eventlet==0.24.0',
         'gevent==1.3.5',
-        'requests==2.19.1',
+        'requests==2.20.0',
         'python-etcd==0.4.5',
         'nose==1.3.7',
         'pyOpenSSL==18.0.0',
