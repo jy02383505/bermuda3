@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="text-center">
+        <form class="form-inline" action="/add_keycustomer" method="post">
+            <label class="control-label"> <strong>User :</strong>
+                <input type="text" class="input-xlarge" name="key_customer">
+            </label>
+            <label class="control-label"> <strong>Channel_Code : </strong>
+                <input type="text" class="input-xlarge" name="channel_code"></textarea>
+            </label>
+            <label class="control-label"> <strong>Monitor_Email : </strong>
+                <textarea placeholder="输入多个邮箱,进行换行输入" rows="3" name="monitor_email"></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary ">新增配置</button>
+        </form>
+    </div>
+    <div>双击Monitor-Email进行邮件的修改</div>
+    <div class="text-center">
+        <form class="form-inline" action="/keycustomer" method="post">
+            <label class="control-label"> <strong>User :</strong>
+                <input type="text" class="input-xlarge" name="key_customer">
+            </label>
+            <button type="submit" class="btn btn-primary ">查询</button>
+        </form>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <tr>
+                <th style="width: 200px;">
+                    <center>User</center>
+                </th>
+                <th style="width: 200px;">
+                    <center>Channel_Code</center>
+                </th>
+                <th style="width: 150px;">
+                    <center>Monitor-Email(双击可快捷修改,失焦确认)</center>
+                </th>
+                <th style="width: 150px;">
+                    <center>删除配置</center>
+                </th>
+            </tr>
+            {% for keycustomer in keycustomer_list %}
+                <tr>
+                    <td>
+                        <center>{{ keycustomer.USERNAME }}</center>
+                    </td>
+                    <td>
+                        <center>{{keycustomer.Channel_Code}}</center>
+                    </td>
+                    <td>
+{#                        <center>{{ '\n\n'.join(keycustomer.Monitor_Email) }}</center>#}
+                       <center>
+                           <textarea style="width: 260px;" type="text" name="channel" readonly username="{{ keycustomer.USERNAME }}" channel_code="{{keycustomer.Channel_Code}}" class="update_email">{{keycustomer.Monitor_Email | join('\r\n')}}</textarea>
+                       </center>
+                    </td>
+                    <td>
+                        <center><a class="btn btn-info" href="/del_keycustomer/{{ keycustomer.id }}" rel="">删除</a>
+                        </center>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+  $('.update_email').dblclick(function(){
+    $(this).attr({'readonly': false});
+    v_ori = $(this).val();
+  })
+  $('.update_email').blur(function(){
+    var key_customer = $(this).attr('username');
+    var channel_code= $(this).attr('channel_code');
+    var monitor_email = $(this).val();
+    if(v_ori != monitor_email){
+      var r = confirm('Are u sure?');
+      if(r){
+        var data = {};
+        data['key_customer'] = key_customer;
+        data['channel_code'] = channel_code;
+        data['monitor_email'] = monitor_email;
+        $.ajax({
+          url: "/update_keycustomer",
+          type: "POST",
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, code){
+            console.log(code);
+            location.reload();
+          },
+          error: function (XMLHttpRequest, textStatus, errorThrown) {
+               $(this).val=v_ori;
+           }
+        })
+      }else{
+        location.reload();
+      }
+    }
+    $(this).attr({'readonly': true});
+  })
+</script>
+{% endblock %}

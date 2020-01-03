@@ -1,0 +1,109 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width:1068px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 50%;">
+                <p class='title'>设备数</p>
+                <p class='value'>{{ count }}</p>
+            </div>
+            <div style="width: 50%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ unprocess }}</p>
+            </div>
+        </div>
+	查询成功设备如下：
+	<hr />
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+            <div class='div-head'>
+                <div class='div-th' style='width: 13%;' id="hostname">设备名字</div>
+                <div class='div-th' style='width: 13%;' id="type">文件名称</div>
+                <div class='div-th' style='width: 11%;' id="exit">是否存在</div>
+                <div class='div-th' style='width: 11%;' id="configure">是否配置</div>
+                <div class='div-th' style='width: 10%;' id="file">文件大小</div>
+                <div class='div-th' style='width: 16%;' id="SHA">SHA-256值</div>
+                <div class='div-th' style='width: 13%;' id="time">创建时间</div>
+                <div class='div-th' style='width: 13%;' id="ip">IP</div>
+                <div class='clear'></div>
+            </div>
+            {% for dev in success_devs %}
+                <div class='div-tr level1' id='tr9'>  
+                    <div class='div-td' style='width: 13%'><br>{{ dev.name }}</div>
+                    <div class='div-td' style='width: 13%;height: 50%;'><center>{{ dev.result.cert_name + '.' + dev.result.cert_type }}</center></div>
+                    {% if dev.result.cert_exit==true %}
+                    <div class='div-td' style='width: 11%'><br>是</div>
+                    {% if dev.result.cert_exitinconf==true %}
+                    <div class='div-td' style='width: 11%'><br>是</div>
+                    {% else %}
+                    <div class='div-td' style='width: 11%'><br>否</div>
+                    {% endif %}
+                    <div class='div-td' style='width: 11%'><br>{{(dev.result.cert_info).split('\n')[0]}}</div>
+                    <div class='div-td' style='width: 16%;height:100%;word-wrap: break-word'>{{(dev.result.sha256cert)}}</div>
+                    <div class='div-td' style='width: 13%'><br>{{dev.cert_created_time}}</div>
+                    {% else %}
+                    <div class='div-td' style='width: 11%'><br>否</div>
+                    {% if dev.result.cert_exitinconf==true %}
+                    <div class='div-td' style='width: 11%'><br>是</div>
+                    {% else %}
+                    <div class='div-td' style='width: 11%'><br>否</div>
+                    {% endif %}
+                    <div class='div-td' style='width: 11%'><br>{{"-"}}</div>
+                    <div class='div-td' style='width: 13%'><br>{{"-"}}</div>
+                    <div class='div-td' style='width: 16%'><br>{{"-"}}</div>
+                    {% endif %}
+                    <div class='div-td' style='width: 12%'><br>{{ dev.host }}</div>
+                </div>
+                <div class='div-tr level0' id='tr9'>
+                    <div class='div-td' style='width: 13%'><br>{{ dev.name }}</div>
+                    <div class='div-td' style='width: 13%'><center>{{ dev.result.cert_name + ".key"}}</center></div>
+                    {% if dev.result.key_exit==true %}
+                    <div class='div-td' style='width: 11%'><br>是</div>
+                    {% if dev.result.key_exitinconf==true %}
+                    <div class='div-td' style='width: 11%'><br>是</div>
+                    {% else %}
+                    <div class='div-td' style='width: 11%'><br>否</div>
+                    {% endif %}
+                    <div class='div-td' style='width: 11%'><br>{{(dev.result.key_info).split('\n')[0]}}</div>
+                    <div class='div-td' style='width: 16%;height:100%;word-wrap: break-word'>{{(dev.result.sha256key)}}</div>
+                    <div class='div-td' style='width: 13%'><br>{{dev.key_created_time}}</div>
+                    {% else %}
+                    <div class='div-td' style='width: 11%'><br>否</div>
+                    {% if dev.result.key_exitinconf==true %}
+                    <div class='div-td' style='width: 11%'><br>是</div>
+                    {% else %}
+                    <div class='div-td' style='width: 11%'><br>否</div>
+                    {% endif %}
+                    <div class='div-td' style='width: 11%'><br>{{"-"}}</div>
+                    <div class='div-td' style='width: 13%'><br>{{"-"}}</div>
+                    <div class='div-td' style='width: 16%'><br>{{"-"}}</div>
+                    {% endif %}
+                    <div class='div-td' style='width: 12%'><br>{{ dev.host }}</div>
+                </div>
+            {% endfor %}
+        </div>
+	查询失败设备如下：
+	<hr />
+        <div class='div-table' id="">
+            <div class='div-head'>
+                <div class='div-th' style='width: 25%;' id="hostname">设备名字</div>
+                <div class='div-th' style='width: 25%;' id="status">设备类型</div>
+                <div class='div-th' style='width: 25%;' id="code">Code</div>
+                <div class='div-th' style='width: 25%;' id="ip">IP</div>
+                <div class='clear'></div> 
+            </div>
+            {% for dev in failed_devs %}
+                <div class='div-tr level1' id='tr0'>
+                    <div class='div-td' style='width: 25%'>{{ dev.name }}</div>
+		        {% if dev.type %}
+                    <div class='div-th' style='width: 25%'>{{ dev.type }}</div>
+		        {% else %}
+                    <div class='div-th' style='width: 25%'>unknown</div>
+                {% endif %}
+                    <div class='div-td' style='width: 25%'>{{ dev.result_status }}</div>
+                    <div class='div-td' style='width: 25%'>{{ dev.host }}</div>
+                </div>
+            {% endfor %}
+        </div>
+	 </div>
+</div>
+

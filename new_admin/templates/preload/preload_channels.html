@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="text-center">
+         <form class="form-inline" action="/preload_channels" method="post" id="queryForm">
+            <label class="control-label"> <strong>客户:</strong>
+            <input type="text" class="input-large" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>频道:</strong>
+                <input class="input-large" type="text" name="channel_name" value="{{ args.channel_name }}">
+            </label>
+
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+
+        <div class="container">
+            <p class="text-right"><a class="btn btn-success" href="/get_channels_by_user">新增频道</a></p>
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>客户</center></th>
+                      <th style="width: 200px;" ><center>频道</center></th>
+{#                      <th style="width: 200px;"><center>存储限制方式</center></th>#}
+{#                      <th style="width: 120px;" ><center>存储限制数值</center></th>#}
+                      <th style="width: 120px;" ><center>状态</center></th>
+                      <th style="width: 120px;" ><center>服务开关</center></th>
+                      <th style="width: 120px;" ><center>详细配置</center></th>
+                      <th style="width: 120px;" ><center>设备管理</center></th>
+                      <th style="width: 120px;" ><center>删除</center></th>
+                      </tr>
+                    {%for channel in channels%}
+                    <tr>
+                      <td><center>{{channel.username}}</center> </td>
+                      <td><center>{{channel.channel_name}}</center> </td>
+{#                      {% if channel.type == 0 %}#}
+{#                      <td><center>上传条数限制</center> </td>#}
+{#                      <td><center>{{channel.config_count}}条URL</center> </td>#}
+{#                      {% else %}#}
+{#                      <td><center>存储量限制</center> </td>#}
+{#                      <td><center>{{channel.config_count}}TB </center> </td>#}
+{#                      {% endif %}#}
+                      {% if channel.is_live == 0 %}
+                      <td><center>正常服务</center> </td>
+                      {% else %}
+                      <td><center><b>暂停服务</b></center> </td>
+                      {% endif %}
+                      {% if channel.is_live == 0 %}
+                      <td><center><a class="btn btn-inverse" href="/close_preload_channel/{{channel._id}}" rel="rewrite">关闭服务</a></center> </td>
+                      {% else %}
+                      <td><center><a class="btn btn-info" href="/start_preload_channel/{{channel._id}}" rel="rewrite">开启服务</a></center> </td>
+                      {% endif %}
+                       <td><center><a class="btn btn-info" href="/config_preload_channel/{{channel._id}}" rel="rewrite">详细配置</a></center> </td>
+                      {% if channel.device_type == '1' %}
+                       <td><center><a class="btn btn-info" href="#" disabled="disabled" >全部设备</a></center></td>
+                      {% elif channel.device_type == '2' %}
+                       <td><center><a class="btn btn-info" href="#" disabled="disabled" >全部上层</a></center></td>
+                      {% else %} 
+                       <td><center><a class="btn btn-info" href="/preload_channel_devices?channel_name={{ channel.channel_name }}&username={{ channel.username }}" >设备管理</a></center></td>
+                      {% endif %}
+                      <td><center><a class="btn btn-danger" href="/del_preload_channel?id={{channel._id}}&channel_name={{ channel.channel_name }}&username={{ channel.username }}" rel="rewrite">删除</a></center> </td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+       
+
+        {% if args.already_config_status == 1 %}
+        <div class="container"> 
+            <div id="myModal" class="modal hide fade in" style="display: none; "> 
+                <div class="modal-header"> 
+                     <a class="close" data-dismiss="modal">×</a> 
+                     <h3>提示</h3> 
+                </div> 
+                <div class="modal-body"> 
+                     {%for channel in args.already_config_channels%}
+                         <p>{{channel}} 已配置设备，本次配置不生效，将使用已配置设备！！！</p>
+                     {% endfor %}
+                </div> 
+                <div class="modal-footer"> 
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button> 
+                </div> 
+            </div>
+        </div> 
+        {% endif %} 
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  {% if args.can_pre_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{args.curpage-1}});">&laquo;</a></li>
+                  {% endif %}
+                  {%for p in args.page_list %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+                  {% if args.can_next_page%}
+                   <li class="disabled"><a href="javascript:submitFrom({{args.curpage+1}});">&raquo;</a></li>
+                  {% endif %}
+              </ul>
+         </div>
+         {% endif %}
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+   function submitFrom(curpage){
+      var f = document.getElementById("queryForm");
+      var input = document.createElement("input");
+      input.setAttribute("type","hidden");
+      input.setAttribute("value",curpage);
+      input.setAttribute("name","curpage");
+      f.appendChild(input);
+      f.submit();
+    };
+</script>
+ <script type="text/javascript">
+             $(document).ready(function(){
+                  $("#myModal").modal('show');
+             });
+        </script>
+
+{% endblock %}

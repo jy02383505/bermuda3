@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+{% block body %}
+    <link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" />
+    <div class="container">
+         <form class="form-inline" action="/preload_timing_action?user_email={{ session.get('user').account }}" method="post" id="queryForm" onsubmit="return ckform(this);">
+         <table class="table table-striped">
+           <tr>
+                <td><center><strong>用户名:</strong></center></td>
+                <td><input type="text" name="username" id="username"  value="" class="span3"></td>
+           </tr> 
+           <tr>
+                <td><center><strong>主账号:</strong></center></td>
+                <td><input type="text" name="parent_name" id="parent_name"  value="" class="span3">
+                <span style="color: red">如果有主账号，请填写此处，没有可以不写</span></td>
+           </tr>     
+           <tr>
+                <td><center><strong>预加载时间:</strong></center></td>
+	        <td><input type="text" id="preload_timing" name="preload_timing" readonly="true" value="{{ args.timing }}"/>
+                <span style="color: red">时间最少大于当前时间30分钟</span></td>
+           </tr>
+           <tr>
+                <td><center><strong>校验方式:</strong></center></td>
+                <td style="width:50%">
+			<select name="preload_validation" id="preload_validation">
+                          <option value="BASIC">BASIC</option>
+                        </select>
+                </td>
+           </tr>
+           <tr>
+                <td><center><strong>下发URL :</strong></center></td>
+                <td><textarea wrap="virtual" rows="5" style="width:100%;height:100%;"  name="preload_url" id="preload_url"></textarea>
+                <span style="color: red">每行输入一条url信息 !</span></td> 
+           </tr>
+           <tr>
+                <td ><center><strong>下发设备 :</strong></center></td>
+                <td ><textarea wrap="virtual"  rows="5" style="width:100%;height:100%;"  name="preload_device" id="preload_device"></textarea>
+                <span style="color: red">每行输入一条设备信息 !</span></td>
+           </tr>
+         </table>  
+           <div class="row">
+                <div class="span2"><center><button type="submit" class="btn">提  交</button></center></div>              
+           </div>    
+        </form>
+    </div>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $('#preload_timing').datetimepicker({
+                    timeFormat: "HH:mm",
+                    dateFormat: "yy-mm-dd"
+                    
+                });
+            {% if args.timing %}
+                $( "#preload_timing" ).val("{{args.timing}}");
+            {%endif%}
+            {% if args.device_error == 'device_error'%}
+                alert('没有获取到设备的详细信息，请检查后重新输入');
+            {%endif%}
+    });
+    function ckform(obj){
+        var username=$('#username').val();
+        if(username==''){
+            alert('用户名不能为空');
+            return false;
+        }
+        var preload_url=$('#preload_url').val();
+        if(preload_url==''){
+            alert('任务不能为空');
+            return false;
+        }
+        var preload_device=$('#preload_device').val();
+        if(preload_device==''){
+            alert('设备不能为空');
+            return false;
+        }
+        var preload_timing=$('#preload_timing').val();
+        preload_timing_minute = $.myTime.DateToUnix(preload_timing);
+        var now_date=getNowFormatDate();
+        now_date_minute = $.myTime.DateToUnix(now_date);
+        if(preload_timing_minute-now_date_minute<=1800){
+            alert('时间必须超过当前时间30分钟');
+            return false;
+       }
+
+        return true
+    }
+    function getNowFormatDate() {
+        var date = new Date();
+        var seperator1 = "-";
+        var seperator2 = ":";
+        var month = date.getMonth() + 1;
+        var strDate = date.getDate();
+        if (month >= 1 && month <= 9) {
+            month = "0" + month;
+        }
+        if (strDate >= 0 && strDate <= 9) {
+            strDate = "0" + strDate;
+        }
+        var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()+ seperator2 + date.getSeconds();
+        return currentdate;
+    }
+    (function($) {
+    $.extend({
+        myTime: {
+            /**
+             * 当前时间戳
+             * @return <int>        unix时间戳(秒)  
+             */
+            CurTime: function(){
+                return Date.parse(new Date())/1000;
+            },
+            /**              
+             * 日期 转换为 Unix时间戳
+             * @param <string> 2014-01-01 20:20:20  日期格式              
+             * @return <int>        unix时间戳(秒)              
+             */
+            DateToUnix: function(string) {
+                var f = string.split(' ', 2);
+                var d = (f[0] ? f[0] : '').split('-', 3);
+                var t = (f[1] ? f[1] : '').split(':', 3);
+                return (new Date(
+                        parseInt(d[0], 10) || null,
+                        (parseInt(d[1], 10) || 1) - 1,
+                        parseInt(d[2], 10) || null,
+                        parseInt(t[0], 10) || null,
+                        parseInt(t[1], 10) || null,
+                        parseInt(t[2], 10) || null
+                        )).getTime() / 1000;
+            }
+        }
+    });
+})(jQuery);
+</script>
+
+{% endblock %}
+
+
+

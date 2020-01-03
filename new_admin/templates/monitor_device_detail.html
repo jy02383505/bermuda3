@@ -1,0 +1,194 @@
+{% extends "layout.html" %}
+{% block body %}
+    <link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" />
+    <div class="container">
+       <form class="form-inline" action="/monitor/device/detail/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}" method="post" id="queryForm" onsubmit="return ckform(this);">
+            <label class="control-label"> <strong>频道名:</strong>
+            <input type="text" class="input-large" name="channel_name" value="{{ res.channel_name }}">
+            <input type="hidden"  name="date" value="{{ res.date }}"/>
+            <label class="control-label"> <strong>开始时间:</strong> <input type="text" id="datepickera_start"  class="datetimepicker" name="datepickera_start" value={{res.start_time}}   readonly="true" />
+            <label class="control-label"> <strong>结束时间:</strong>
+            <input type="text" id="datepickera_end" class="datetimepicker" name="datepickera_end" value={{res.end_time}} readonly="true" />
+            <input type="hidden" id="datepickera_start_old" class = "datetimepicker" name="datepickera_start_old" value={{res.start_time}} readonly="true" />
+            <input type="hidden" id="datepickera_end_old" class = "datetimepicker"  name="datepickera_end_old" value={{res.end_time}} readonly="true" />            
+            {% if res.can_txt %}
+                {% if res.channel_name%}
+                  <input type="hidden" id='to_txt_url' name="old_url" value="/monitor/device/txt/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}&channel_name={{res.channel_name}}"/>
+                    {% if res.start_time and res.end_time %}
+                        <a id='to_txt' href="/monitor/device/txt/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}&channel_name={{res.channel_name}}&start_time={{res.start_time}}&end_time={{res.end_time}}" rel='to_txt'><button type="button" class="btn btn-primary ">导出</button></a>
+                    {% else %}
+                        <a id='to_txt' href="/monitor/device/txt/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}&channel_name={{res.channel_name}}" rel='to_txt'><button type="button" class="btn btn-primary ">导出</button></a>
+                    {% endif %}
+                {% else%}
+                  <input type="hidden" id='to_txt_url' name="old_url" value="/monitor/device/txt/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}"/>
+                    {% if res.start_time and res.end_time %}
+                        <a id='to_txt' href="/monitor/device/txt/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}&start_time={{res.start_time}}&end_time={{res.end_time}}" rel='to_txt'><button type="button" class="btn btn-primary ">导出</button></a>
+                    {% else %}
+                        <a id='to_txt' href="/monitor/device/txt/{{res.hostname}}?qdfrom={{res.js_date_from}}&qdto={{res.js_date_to}}" rel='to_txt'><button type="button" class="btn btn-primary ">导出</button></a>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
+            </label>
+            <button type="submit" class="btn btn-primary ">查询</button>
+        </form>
+    </div>
+
+
+     <div class="jumbotron">
+        
+              <label class="control-label"> <strong>{{res.hostname}}失败任务详情</strong>
+              <table class="table table-striped" style="table-layout:fixed;word-wrap:break-word">
+                  <tr>
+                      <th style="width: 200px;"><center>频道名</center></th>
+                      <th style="width: 350px;"><center>url</center></th>
+                      <th style="width: 350px;"><center>是否为目录</center></th>
+                      <th style="width: 130px;" ><center>action</center></th>
+                      <th style="width: 130px;" ><center>code</center></th>
+                      <th style="width: 130px;" ><center>设备接到时间</center></th>
+                      </tr>
+                    {%for detail in res.details %}
+                    <tr>
+                      <td><center>{{detail.url.channel_name}}</center> </td>
+                      <td><center>{{detail.url.url}}</center> </td>
+          <td>
+          {% if (detail.url.isdir) > 0 %}
+                          <center>是</center>
+          {% else %}
+                          <center>否</center>
+          {% endif %}
+          </td>
+                      <td><center>{{detail.url.action}}</center> </td>
+                      <td><center>{{detail.url.code}}</center> </td>
+                      <td><center>{{detail.datetime|datetime_print}}</center> </td>
+
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+      {% if res.total_page > 1 %}
+        <div class="pagination">
+              <ul>
+                  {% if res.can_pre_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{res.page-1}});">&laquo;</a></li>
+                  {% endif %}
+                  {%for p in res.page_list %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if res.page == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+                  {% if res.can_next_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{res.page+1}});">&raquo;</a></li>
+                  {% endif %}
+              </ul>
+        </div>
+       {% endif %}
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $('#datepickera_start').datetimepicker({
+                    timeFormat: "HH:mm:ss",
+                    dateFormat: "yy-mm-dd"
+                    
+                });
+            {% if res.start_time%}
+                $( "#datepickera_start" ).val("{{res.start_time}}");
+            {%endif%}
+            $('#datepickera_end').datetimepicker({
+                    timeFormat: "HH:mm:ss",
+                    dateFormat: "yy-mm-dd"
+                    
+                });
+            {% if res.end_time%}
+                $( "#datepickera_end" ).val("{{res.end_time}}");
+            {%endif%}
+            $('#datepickera_start_old').datetimepicker({
+                    timeFormat: "HH:mm:ss",
+                    dateFormat: "yy-mm-dd"
+                    
+                });
+            
+            {% if res.js_date_from%}
+                var js_date_from_d ="{{res.js_date_from}}"
+                var date_from_list = js_date_from_d.split('/')
+                var js_date_from_v = date_from_list[2]+"-" +date_from_list[0]+"-"+date_from_list[1]+" "+"00:00:00"
+                $( "#datepickera_start_old" ).val(js_date_from_v);
+            {%endif%}
+            $('#datepickera_end_old').datetimepicker({
+                    timeFormat: "HH:mm:ss",
+                    dateFormat: "yy-mm-dd"
+                    
+                });
+
+            {% if res.js_date_to%}
+                var js_date_to_d = "{{res.js_date_to}}";
+                var date_to_list = js_date_to_d.split('/');
+                var js_date_to_v = date_to_list[2]+"-" +date_to_list[0]+"-"+date_to_list[1]+" "+"23:59:59";
+                $( "#datepickera_end_old" ).val(js_date_to_v);
+            {%endif%}
+             var start_time = $('#timepicker_1').val();
+                     var end_time = $('#timepicker_2').val();
+                     if (start_time && end_time){
+                         console.log('all input ok');
+                         var old_href = $('#to_txt_url').val()
+                         var new_href = old_href + '&start_time=' + start_time + '&end_time=' + end_time;
+                         $('#to_txt').attr("href", new_href);
+                         console.log(new_href)
+                     }
+    });
+
+    function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","page");
+          f.appendChild(input);
+          f.submit();
+    };
+
+
+       function ckform(obj){
+           if (obj.datepickera_end.value > obj.datepickera_end_old.value){
+               alert("结束时间不得大于"+obj.datepickera_end_old.value);
+               return false
+           }
+           if (obj.datepickera_start.value < obj.datepickera_start_old.value){
+               alert("开始时间不得小于"+obj.datepickera_start_old.value);
+               return false
+           }
+           if (obj.datepickera_start.value >= obj.datepickera_end.value){
+               alert("开始时间要小于结束时间");
+               return false
+           }
+           return true
+       }
+
+        $(document).ready(function() {
+        $("a[rel=to_txt_2]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+      });
+  
+</script>
+
+{% endblock %}
+
+
+
+

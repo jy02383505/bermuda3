@@ -1,0 +1,42 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+        <div style="width: 100%;">
+            <center><h3 style="color: #fff;">分中央转发结果</h3></center>
+        </div>
+        </div>
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+            {% for k,dev in devs.items() %}
+            <button class="btn btn-default btn-large">{{k}}</button>
+        
+             <div class='div-head'>
+                <div class='div-th' style='width: 25%;' id="code">Code</div>
+                 <div class='div-th' style='width: 25%; ' id="subCenterIp">分中央IP</div>
+                 <div class='div-th' style='width: 25%; ' id="subCenterIp">分中央花费时间</div>
+                 <div class='div-th' style='width: 25%; ' id="subCenterIp">失败信息</div>
+
+                <div class='clear'></div>
+             </div>
+            {% for d in dev %}
+                    <div class='div-tr level1' style="overflow-y: scroll; height: 30px; width: 900px;" id='tr0'> 
+                    <div class='div-td' style='width: 20%'>{{ d.code }}</div>
+                    <div class='div-td' style='width: 25%'>{{ d.subcenter_host }}</div>
+                    {% if d.consume_time != '--' %}
+                    <div class='div-td' style='width: 20%'>{{ d.consume_time }}秒</div>
+                    {% else %}
+                    <div class='div-td' style='width: 20%'>{{ d.consume_time }}</div>
+                    {% endif %}
+                    {% if d.code !=200  %}
+                    <div class='div-td' style='width: 16%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' title="{{ d.ack_content }}">{{ d.ack_content }}</div>
+                    {% else %}
+                    <div class='div-td' style='width: 21%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' title="{{ d.ack_content }}">{{ "--" }}</div>
+                    {% endif %}
+                    </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+

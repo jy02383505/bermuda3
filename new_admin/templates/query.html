@@ -1,0 +1,390 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" /> 
+
+    <div class="text-center">
+         <form class="form-inline" action="/query" method="post" id="queryForm">
+            <label class="control-label"> <strong>用户名:</strong>
+            <input type="text" class="input-small" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>URL:</strong>
+                <input class="input-large" type="text" name="url" value="{{ args.url }}">
+            </label>
+            <label class="control-label"> <strong>频道名:</strong>
+                <input class="input-large" type="text" name="channel_name" value="{{ args.channel_name }}">
+            </label>
+
+              <label class="control-label"> <strong>状态: </strong>
+             <select name="status" class="input-medium">
+                        <option>ALL</option>
+                        <option value="FINISHED"
+                        {% if args.status == "FINISHED" %}
+                          selected="selected"
+                         {% endif %}
+                        >完成</option>
+                        <option value="PROGRESS"
+                          {% if args.status == "PROGRESS" %}
+                          selected="selected"
+                         {% endif %}
+                        >执行中</option>
+                        <option value="FAILED"
+                          {% if args.status == "FAILED" %}
+                          selected="selected"
+                         {% endif %}
+                        >失败</option>
+                        <option value="INVALID"
+                          {% if args.status == "INVALID" %}
+                          selected="selected"
+                         {% endif %}
+                        >异常任务</option>
+             </select>
+	     <select id="query_type" class="input-medium" name="query_type">
+                    <option value="normal_query" {% if args.query_type == "normal_query" %}selected="selected"{%endif%}>普通查找</option>
+                    <option value="exact_query" {% if args.query_type == "exact_query" %}selected="selected"{%endif%}>精确查找</option>
+	     </select>
+            </label>
+            <label class="control-label" id="normal_query"> <strong>日期:   </strong> <input type="text" id="datepickera" name="date"  readonly="true" value="{{ args.date }}"/>
+            </label>
+            <label class="control-label exact_query "> <strong>起始日期:   </strong> <input type="text" class="input-medium" id="datepickera_start" name="start_datetime"  readonly="true" value="{{ args.start_datetime }}"/>
+            </label>
+            <label class="control-label exact_query"> <strong>结束日期:   </strong> <input type="text" class="input-medium"  id="datepickera_end" name="end_datetime"  readonly="true" value="{{ args.end_datetime }}"/>
+            </label>
+
+            <button type="button" class="btn btn-primary " onclick="to_query()">查询</button>
+            <button type="button" class="btn btn-primary exact_query" onclick="to_csv()">导出</button>
+
+            <input  id='strurl' name="strurl" type="hidden">
+
+          {#  {% if args.status == "FAILED" and args.username %}
+            <button type="button" class="btn btn-primary " onclick="user_retry()">批量重试</button>
+            <button type="button" class="btn btn-primary " onclick="page_retry()">测试demo</button>
+            {% endif %}
+            {% if args.status == "ALL" and args.username %}
+            <button type="button" class="btn btn-primary " onclick="user_retry()">批量重试</button>
+            {% endif %}#}
+
+            </form>
+    </div>
+    <div style="float:right">
+
+        {% if (args.status == "FAILED" or args.status == "ALL")  and args.username %}
+                        {#<button type="button" class="btn btn-primary " onclick="user_retry()">批量重试</button>#}
+                        <button href="#box1" id="retry_btn" type="button" class="btn btn-primary " onclick="page_retry()">单页重试</button>
+                      {% endif %}
+    </div>
+        <div class="jumbotron">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>用户名</center></th>
+                      <th style="width: 350px;"><center>URL</center></th>
+                      <th style="width: 130px;" ><center>是否目录</center></th>
+                      <th style="width: 120px;"><center>状态</center></th>
+                      <th style="width: 200px;" ><center>创建时间</center></th>
+                      <th style="width: 200px;" ><center>结束时间</center></th>
+                      <th style="width: 100px;" ><center>耗时</center></th>
+                      {#<th style="width: 100px;" ><center>重试时间</center></th>#}
+                      <th style="width: 100px;" ><center>分中央ack</center></th>
+                      <th style="width: 100px;"><center>详细信息
+                      </center></th>
+                      {#<th style="width: 100px;"><center>刷新状态</center></th>#}
+                      <th style="width: 160px;" ><center>
+                      {% if args.status == "FAILED" and args.username %}
+                      <input type="checkbox"  onclick="selectAll()">
+                      {% endif%}
+                       重试
+                      </center></th>
+                      <th style="width: 100px;"><center>监控邮件重试</center></th>
+                      </tr>
+                    {%for url in urls%}
+                    <tr>
+                      <td><center>{{url.username}}</center> </td>
+                     {# <td><center>{{url.url}}</center> </td>#}
+                    <td ><center style="width:350px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><a href="{{url.url}}" onclick="return false" title="{{url.url}}">{{url.url}}</a></center> </td>
+                      {% if url.isdir %}
+                      <td><center>是</center> </td>
+                      {% else %}
+                      <td><center>否</center> </td>
+                      {% endif %}
+                      {% if url.status == "FINISHED" %}
+                      <td><center>完成</center> </td>
+                      {% elif url.status == "FAILED" %}
+                      <td><center>失败</center> </td>
+                      {% elif url.status == "PROGRESS" %}
+                      <td><center>执行中</center> </td>
+                      {% elif url.status == "INVALID" %}
+                      <td><center>异常任务</center> </td>
+                      {% endif %}
+                      <td><center>{{url.created_time}}</center> </td>
+                      <td><center>{{url.finish_time}}</center> </td>
+                      <td><center>{{url.hs}} </center> </td>
+                      {#<td><center>
+                          {% if url.r_dev_id %}
+                            <a class="btn btn-info" href="/retryDevice/{{url.r_dev_id}}" rel="retryDevice">重试设备</a>
+                          {% endif %}
+                      </center> </td>#}
+                      <td><center>
+                          {% if url.retry_branch_id %}
+                           {# <a class="btn btn-info" href="/retryBranchDevice/{{url.retry_branch_id}}" rel="device">分中央</a>#}
+                              <a class="btn btn-info" href="/subcenter_refresh_dev/{{url._id}}" rel="device">分中央</a>
+                          {% endif %}
+                      </center> </td>
+
+
+                      <td>
+                        <center>
+                        {% if url.status == "FAILED" %}
+                            <a class="btn btn-info" href="/device/{{url.dev_id}}" rel="device">设备信息</a>
+                           {# <a class="btn btn-info" href="/retry/{{url._id}}" rel="retry">重试</a>
+                            {% if args.username %}
+                             <input type="checkbox" hname="hretry" value="{{url._id}}">
+                             {% endif%}#}
+                        {% elif url.status != "INVALID" %}
+                          <a class="btn btn-info" href="/device/{{url.dev_id}}" rel="device">下发信息</a>
+                        {% else %}
+                            <p class="text-error"><strong>非法频道，请检查！</strong></p>
+                        {% endif %}
+                        </center>
+			          </td>
+		           {# <td>
+                       <center>
+                            {% if url.status != "INVALID" %}
+                                <a class="btn btn-info" href="/deviceUrl?url={{url._id}}&dev_id={{url.dev_id}}" rel="device">结果</a>
+                            {% else %}
+                                <p class="text-error"><strong>非法频道，请检查！</strong></p>
+                            {% endif %}
+                        </center>
+                    </td>#}
+
+                    <td><center>
+
+                           {% if url.status == "FAILED" %}
+                               {% if args.username %}
+                                 <input type="checkbox" hname="hretry" value="{{url._id}}">
+                               {% endif%}
+                            <a class="btn btn-info" href="/retry/{{url._id}}" rel="retry">重试</a>
+
+                           {% endif %}
+                           {% if url.r_dev_id %}
+                            <a class="btn btn-info" href="/retryDevice/{{url.r_dev_id}}" rel="retryDevice">重试设备信息</a>
+                          {% endif %}
+
+                      </center> </td>
+
+                    <td>
+                        <center> 
+			    {% if url.retry_num == "RETRY" %}
+				 <a class="btn btn-info" href="/retrynum/{{url._id}}" rel="retry">重点监控</a>
+			    {% else %}
+			    {% endif %}
+                        </center>
+                      </td>
+
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+
+
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/query">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p + 1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+         {% endif %}
+
+    <div  style="display:none">
+        <div id="box1">
+            <a>正在下发中,请稍后...</a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+
+    <script type="text/javascript">
+       function selectAll() {
+           $("input[hname='hretry']").each(function () {
+               if ($(this).attr("checked")) {
+                   $(this).removeAttr("checked");
+               } else {
+                   $(this).attr("checked", "true");
+               }
+           })
+       }
+       function page_retry(){
+             var url_id='';
+             $("input[hname='hretry']").each(function(){
+                 if($(this).attr("checked")) {
+                 url_id=url_id+","+$(this).attr("value")
+                }
+              })
+            url_id=url_id.substring(1)
+            if (url_id==''){
+                 alert('请选择重试的url')
+                 return
+            }
+
+            document.getElementById('strurl').value=url_id
+            $('#queryForm').attr('action', '/page_retry')
+            $('#queryForm').submit()
+       }
+       function to_csv(){
+           $('#queryForm').attr('action', '/query_to_csv')
+           $('#queryForm').submit()
+       }
+
+       function to_query(){
+           $('#queryForm').attr('action', '/query')
+           $('#queryForm').submit()
+       }
+ function user_retry(){
+           if(document.getElementsByName("username")[0].value.length<1){
+              alert("请输入用户名")
+              return
+           }else if(document.getElementById("query_type").value=="exact_query"){
+              if(time_space()){
+                alert("时间间隔最大两天")
+		return
+              }
+           }
+           $('#queryForm').attr('action', '/user_retry')
+           $('#queryForm').submit()
+       }
+       function  time_space(){
+            var startTime=document.getElementById("datepickera_start").value+":00:00"
+            var endTime=document.getElementById("datepickera_end").value+":00:00"
+            var starttamp = Date.parse(new Date(startTime))
+            var endtamp = Date.parse(new Date(endTime))
+            var date3=endtamp-starttamp
+            var hours=Math.floor(date3/(3600*1000))
+            if(hours<49){
+              return false
+            }else{
+              return true
+            }
+       }
+       $(document).ready(function(){
+           $('#datepickera_start').datetimepicker({
+	       timeFormat: "HH",
+               dateFormat: "yy-mm-dd"
+            })
+           $('#datepickera_end').datetimepicker({
+               timeFormat: "HH",
+               dateFormat: "yy-mm-dd"
+            });
+
+	   {% if args.query_type == 'normal_query' %}
+	       $('.exact_query').hide();
+	       $('#normal_query').show();
+	   {% else %}
+	       $('#normal_query').hide();
+	       $('.exact_query').show();
+	   {% endif %}
+              
+           $('#query_type').change(function(){
+	       var _type = $('#query_type').val()	
+               if (_type == 'normal_query'){
+		   $('.exact_query').hide();
+		   $('#normal_query').show();
+               }else{
+		   $('#normal_query').hide();
+		   $('.exact_query').show();
+               }
+          })
+       }) 
+
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.action = '/query';
+          f.submit();
+        };
+
+        $(function() {
+          $( "#datepickera" ).datepicker();
+          $( "#datepickera" ).datepicker( 'setDate' , new Date());
+          {% if args.date: %}
+            $( "#datepickera" ).val("{{args.date}}")
+          {%endif%}
+        });
+
+        $(document).ready(function() {
+        $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+        $("a[rel=retry]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+
+        $("a[rel=retryDevice]").fancybox({
+        'width': "1024",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+         $("#retry_btn").fancybox({
+        'width': "1024",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+      });
+  </script>
+
+{% endblock %}

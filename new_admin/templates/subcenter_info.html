@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+
+    <div class="text-center">
+         <form class="form-inline" action="/subcenter_info" method="post" id="queryForm">
+            <label class="control-label"> <strong>设备名称:</strong>
+            <input type="text" class="input-small" name="name" value="{{ args.name }}">
+            </label>
+            <label class="control-label"> <strong>IP:</strong>
+                <input class="input-large" type="text" name="ip" value="{{ args.ip }}">
+            </label>
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+
+        <div class="jumbotron">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>设备名称</center></th>
+                      <th style="width: 350px;"><center>IP</center></th>
+                      <th style="width: 130px;" ><center>区域</center></th>
+                      <th style="width: 120px;"><center>省份</center></th>
+                      <th style="width: 200px;" ><center>状态</center></th>
+                      <th style="width: 200px;" ><center>时间</center></th>
+
+                      </tr>
+                    {%for dev in devs %}
+                        <tr>
+                            {% if dev.name %}
+                               <td><center>{{ dev.name }}</center></td>
+                            {% else %}
+                               <td><center>--</center></td>
+                            {% endif %}
+                            {% if dev.ip %}
+                               <td><center>{{ dev.ip }}</center></td>
+                            {% else %}
+                               <td><center>--</center></td>
+                            {% endif %}
+
+                            {% if dev.regionName %}
+                               <td><center>{{ dev.regionName }}</center></td>
+                            {% else %}
+                               <td><center>--</center></td>
+                            {% endif %}
+
+                            {% if dev.provinceName %}
+                               <td><center>{{ dev.provinceName }}</center></td>
+                            {% else %}
+                               <td><center>--</center></td>
+                            {% endif %}
+
+                            {% if dev.status %}
+                               <td><center>{{ dev.status }}</center></td>
+                            {% else %}
+                               <td><center>--</center></td>
+                            {% endif %}
+
+                            {% if dev.update_time %}
+                               <td><center>{{ dev.update_time }}</center></td>
+                            {% else %}
+                               <td><center>--</center></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+              </table>
+        </div>
+
+
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/query">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+         {% endif %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+
+    <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+
+        $(function() {
+          $( "#datepickera" ).datepicker();
+          $( "#datepickera" ).datepicker( 'setDate' , new Date());
+          {% if args.date: %}
+            $( "#datepickera" ).val("{{args.date}}")
+          {%endif%}
+        });
+  </script>
+
+{% endblock %}

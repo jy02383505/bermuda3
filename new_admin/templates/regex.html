@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="text-center" xmlns="http://www.w3.org/1999/html">
+
+            <form class="form-inline" action="/add_regexh" method="post">
+
+
+            <label class="control-label"> <strong>用户名:</strong>
+            <input type="text" class="input" name="username" >
+            </label>
+
+            <label class="control-label"> <strong>域名 :</strong>
+            <input type="text" class="input" name="domain" >
+            </label>
+
+                <label class="control-label"> <strong>类型 :</strong>
+            <select name="type" class="span2">
+            <option value="URL">URL</option>
+            <option value="DIR">DIR</option>
+
+            </select>
+            </label>
+
+
+            <label class="control-label"> <strong> 匹配url正则: </strong>
+            <input type="text" class="input" name="regex" >
+             </label>
+
+
+            <br>
+            <label class="control-label"> <strong>执行操作:</strong>
+            <select name="method" class="span2" id="method">
+            <option value="sub">sub</option>
+            <option value="append">append</option>
+            </select>
+            </label>
+
+
+
+            <label class="control-label sub"> <strong> 匹配前正则: </strong>
+            <input type="text" class="input" name="act" >
+            </label>
+
+            <label class="control-label sub"> <strong> 匹配后正则 : </strong>
+            <input type="text" class="input" name="end" >
+            </label>
+
+            <label class="control-label append" style="display: none"> <strong> 追加字段 : </strong>
+            <input type="text" class="input" name="append" >
+            </label>
+
+
+            <label class="control-label"> <strong>ignore : </strong>
+            <input type="text" class="input" name="ignore" >
+            </label>
+
+
+
+
+             <button type="submit" class="btn btn-primary ">新增配置</button>
+             <input type="hidden" name="regex_list" value="{{ regex_list }}">
+             <input type="hidden" name="user_email" value="{{ session.get('user').account }}">
+
+            </form>
+        </div>
+        <div class="container">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 150px;"><center>用户名</center></th>
+                      <th style="width: 150px;"><center>域名</center></th>
+                      <th style="width: 150px;"><center>类型</center></th>
+                      <th style="width: 200px;" ><center>匹配url正则</center></th>
+                      <th style="width: 150px;"><center>执行操作</center></th>
+                      <th style="width: 200px;"><center>匹配前正则</center></th>
+                      <th style="width: 300px;" ><center>匹配后正则/追加字段</center></th>
+                      <th style="width: 200px;" ><center>忽略的地址</center></th>
+                      <th style="width: 150px;" ><center>删除</center></th>
+                      </tr>
+                    {% for regex in regex_list %}
+                    <tr>
+                      <td><center>{{regex.username}}</center> </td>
+                      {#<td><center>{{regex.domain}}</center> </td>#}
+                      <td><center>{%if regex.domain !=None %}{{regex.domain}}{% else %}无{% endif %}</center> </td>
+                      <td><center>{%if regex.isdir %}DIR{% else %}URL{% endif %}</center> </td>
+                      <td><center>{{regex.regex}}</center> </td>
+                      <td><center>{{regex.method }}</center> </td>
+                      <td><center>{%if regex.method=="sub" %}{{regex.act}}{% endif%}</center> </td>
+                      <td><center>{%if regex.method=="sub" %}{% if regex.end==""%}""{% else %}{{regex.end}}{%endif%}{%else%}{% if regex.append=="" or regex.append==None %}""{% else %}{{regex.append}}{%endif%}{% endif %}</center> </td>
+                      <td><center>{% if regex.ignore==""%}无{% else %}{{regex.ignore}}{% endif %}</center> </td>
+                      <td><center><a class="btn btn-info" href="/del_regexh/{{regex.username}}/{{regex.id}}" rel="rewrite">删除</a></center> </td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+     <script type="text/javascript">
+
+     $("select#method").change(function(){
+         if($(this).val()=='append') {
+             $(".sub").each(function () {
+                 this.style.display="none"
+             })
+             $(".append").each(function () {
+                 this.style.display=""
+             })
+         }else {
+             $(".sub").each(function () {
+                 this.style.display=""
+             })
+             $(".append").each(function () {
+                 this.style.display="none"
+             })
+         }
+     });
+    </script>
+
+{% endblock %}

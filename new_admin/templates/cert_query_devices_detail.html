@@ -1,0 +1,19 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 50%;">
+                <p class='title'>设备数</p>
+                <p class='value'>{{ count }}</p>
+            </div>
+            <div style="width: 50%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ unprocess }}</p>
+            </div>
+        </div>
+    成功设备查询结果如下：
+    <hr />
+    <textarea rows="10" style="width: 740px">{{'\n'.join(success_devs)}}</textarea>
+    <hr />
+</div>
+

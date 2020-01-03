@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+  <form class="form-inline" action="/add_queue_channel" method="post">
+    <div class="form-group">
+      <strong>队列名称</strong>&nbsp;&nbsp;&nbsp;
+      <label class="control-label">
+        <input type="text" placeholder="队列名称" value="{{ queue.queue_name }}" disabled>
+        <input type="hidden" name="id" value="{{ queue._id }}">
+      </label>
+    </div>
+    <div class="form-group">
+      <strong>频道配置</strong>&nbsp;&nbsp;&nbsp;
+      <label class="control-label">
+        <input type="text" placeholder="与该队列绑定的频道" name="queue_channel" class="input-xxlarge">
+      </label>
+    </div>
+    <div class="form-group offset1">
+      <input type="button" class="btn btn-primary submit_queue_channel" value="提交">
+      <input type="button" class="btn btn-default text-right goback" value="返回">
+    </div>
+  </form>
+  <div class="text-warning"><center>{{get_flashed_messages()[0]}}</center></div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+$('.goback').click(function(){
+  location.href = "/preload_queue_channel"
+})
+
+$('.submit_queue_channel').click(function(){
+  var fdata = $('form').serializeArray();
+  var data = {}
+  $(fdata).each(function(){
+    data[this.name] = this.value;
+  })
+  if (!data.queue_channel){
+    alert('频道不得为空!');
+    return false
+  }
+  $.ajax({
+    url: "/add_queue_channel/"+data.id,
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    data: JSON.stringify(data),
+    success: function(data, code){
+      console.log(code);
+      location.href = '/preload_queue_channel'
+    },
+  })
+})
+</script>
+
+{% endblock %}

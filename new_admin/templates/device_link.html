@@ -1,0 +1,139 @@
+{% extends "layout.html" %}
+{% block body %}
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/link_js/jquery.datetimepicker.css') }}" media="screen" />#}
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" />
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+{#    <script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.js') }}"></script>#}
+    <script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+
+    <div class="text-center">
+         <form class="form-inline" action="/query_device_link_hours_result" method="post" id="queryForm"  onsubmit="return ckform(this);" >
+            <label class="control-label"> <strong>设备名称:</strong>
+            <input type="text" class="input-small" name="name" value="{{ args.name }}">
+            </label>
+            <label class="control-label"> <strong>IP:</strong>
+                <input class="input-large" type="text" name="ip" value="{{ args.ip }}">
+            </label>
+             <label class="control-label"> <strong>开始时间:</strong> <input type="text" id="datepickera_start" name="time_start"  value="{{ args.start_time }}"/>
+            </label>
+             <label class="control-label"> <strong>结束时间:</strong> <input type="text" id="datepickera_end" name="time_end"  value="{{ args.end_time }}"/>
+            </label>
+
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+    <div class = 'exhibition'>
+    <p style="font-size:20px;">时间：{{ args.start_time_ex }}--{{ args.end_time_ex }} &nbsp&nbsp 设备总数：{{ args.total_devs }}
+        &nbsp&nbsp 正常设备数：{{ args.success_devs }}&nbsp&nbsp <strong style="color:red">失败次数>{{ args.judge_criterion }}为失败设备</strong></p>
+    </div>
+        <div class="jumbotron">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>设备名称</center></th>
+                      <th style="width: 350px;"><center>IP</center></th>
+                      <th style="width: 130px;" ><center>失败数量</center></th>
+                      <th style="width: 120px;"><center>选项</center></th>
+                  </tr>
+                    {% for dev in devs %}
+                     <tr>
+                      {% if dev.name %}
+                         <td><center>{{dev.name}}</center> </td>
+                      {% else %}
+                         <td><center>--</center></td>
+                      {% endif %}
+
+                      {% if dev.ip %}
+                         <td><center>{{dev.ip}}</center> </td>
+                      {% else %}
+                         <td><center>--</center></td>
+                      {% endif %}
+
+                      {% if dev.failed %}
+                         <td><center>{{dev.failed}}</center> </td>
+                      {% else %}
+                         <td><center>0</center></td>
+                      {% endif %}
+
+                      <td><center>
+                          {% if dev.datetime %}
+                            <a class="btn btn-info" href="/query_device_link_detail?start_time={{ args.start_time }}&end_time={{args.end_time}}&ip={{ dev.ip }}" rel="device">详细情况</a>
+                          {% endif %}
+                      </center> </td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/query_device_link_hours_result">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+         {% endif %}
+
+    <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+        $(function() {
+{#          $('#datepickera_start').datetimepicker({step:60,format:"Y-m-d H"});#}
+{#          $('#datepickera_end').datetimepicker({step:60,format:"Y-m-d H"});#}
+
+             $('#datepickera_start').datetimepicker({
+                    timeFormat: "HH",
+                    dateFormat: "yy-mm-dd"
+                });
+            $('#datepickera_end').datetimepicker({
+                    timeFormat: "HH",
+                    dateFormat: "yy-mm-dd"
+                });
+            {% if args.start_time %}
+                $( "#datepickera_start" ).val("{{args.start_time}}");
+            {%endif%}
+            {% if args.end_time %}
+                $( "#datepickera_end" ).val("{{args.end_time}}");
+            {%endif%}
+
+        });
+       function ckform(obj){
+{#           alert(obj.datepickera_start.value);#}
+           if (obj.datepickera_start.value >= obj.datepickera_end.value){
+               alert("开始时间要小于结束时间");
+               return false
+           }
+           return true
+       }
+
+        $(document).ready(function() {
+        $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+      });
+  </script>
+
+{% endblock %}

@@ -1,0 +1,4 @@
+recursive-include receiver/templates *
+recursive-include new_admin/templates *
+recursive-include bin *
+recursive-include conf *

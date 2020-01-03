@@ -1,0 +1,28 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <div class='div-th' style='width: 30%;' id="name">设备名字</div>
+                <div class='div-th' style='width: 30%;' id="ip">设备IP</div>
+                 <div class='div-th' style='width: 40%; ' id="detect_time">失败次数</div>
+                <div class='clear'></div>
+             </div>
+            {% for dev in devs %}
+                <div class='div-tr level2' id='tr0'>
+                    <div class='div-td' style='width: 30%'>{{ dev.name }}</div>
+                    <div class='div-td' style='width: 30%'>{{ dev.ip }}</div>
+
+
+                {% if dev.failed %}
+                    <div class='div-td' style='width: 40%'>{{ dev.failed }}</div>
+                {% else %}
+                    <div class='div-td' style='width: 40%'>--</div>
+                {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+  <form class="form-inline" action="/add_queue_ratio" method="post">
+    <div class="form-group">
+      <strong>队列名称</strong>&nbsp;&nbsp;&nbsp;
+      <label class="control-label">
+        <input type="text" placeholder="队列名称" name="queue_name">
+      </label>
+    </div>
+    <div class="form-group">
+      <strong>队列占比</strong>&nbsp;&nbsp;&nbsp;
+      <label class="control-label">
+        <input type="text" placeholder="队列占比" name="queue_ratio">
+      </label>
+    </div>
+    <div class="form-group offset1">
+      <input type="submit" class="btn btn-primary" value="提交">
+      <input type="button" class="btn btn-default text-right" value="返回">
+    </div>
+  </form>
+  <div class="text-warning"><center>{{get_flashed_messages()[0]}}</center></div>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+$('input[type=button]').click(function(){
+  location.href = "/preload_queue_ratio"
+})
+</script>
+
+{% endblock %}

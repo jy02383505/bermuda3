@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block body %}
+        <div class="text-center">
+
+            <form class="form-inline" action="/add_channelignore" method="post">
+
+            <label class="control-label"> <strong>CHANNEL_NAME ( 频道名称 ) :</strong>
+            <input type="text" class="input-xlarge" name="CHANNEL_NAME" >  
+            </label>  
+             <button type="submit" class="btn btn-primary ">新增忽略大小写频道</button>
+             <input type="hidden" name="rewrite_list" value="{{ channels }}">
+            </form>
+        </div>        
+        <div class="container">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>频道名称</center></th>
+                      <th style="width: 200px;" ><center>频道ID</center></th>
+                      <th style="width: 200px;"><center>删除配置</center></th>
+                      </tr>
+                    {% for channel in channels %}
+                    <tr>
+                      <td><center>{{channel.CHANNEL_NAME}}</center> </td>
+                      <td><center>{{channel.CHANNEL_CODE}}</center> </td>
+                      <td><center><a class="btn btn-info" href="/del_channelignore/{{channel.CHANNEL_CODE}}" rel="rewrite">删除</a></center> </td>
+                    </tr>                  
+                    {% endfor %}
+              </table>
+        </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+{% endblock %}

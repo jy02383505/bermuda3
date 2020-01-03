@@ -1,0 +1,108 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 1024px;">
+    <div class="middle-div">
+{#        <div id='summary' class='drop-shadow curved curved-vt-2'>#}
+{#            <div style="width: 20%;">#}
+{#                <p class='title'>设备总数</p>#}
+{#                <p class='value'>{{count}}</p>#}
+{#            </div>#}
+{#            <div style="width: 20%;">#}
+{#                <p class='title'>没有处理的设备数</p>#}
+{#                <p class='value'>{{ result.unprocess }}</p>#}
+{#            </div>            #}
+{#            <div style="width: 30%;">#}
+{#                <p class='title'>验证类型</p>#}
+{#                <p class='value'>{{result.check_type}}</p>#}
+{#            </div>#}
+{#            <div style="width: 30%;">#}
+{#                <p class='title'>状态</p>#}
+{#                <p class='value'>{{ result.status }}</p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div id='summary' class='drop-shadow curved curved-vt-2'>#}
+{#            <div style="width: 100%;">#}
+{#                <p class='title'>验证结果</p>#}
+{#                {% if result.check_type == 'BASIC' %}#}
+{#                   <p class='value'></p>#}
+{#                {% else %}#}
+{#                   <p class='value'>{{result.check_result}}</p>#}
+{#                {% endif %}#}
+{#            </div>        #}
+{#        </div>#}
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <div class='div-th' style='width: 15%;' id="username">用户名称</div>
+                <div class='div-th' style='width: 20%;' id="datetime">发送时间</div>
+                <div class='div-th' style='width: 15%;' id="type">类型</div>
+                <div class='div-th' style='width: 20%;' id="email_url">邮件orURL</div>
+                <div class='div-th' style='width: 15%;' id="coe">状态码</div>
+                <div class='div-th' style='width: 15%;' id="send_times">发送次数</div>
+                <div class='clear'></div>
+             </div>
+        {% if result %}
+            {% for res in result %}
+                {% if res.email %}
+                    <div class='div-tr level0' id='tr0'>
+                    <div class='div-td' style='width: 15%'>{{ res.username }}</div>
+                    <div class='div-td' style='width: 20%'>{{ res.datetime }}</div>
+                    <div class='div-td' style='width: 15%'>email</div>
+                    <div class='div-td' style='width: 20%'>{% for email in res.email.email_url %}
+                          <p>{{ email }}</p>
+                          {% endfor %}
+                    </div>
+                    <div class='div-td' style='width: 15%'>{{ res.email.code }}</div>
+                    <div class='div-td' style='width: 15%'>{{ res.email.send_times }}</div>
+                    </div>
+                {% endif %}
+                {% if res.url %}
+                    <div class='div-tr level1' id='tr0'>
+                    <div class='div-td' style='width: 15%'>{{ res.username }}</div>
+                    <div class='div-td' style='width: 20%'>{{ res.datetime }}</div>
+                    <div class='div-td' style='width: 15%'>url</div>
+                    <div class='div-td' style='width: 20%'>{% for url in res.url.email_url %}
+                          <p>{{ url }}</p>
+                          {% endfor %}
+                    </div>
+                    <div class='div-td' style='width: 15%'>{{ res.url.code }}</div>
+                    <div class='div-td' style='width: 15%'>{{ res.url.send_times }}</div>
+                    </div>
+                {% endif %}
+                {% if res.snda_portal %}
+                    <div class='div-tr level0' id='tr0'>
+                    <div class='div-td' style='width: 15%'>{{ res.username }}</div>
+                    <div class='div-td' style='width: 20%'>{{ res.datetime }}</div>
+                    <div class='div-td' style='width: 15%'>snda_portal</div>
+                    <div class='div-td' style='width: 20%'>{% for url in res.snda_portal.email_url %}
+                          <p>{{ url }}</p>
+                          {% endfor %}
+                    </div>
+                    <div class='div-td' style='width: 15%'>{{ res.url.code }}</div>
+                    <div class='div-td' style='width: 15%'>{{ res.url.send_times }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+{#            {% for dev in devs %}#}
+{#                {% if dev.preload_status in [200,205,0] %}#}
+{#                <div class='div-tr level0' id='tr0'>#}
+{#                {% elif dev.preload_status == 204 %}#}
+{#                <div class='div-tr level1' id='tr0'>#}
+{#                {% elif dev.preload_status >204 %}#}
+{#                <div class='div-tr level2' id='tr0'>#}
+{#                {% endif %}                      #}
+{#                    <div class='div-td' style='width: 15%'>{{ dev.name }}</div>#}
+{#                    <div class='div-td' style='width: 15%'>{{ dev.host }}</div>#}
+{#                    <div class='div-td' style='width: 10%'>{{ dev.firstLayer }}</div>#}
+{##}
+{#                    <div class='div-td' style='width: 10%'>{{ dev.preload_status }}</div>#}
+{#                    <div class='div-td' style='width: 25%'>{{ dev.check_result }}</div>#}
+{#                    <div class='div-td' style='width: 10%'>{{ dev.download_mean_rate }}</div>#}
+{#                    <div class='div-td' style='width: 10%'>{{ dev.content_length }}</div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+        </div>
+    </div>
+</div>
+
+

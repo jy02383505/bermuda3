@@ -1,0 +1,40 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <div class='div-th' style='width: 25%;' id="name">设备名字</div>
+                <div class='div-th' style='width: 15%;' id="ip">设备IP</div>
+
+                <div class='div-th' style='width: 10%;' id="code">Code</div>
+
+                 <div class='div-th' style='width: 30%; ' id="detect_time">探测时间</div>
+                <div class='clear'></div>
+             </div>
+            {% for dev in devs %}
+                {% if dev.code in (200,0,206) %}
+                <div class='div-tr level0' id='tr0'>
+                {% elif dev.code ==204 %}
+                <div class='div-tr level1' id='tr0'>
+                {% elif dev.code >206 %}
+                <div class='div-tr level2' id='tr0'>
+                {% endif %}
+                    <div class='div-td' style='width: 25%'>{{ dev.name }}</div>
+                    <div class='div-td' style='width: 15%'>{{ dev.ip }}</div>
+		        {% if dev.code %}
+                    <div class='div-th' style='width: 10%'>{{ dev.code }}</div>
+		        {% else %}
+                    <div class='div-th' style='width: 10%'>--</div>
+                {% endif %}
+                {% if dev.detect_time %}
+                    <div class='div-td' style='width: 30%'>{{ dev.detect_time }}</div>
+                {% else %}
+                    <div class='div-td' style='width: 30%'>--</div>
+                {% endif %}
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

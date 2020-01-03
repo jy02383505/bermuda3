@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+
+<div class="jumbotron">
+  {% if "preload_queue_ratio" in request.path %}
+    <span class="text-info">已有的默认队列配比情况：{'preload_task': 1, 'preload_task_h': 2}</span>
+    <a class="btn btn-success pull-right" href="/add_queue_ratio">新增队比配置</a>
+  {% endif %}
+  <table class="table table-striped">
+    <tr>
+      <th><center>队列名称</center></th>
+      <th><center>数字占比</center></th>
+      <th><center>队列状态</center></th>
+      <th><center>频道(双击可快捷修改,失焦确认)</center></th>
+      <th><center>创建时间</center></th>
+      <th><center>操作</center></th>
+    </tr>
+    {%for queue in queues%}
+    <tr>
+      <td><center>{{queue.queue_name}}</center></td>
+      <td><center>{{queue.queue_ratio}}</center></td>
+      <td><center>{{queue.status}}</center></td>
+      <td><center><input type="text" name="channel" readonly value="{{queue.channel}}" class="input-xlarge queue_channel" data-id="{{queue._id}}"></center></td>
+      <td><center>{{queue.created_time}}</center> </td>
+      <td><center>
+        {% if "preload_queue_channel" in request.path %}
+          <a href="/add_queue_channel/{{queue._id}}" class="btn btn-warning">配置频道</a>
+        {% else %}
+          <a href="/preload_queue_del/{{queue._id}}" class="btn btn-danger">删除</a>
+        {% endif %}
+      </center></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% if args.totalpage > 1 %}
+<div class="pagination">
+  <ul>
+    <li class="disabled"><a href="/preload_query">&laquo;</a></li>
+    {% for p in range(args.totalpage) %}
+    <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+
+<script type="text/javascript">
+  $('.queue_channel').dblclick(function(){
+    $(this).attr({'readonly': false});
+    v_ori = $(this).val();
+  })
+  $('.queue_channel').blur(function(){
+    var id = $(this).attr('data-id');
+    var queue_channel = $(this).val();
+    if(v_ori != queue_channel){
+      var r = confirm('Are u sure?');
+      if(r){
+        var data = {};
+        data['id'] = id;
+        data['queue_channel'] = queue_channel;
+        $.ajax({
+          url: "/add_queue_channel/"+id,
+          type: "POST",
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(data),
+          success: function(data, code){
+            console.log(code);
+            location.reload();
+          }
+        })
+      }else{
+        location.reload();
+      }
+    }
+    $(this).attr({'readonly': true});
+  })
+
+  function submitFrom(curpage){
+    var f = document.getElementById("queryForm");
+    var input = document.createElement("input");
+    input.setAttribute("type","hidden");
+    input.setAttribute("value",curpage);
+    input.setAttribute("name","curpage");
+    f.appendChild(input);
+    f.submit();
+  };
+
+  $(function() {
+    $( "#datepickera" ).datepicker();
+    $( "#datepickera" ).datepicker( 'setDate' , new Date());
+    {% if args.date: %}
+      $( "#datepickera" ).val("{{args.date}}")
+    {%endif%}
+  });
+
+  $(document).ready(function() {
+    $("a[rel=device]").fancybox({
+    'width': "768",
+    'height': "1024",
+    'autoScale': false,
+    'centerOnScroll': false,
+    'padding': 28,
+    'margin': 48,
+    'scrolling': "no",
+    'overlayOpacity': 0.4,
+    'overlayColor': "#979b8f",
+    'transitionIn': "elastic",
+    'transitionOut': "elastic",
+    'enableEscapeButton': true,
+    'showNavArrows':false
+    });
+    $("a[rel=result]").fancybox({
+    'width': "1024",
+    'height': "1024",
+    'autoScale': false,
+    'centerOnScroll': false,
+    'padding': 28,
+    'margin': 48,
+    'scrolling': "no",
+    'overlayOpacity': 0.4,
+    'overlayColor': "#979b8f",
+    'transitionIn': "elastic",
+    'transitionOut': "elastic",
+    'enableEscapeButton': true,
+    'showNavArrows':false
+    });
+  });
+</script>
+
+{% endblock %}

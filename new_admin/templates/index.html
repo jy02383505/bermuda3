@@ -1,0 +1,14 @@
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+{% if session.get("user") %}
+<script type="text/javascript">
+$(document).ready(function (){
+ location.href = "/query"
+ });
+</script>
+{% else %}
+<script type="text/javascript">
+$(document).ready(function (){
+    location.href = "/login"
+ });
+</script>
+{% endif%}

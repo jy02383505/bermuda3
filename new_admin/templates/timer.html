@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block body %}
+        <div class="text-center">
+
+            <form class="form-inline" action="/add_timer" method="post">
+
+            <label class="control-label"> <strong>USER_NAME :</strong>
+            <input type="text" class="input" name="username" >
+            </label>
+
+             <label class="control-label"> <strong>TIME(时):</strong>
+            <select name="hour" class="span1">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            </select></label>
+
+             <label class="control-label"> <strong>TIME(分):</strong>
+            <select name="minute" class="span1">
+            <option value="00">00</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+            </select></label>
+
+            <label class="control-label"> <strong>URL:</strong>
+            <textarea rows="3"  name="urls"></textarea>
+            </label>
+
+              <label class="control-label"> <strong>DIR:</strong>
+              <textarea rows="3"  name="dirs"></textarea>
+             </label>
+
+             <button type="submit" class="btn btn-primary ">新增配置</button>
+             <input type="hidden" name="timer_tasks" value="{{ timer_tasks }}">
+            </form>
+        </div>
+        <div class="container">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 100px;"><center>USER_NAME</center></th>
+                      <th style="width: 60px;" ><center>TIME(时)</center></th>
+                      <th style="width: 60px;" ><center>TIME(分)</center></th>
+                      <th style="width: 280px;" ><center>URL</center></th>
+                      <th style="width: 280px;" ><center>DIR</center></th>
+                      <th style="width: 60px;"><center>删除配置</center></th>
+                      </tr>
+                    {% for timer in timer_tasks %}
+                    <tr>
+                      <td><center>{{timer.username}}</center> </td>
+                      <td><center>{{timer.run_time[0]}}</center> </td>
+                      <td><center>{{timer.run_time[1]}}</center> </td>
+                      <td><center>{{'\n\n'.join(timer.urls)}}</center> </td>
+                      <td><center>{{'\n\n'.join(timer.dirs)}}</center> </td>
+                      <td><center><a class="btn btn-info" href="/del_timer/{{timer.username}}/{{timer.run_time}}" rel="timer">删除</a></center> </td>
+
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+{% endblock %}

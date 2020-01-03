@@ -1,0 +1,81 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 1280px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 20%;">
+                <p class='title'>设备总数</p>
+                <p class='value'>{{count}}</p>
+            </div>
+            <div style="width: 20%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ result.unprocess }}</p>
+            </div>            
+            <div style="width: 30%;">
+                <p class='title'>验证类型</p>
+                <p class='value'>{{result.check_type}}</p>
+            </div>
+            <div style="width: 30%;">
+                <p class='title'>状态</p>
+                <p class='value'>{{ result.status }}</p>
+            </div>
+        </div>
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 100%;">
+                <p class='title'>验证结果</p>
+                {% if result.check_type == 'BASIC' %}
+                   <p class='value'></p>
+                {% else %}
+                   <p class='value'>{{result.check_result}}</p>
+                {% endif %}
+            </div>        
+        </div>
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <div class='div-th' style='width: 10%;' id="hostname">设备名字</div>
+                <div class='div-th' style='width: 10%;' id="ip">IP</div>
+                <div class='div-th' style='width: 6%;' id="isfirstlayer">是否上层</div>
+                <div class='div-th' style='width: 6%;'>状态</div>
+                <div class='div-th' style='width: 8%;'>HTTP响应码</div>
+                <div class='div-th' style='width: 20%;'>验证结果</div>
+                <div class='div-th' style='width: 10%;'>回调时间</div>
+                <div class='div-th' style='width: 10%;'>final状态</div>
+                <div class='div-th' style='width: 10%;'>平均速度(KB)</div>
+                <div class='div-th' style='width: 10%;'>文件大小(B)</div>
+                <div class='clear'></div>
+             </div>
+            {% for dev in devs %}
+                {% if dev.preload_status in [200,205,0] %}
+                    {% if dev.http_status_code == 504 %}
+                        <div class='div-tr level3' id='tr0'>
+                    {% else %}
+                        <div class='div-tr level0' id='tr0'>
+                    {% endif %}
+                {% elif dev.preload_status == 204 %}
+                <div class='div-tr level1' id='tr0'>
+                {% elif dev.preload_status >204 %}
+                <div class='div-tr level2' id='tr0'>
+                {% endif %}                      
+                    <div class='div-td' style='width: 10%'>{{ dev.name }}</div>
+                    <div class='div-td' style='width: 10%'>{{ dev.host }}</div>
+                    <div class='div-td' style='width: 6%'>{{ dev.firstLayer }}</div>
+
+                    <div class='div-td' style='width: 6%'>{{ dev.preload_status }}</div>
+                    <div class='div-td' style='width: 8%'>
+                        {% if dev.http_status_code!=NONE %}
+                            {{ dev.http_status_code }}
+                        {% else %}
+                            -
+                        {% endif%}
+                            
+                    </div>
+                    <div class='div-td' style='width: 20%'>{{ dev.check_result }}</div>
+                    <div class='div-td' style='width: 10%'>{{ dev.finish_time }}</div>
+                    <div class='div-td' style='width: 10%'>{{ dev.final_status|default('-') }}</div>
+                    <div class='div-td' style='width: 10%'>{{ dev.download_mean_rate }}</div>
+                    <div class='div-td' style='width: 10%'>{{ dev.content_length }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block body %}
+        <div class="text-center">
+
+            <form class="form-inline" action="/rewrite/update_rewrite_new" method="post">
+
+            <label class="control-label"> <strong>USERNAME ( 用户名称 ) :</strong>
+            <input type="text" class="input-xlarge" name="username" >
+            </label>
+
+            <label class="control-label"> <strong>CHANNELS ( 重定向频道 ): </strong>
+            <input placeholder="输入多个频道之间用逗号(,)隔开" type="text" class="input-xlarge" name="channels" >
+
+
+             </label>
+             <button type="submit" class="btn btn-primary ">新增配置</button>
+{#            <tr hidden='hidden'>#}
+{#              <tr>#}
+{#                <td><input type="text"  name="user_email" id="user_email" value="{{ session.get("user").account }}"/></td>#}
+{#            </tr>#}
+            </form>
+        </div>
+        <div class="text-center">
+         <form class="form-inline" action="/rewrite/rewrite_query" method="post" id="queryForm">
+            <label class="control-label"> <strong>用户名称:</strong>
+                <input class="input-large" type="text" name="USERNAME" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>重定向频道名称:</strong>
+                <input class="input-large" type="text" name="CHANNEL_NAME" value="{{ args.channel_name }}">
+            </label>
+
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+         </div>
+        <div class="container">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>用户名称</center></th>
+                      <th style="width: 150px;" ><center>重定向频道名称</center></th>
+                      <th style="width: 150px;"><center>删除配置</center></th>
+                      <!--<th style="width: 150px;"><center>修改配置</center></th>-->
+                      </tr>
+                    {% for result in result_list %}
+                    <tr>
+                      <td><center>{{result.username}}</center> </td>
+                      <td>
+                        {% for channel in result.channel_list %}
+                            <p><center>{{ channel }}</center></p>
+                        {% endfor %}
+                      </td>
+                      <td><center><a class="btn btn-info" href="/rewrite/delete_rewrite_new?id={{ result._id }}&user_email={{ session.get('user').account }}" rel="rewrite">删除</a></center> </td>
+                     <!--<td><center><a class="btn btn-info" href="/del_re" rel="rewrite">修改</a></center> </td>-->
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+           {% if args.totalpage >1 %}
+       <div class="container">
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/rewrite/rewrite_query">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+        </div>
+         {% endif %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+     <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+
+  </script>
+{% endblock %}

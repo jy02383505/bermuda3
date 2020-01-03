@@ -1,0 +1,51 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 50%;">
+                <p class='title'>刷新设备数</p>
+                <p class='value'>{{ count }}</p>
+            </div>
+            <div style="width: 50%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ unprocess }}</p>
+            </div>
+        </div>
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <div class='div-th' style='width: 25%;' id="hostname">设备名字</div>
+                <div class='div-th' style='width: 15%;' id="status">状态</div>
+                <div class='div-th' style='width: 10%;' id="status">设备类型</div>
+                <div class='div-th' style='width: 10%;' id="code">Code</div>
+                <div class='div-th' style='width: 25%;' id="ip">IP</div>
+                 <div class='div-th' style='width: 15%; ' id="isfirstlayer">是否上层</div>
+                <div class='clear'></div>
+             </div>
+            {% for dev in devs %}
+                {% if dev.code in (200,0,206) %}
+                <div class='div-tr level0' id='tr0'>
+                {% elif dev.code ==204 %}
+                <div class='div-tr level1' id='tr0'>
+                {% elif dev.code >206 %}
+                <div class='div-tr level2' id='tr0'>
+                {% endif %}                      
+                    <div class='div-td' style='width: 25%'>{{ dev.name }}</div>
+                    <div class='div-td' style='width: 15%'>{{ dev.status }}</div>
+		        {% if dev.type %}
+                    <div class='div-th' style='width: 10%'>{{ dev.type }}</div>
+		        {% else %}
+                    <div class='div-th' style='width: 10%'>unknown</div>
+                {% endif %}
+                {% if dev.code != 503 %}
+                    <div class='div-td' style='width: 10%'>{{ dev.code }}</div>
+                {% else %}
+                    <div class='div-td' style='width: 10%'>{{ dev.r_code }}</div>
+                {% endif %}
+                    <div class='div-td' style='width: 25%'>{{ dev.host }}</div>
+                    <div class='div-td' style='width: 15%'>{{ dev.firstLayer }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,183 @@
+{% extends "layout.html" %}
+{% block body %}
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/map/js/china.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height:800px;margin-left: 400px; margin-right: auto; float: left" >
+    </div>
+    <div id="list" style="margin-top:300px; margin-bottom:auto; float: left">
+    </div>
+    <div id = 'suspension'>
+        <a href="/province_failed_dev_detail/xss" rel="device" id="detail" hidden>detail</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+        function parse_data(province_data, start_time, end_time){
+          option = {
+			title : {
+				text: '刷新设备失败分布',
+				subtext: start_time + '--' + end_time,
+				x:'center'
+			},
+			tooltip : {
+				trigger: 'item'
+			},
+			dataRange: {
+				x: 'left',
+				y: 'bottom',
+				splitList: [
+					{start: 30},
+					{start: 25, end: 30},
+					{start: 20, end: 25},
+					{start: 15, end: 20},
+					{start: 5, end: 15},
+					/**{start: 2, end: 5, label: '5（自定义特殊颜色）', color: 'black'},*/
+                    {start: 1, end: 5},
+					{end: 1}
+				],
+				color: ['#E0022B', '#E09107', '#A3E00B']
+			},
+			toolbox: {
+				show: true,
+				orient : 'vertical',
+				x: 'right',
+				y: 'center',
+				feature : {
+					mark : {show: true},
+					dataView : {show: true, readOnly: false},
+					restore : {show: true},
+					saveAsImage : {show: true}
+				}
+			},
+			roamController: {
+				show: true,
+				x: 'right',
+				mapTypeControl: {
+					'china': true
+				}
+			},
+			series : [
+				{
+					name: '失败设备数',
+					type: 'map',
+					mapType: 'china',
+					roam: false,
+					itemStyle:{
+						normal:{
+							label:{
+								show:true,
+								textStyle: {
+								   color: "rgb(249, 249, 249)"
+								}
+							}
+						},
+						emphasis:{label:{show:true}}
+					},
+
+                    data:province_data
+				}
+			]
+		}
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        }
+
+        $(function(){
+           $("input[name='isp']").live('change', function() {
+
+              var arr = new Array();
+              var items = document.getElementsByName("isp");
+              for (i = 0; i < items.length; i++) {
+                  if (items[i].checked) {
+                     arr.push(items[i].value);
+
+                  }
+              }
+
+               get_data(2, '/province_failed_dev_number_update?isp_list=' + arr);
+{#               get_data(2, 'http://223.202.52.83:8090/province_failed_dev_number_update?isp_list=' + arr);#}
+
+           });
+        });
+
+        myChart.on('click', function (params) {
+            var arr = new Array();
+            var items = document.getElementsByName("isp");
+            for (i = 0; i < items.length; i++) {
+                if (items[i].checked) {
+                    arr.push(items[i].value);
+                }
+            }
+             var city = params.name;
+               // test in 83
+             $('#detail').attr('href','/province_failed_dev_detail?city='+ city +
+                     '&isp_list=' + arr);
+{#             $('#detail').attr('href','http://223.202.52.83:8090/province_failed_dev_detail?city='+ city +#}
+{#                     '&isp_list=' + arr);#}
+             $('#detail').click();
+
+        });
+
+
+        function get_data(flag, url){
+            //flag 1 init, 2 update map
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                data: '',
+                type: "post",
+                success:function(data){
+                    if(data.msg == 'ok'){
+                        province_data = data.result;
+                        start_time = data.start_time;
+                        end_time = data.end_time;
+                        parse_data(province_data, start_time, end_time);
+                        if(flag==1){
+                            isp_list = data.isp_list;
+                            str = '';
+                            for(var i = 0; i < isp_list.length; i++){
+                                str += '<p><input type="checkbox" name="isp" checked="checked" value=' + isp_list[i] +
+                                        ' />' + isp_list[i] + '</p>'
+                            }
+
+                            $('#list').html(str)
+                        }
+                    }
+                },
+                error:function(){
+                    alert("异常")
+                }
+            })
+        }
+        //flag 1 init, 2 update map
+        get_data(1, '/province_failed_dev_number');
+{#        get_data(1, 'http://223.202.52.83:8090/province_failed_dev_number');#}
+
+        $(document).ready(function() {
+         $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+     });
+    </script>
+{% endblock %}

@@ -1,0 +1,657 @@
+CHN-GL-SUPER	CHN	guilin	GuangXi Zone	GuangZhou Region	China
+CHN-GX-SUPER	CHN	GaoXinQu	HeBei Province	BeiJing Region	China
+CHN-LH-SUPER	CHN	LanZhou	GanSu Province	XiAn Region	China
+CNC-TI-SUPER	CNC	TieLing	LiaoNing Province	ShenYang Region	China
+CHN-ID-SUPER	CHN	NingDe	FuJian Province	ShangHai Region	China
+CHN-JM-SUPER	CHN	JingMen	HuBei Province	WuHan Region	China
+CNC-ZJ-SUPER	CNC	ZhanJang	GuangDong Province	GuangZhou Region	China
+MIS-BJ-4-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+MIS-BJ-5-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+MIS-BJ-7-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+MIS-BJ-6-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+MIS-BJ-3-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+MIS-BJ-2-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+MIS-BJ-1-NORMAL	MIS	BeiJing	BeiJing City	BeiJing Region	China
+CNC-HH-SUPER	CNC	HuZhou	ZheJiang Province	ShangHai Region	China
+CHN-HH-SUPER	CHN	HuZhou	ZheJiang Province	ShangHai Region	China
+CCN-YZ-1-NORMAL	CCN	YangZhou	JiangSu Province	NanJing Region	China
+CHN-WY-SUPER	CHN	YangZhou	JiangSu Province	NanJing Region	China
+CHN-CO-SUPER	CHN	NanTong	JiangSu Province	NanJing Region	China
+CNC-WB-SUPER	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CHN-KI-SUPER	CHN	KunMingKaiFaQu	YunNan Province	ChengDu Region	China
+CHN-CN-SUPER	CHN	ChangDe	HuNan Province	WuHan Region	China
+CNC-BQ-SUPER	CNC	NULL	ShanDong Province	BeiJing Region	China
+CNC-GI-SUPER	CNC	NanChenQu	GuangDong Province	GuangZhou Region	China
+CHN-JB-SUPER	CHN	JiangBeiQu	ChongQing City	ChengDu Region	China
+CHN-NC-SUPER	CHN	NanChang	JiangXi Province	ShangHai Region	China
+CNC-YY-SUPER	CNC	NULL	HuNan Province	WuHan Region	China
+CNC-SY-SUPER	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CNC-ZI-SUPER	CNC	ZhenJiang	JiangSu Province	NanJing Region	China
+CHN-RZ-SUPER	CHN	ZhenJiangRunZhouQu	JiangSu Province	NanJing Region	China
+CNC-FA-SUPER	CNC	FengKuangQu	HeBei Province	BeiJing Region	China
+CNC-YG-SUPER	CNC	YanJi	JiLin Province	ShenYang Region	China
+BNC-BJ-3-NORMAL	BNC	BeiJing	BeiJing City	BeiJing Region	China
+WAS-HZ-2-NORMAL	WAS	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-CC-4-NORMAL	CMN	ChangChun	JiLin Province	ShenYang Region	China
+CBN-NJ-NORMAL	CBN	NanJing	JiangSu Province	NanJing Region	China
+BGP-TJ-2-NORMAL	BGP	NanKaiQu	TianJin City	BeiJing Region	China
+CER-BJ-8-NORMAL	CER	BeiJing	BeiJing City	BeiJing Region	China
+DQT-DQ-1-NORMAL	DQT	DaQing	HeiLongJiang Provinc	ShenYang Region	China
+CMN-GZ-9-NORMAL	CMN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CNC-SY-a-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CWT-SY-1-NORMAL	CWT	ShenYang	LiaoNing Province	ShenYang Region	China
+BGP-BJ-V-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CMN-XN-3-NORMAL	CMN	XiNing	QingHai Province	XiAn Region	China
+CMN-XN-4-NORMAL	CMN	XiNing	QingHai Province	XiAn Region	China
+CMN-NJ-B-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-BJ-8-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CLD-NN-1-NORMAL	CLD	NanNing	GuangXi Zone	GuangZhou Region	China
+CMN-BJ-9-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CNC-BJ-1-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CMN-NJ-A-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-QE-SUPER	CNC	QingDaoLaoShanQu	ShanDong Province	BeiJing Region	China
+CER-NJ-1-NORMAL	CER	NanJing	JiangSu Province	NanJing Region	China
+CER-BJ-7-NORMAL	CER	BeiJing	BeiJing City	BeiJing Region	China
+CHN-TQ-SUPER	CHN	DaGang	TianJin City	BeiJing Region	China
+AIP-KM-1-NORMAL	AIP	KunMing	YunNan Province	ChengDu Region	China
+AIP-GZ-1-NORMAL	AIP	GuangZhou	GuangDong Province	GuangZhou Region	China
+CER-WH-4	CER	WuHan	HuBei Province	WuHan Region	China
+CHN-XZ-SUPER	CHN	XuZhou	JiangSu Province	NanJing Region	China
+CHN-JQ-SUPER	CHN	JiuJiangShiXunYangQu	JiangXi Province	ShangHai Region	China
+CHN-HP-SUPER	CHN	HePingQu	LiaoNing Province	ShenYang Region	China
+CHN-ZO-SUPER	CHN	ZhuZhou	HuNan Province	WuHan Region	China
+CMN-NJ-R-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+BGP-TJ-9-NORMAL	BGP	TianJinHuaYuanQu	TianJin City	BeiJing Region	China
+CHN-CS-SUPER	CHN	ChangSha	HuNan Province	WuHan Region	China
+CBN-BJ-1-NORMAL	CBN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-GY-6-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CMN-GY-7-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CMN-KX-SUPER	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CER-GZ-4-NORMAL	CER	GuangZhou	GuangDong Province	GuangZhou Region	China
+CNC-JE-SUPER	CNC	JiNing	ShanDong Province	BeiJing Region	China
+CHN-GN-SUPER	CHN	ShiJiaZhuang	HeBei Province	BeiJing Region	China
+CHN-JX-SUPER	CHN	JiaXing	ZheJiang Province	ShangHai Region	China
+CHN-XA-SUPER	CHN	XiAn	Shan Xi Province	XiAn Region	China
+CNC-DI-SUPER	CNC	DongYing	ShanDong Province	BeiJing Region	China
+CBN-WH-3-NORMAL	CBN	WuHan	HuBei Province	WuHan Region	China
+CHN-TO-SUPER	CHN	NULL	ZheJiang Province	ShangHai Region	China
+BNC-DL-1-NORMAL	BNC	DaLian	LiaoNing Province	ShenYang Region	China
+CBN-KM-NORMAL	CBN	KunMing	YunNan Province	ChengDu Region	China
+AIP-CQ-1-NORMAL	AIP	ChongQing	ChongQing City	ChengDu Region	China
+HKC-HK-1-NORMAL	HKC	HongKong	HongKong Zone	HongKong Region	China
+CNC-WZ-SUPER	CNC	WenZhou	ZheJiang Province	ShangHai Region	China
+CHN-XM-SUPER	CHN	XiaMen	FuJian Province	ShangHai Region	China
+CHN-QX-SUPER	CHN	QingXiuQu	GuangXi Zone	GuangZhou Region	China
+CNC-LQ-SUPER	CNC	LuQuan	HeBei Province	BeiJing Region	China
+CHN-JA-SUPER	CHN	JiangXia	HuBei Province	WuHan Region	China
+CHN-CA-SUPER	CHN	ChangZhou	JiangSu Province	NanJing Region	China
+CNC-CC-SUPER	CNC	ChangChun	JiLin Province	ShenYang Region	China
+CHN-YL-SUPER	CHN	YueLuQu	HuNan Province	WuHan Region	China
+CNC-HQ-SUPER	CNC	HuaiYinQu	ShanDong Province	BeiJing Region	China
+CHN-LN-SUPER	CHN	LongWanQu	ZheJiang Province	ShangHai Region	China
+CHN-YN-SUPER	CHN	YanTan	GanSu Province	XiAn Region	China
+CNC-JS-SUPER	CNC	JinShuiQu	HeNanProvince	BeiJing Region	China
+CNC-XD-SUPER	CNC	XiaoDianQu	ShanXi Province	BeiJing Region	China
+CHN-DU-SUPER	CHN	TianJin	TianJin City	BeiJing Region	China
+CNC-DX-SUPER	CNC	DongXiHuQu	HuBei Province	WuHan Region	China
+CNC-WF-SUPER	CNC	weifang	ShanDong Province	BeiJing Region	China
+CHN-ZI-SUPER	CHN	ZhenJiang	JiangSu Province	NanJing Region	China
+CHN-YE-SUPER	CHN	YuBeiQu	ChongQing City	ChengDu Region	China
+CNC-ZB-SUPER	CNC	ZiBo	ShanDong Province	BeiJing Region	China
+CNC-NK-SUPER	CNC	NanKaiQu	TianJin City	BeiJing Region	China
+CHN-TH-SUPER	CHN	TaiZhouShi	ZheJiang Province	ShangHai Region	China
+CHN-NT-SUPER	CHN	NanTong	JiangSu Province	NanJing Region	China
+CNC-ST-SUPER	CNC	ShanTou	GuangDong Province	GuangZhou Region	China
+CHN-DL-SUPER	CHN	DaLian	LiaoNing Province	ShenYang Region	China
+CNC-DL-SUPER	CNC	DaLian	LiaoNing Province	ShenYang Region	China
+CHN-SX-SUPER	CHN	ShaoXing	ZheJiang Province	ShangHai Region	China
+CNC-DZ-SUPER	CNC	DeZhou	ShanDong Province	BeiJing Region	China
+CHN-JG-SUPER	CHN	jingzhou	HuBei Province	WuHan Region	China
+CNC-DT-SUPER	CNC	DaTong	ShanXi Province	BeiJing Region	China
+CNC-CT-SUPER	CNC	CongTaiQu	HeBei Province	BeiJing Region	China
+CNC-GX-SUPER	CNC	GaoXinQu	HeBei Province	BeiJing Region	China
+CHN-WJ-SUPER	CHN	WuXi	JiangSu Province	NanJing Region	China
+CHN-ND-SUPER	CHN	NingDe	FuJian Province	ShangHai Region	China
+CNC-ZU-SUPER	CNC	ZhuHai	GuangDong Province	GuangZhou Region	China
+CNC-SI-SUPER	CNC	Suihua	HeiLongJiang Provinc	ShenYang Region	China
+CHN-LU-SUPER	CHN	LuZhou	SiChuan Province	ChengDu Region	China
+CNC-LF-SUPER	CNC	LangFang	HeBei Province	BeiJing Region	China
+CHN-WX-SUPER	CHN	WuXi	JiangSu Province	NanJing Region	China
+CNC-NS-SUPER	CNC	QuanZhou	FuJian Province	ShangHai Region	China
+GWB-CQ-NORMAL	GWB	ChongQing	ChongQing City	ChengDu Region	China
+CHN-BI-5-NORMAL	CHN	Baojing	Shan Xi Province	XiAn Region	China
+CHN-GZ-6-NORMAL	CHN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CHN-SZ-3-NORMAL	CHN	ShenZhen	GuangDong Province	GuangZhou Region	China
+CHN-HE-NORMAL	CHN	HeYuan	GuangDong Province	GuangZhou Region	China
+CHN-MM-4-NORMAL	CHN	MaoMing	GuangDong Province	GuangZhou Region	China
+CHN-ST-H-NORMAL	CHN	ShanTou	GuangDong Province	GuangZhou Region	China
+CHN-ST-I-NORMAL	CHN	ShanTou	GuangDong Province	GuangZhou Region	China
+CMN-BJ-5-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CHN-FS-2-NORMAL	CHN	FoShan	GuangDong Province	GuangZhou Region	China
+CHN-FS-3-NORMAL	CHN	FoShan	GuangDong Province	GuangZhou Region	China
+CHN-FS-V-NORMAL	CHN	FoShan	GuangDong Province	GuangZhou Region	China
+CMN-BJ-6-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CHN-FS-W-NORMAL	CHN	FoShan	GuangDong Province	GuangZhou Region	China
+CMN-CC-2-NORMAL	CMN	ChangChun	JiLin Province	ShenYang Region	China
+CMN-CC-3-NORMAL	CMN	ChangChun	JiLin Province	ShenYang Region	China
+CMN-CD-NORMAL	CMN	ChengDu	SiChuan Province	ChengDu Region	China
+CMN-CD-2-NORMAL	CMN	ChengDu	SiChuan Province	ChengDu Region	China
+CMN-CQ-2-NORMAL	CMN	ChongQing	ChongQing City	ChengDu Region	China
+CMN-CQ-3-NORMAL	CMN	ChongQing	ChongQing City	ChengDu Region	China
+CMN-CS-NORMAL	CMN	ChangSha	HuNan Province	WuHan Region	China
+CMN-FZ-NORMAL	CMN	FuZhou	FuJian Province	ShangHai Region	China
+CMN-FZ-2-NORMAL	CMN	FuZhou	FuJian Province	ShangHai Region	China
+CMN-GY-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CMN-GY-2-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CMN-GY-3-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CMN-GY-4-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CMN-GZ-4-NORMAL	CMN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CMN-HF-2-NORMAL	CMN	HeFei	AnHui Province	NanJing Region	China
+CMN-HF-3-a-NORMAL	CMN	HeFei	AnHui Province	NanJing Region	China
+CMN-HF-4-NORMAL	CMN	HeFei	AnHui Province	NanJing Region	China
+CMN-JZ-NORMAL	CMN	ShiJiaZhuang	HeBei Province	BeiJing Region	China
+CMN-HZ-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-2-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-4-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-5-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-6-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-7-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-8-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-9-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-A-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-B-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-C-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-D-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-E-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-F-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-HZ-G-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CNC-BC-SUPER	CNC	BaiCheng	JiLin Province	ShenYang Region	China
+CMN-JN-NORMAL	CMN	JiNan	ShanDong Province	BeiJing Region	China
+CNC-BI-1-NORMAL	CNC	Baojing	Shan Xi Province	XiAn Region	China
+CMN-ZZ-9-NORMAL	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CMN-JN-2-NORMAL	CMN	JiNan	ShanDong Province	BeiJing Region	China
+CNC-BJ-4-NORMAL	CNC	ComputerRoom	BeiJing City	BeiJing Region	China
+CMN-JN-3-NORMAL	CMN	JiNan	ShanDong Province	BeiJing Region	China
+CMN-JN-4-NORMAL	CMN	JiNan	ShanDong Province	BeiJing Region	China
+CMN-ZZ-8-NORMAL	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CHN-BJ-3-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CHN-LZ-B-NORMAL	CHN	LanZhou	GanSu Province	XiAn Region	China
+CMN-JN-5-NORMAL	CMN	JiNan	ShanDong Province	BeiJing Region	China
+CMN-ZZ-7-NORMAL	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CNC-BJ-8-NORMAL	CNC	ComputerRoom	BeiJing City	BeiJing Region	China
+CMN-LZ-2-NORMAL	CMN	LanZhou	GanSu Province	XiAn Region	China
+CMN-ZZ-6-NORMAL	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CMN-LZ-4-NORMAL	CMN	LanZhou	GanSu Province	XiAn Region	China
+CMN-ZZ-5-NORMAL	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CNC-BJ-A-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CHN-HA-1-NORMAL	CHN	HaiKou	HaiNan Province	GuangZhou Region	China
+CMN-ZZ-4-NORMAL	CMN	JinShuiQu	HeNanProvince	BeiJing Region	China
+CHN-BJ-2-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-NC-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CNC-BJ-C-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CNC-BJ-H-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CMN-ZZ-3-NORMAL	CMN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CMN-NC-3-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CNC-BJ-I-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CHN-BJ-5-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CNC-BJ-K-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CHN-BJ-6-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-YC-4-NORMAL	CMN	YinChuan	NingXia Zone	XiAn Region	China
+CMN-YC-3-NORMAL	CMN	YinChuan	NingXia Zone	XiAn Region	China
+CMN-YC-2-NORMAL	CMN	YinChuan	NingXia Zone	XiAn Region	China
+CNC-BZ-SUPER	CNC	binzhou	ShanDong Province	BeiJing Region	China
+CMN-NC-4-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CHN-KM-SUPER	CHN	KunMing	YunNan Province	ChengDu Region	China
+CMN-NC-5-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CNC-CQ-1-NORMAL	CNC	ChongQing	ChongQing City	ChengDu Region	China
+CHN-BJ-A-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-YC-1-NORMAL	CMN	YinChuan	NingXia Zone	XiAn Region	China
+CMN-NC-6-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CMN-NC-7-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CMN-XA-2-NORMAL	CMN	XiAn	Shan Xi Province	XiAn Region	China
+CHN-BJ-E-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CNC-CQ-2-NORMAL	CNC	ChongQing	ChongQing City	ChengDu Region	China
+CMN-NC-8-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CHN-MC-1-NORMAL	CHN	MaCao	MaCao Region	MaCao Region	China
+CMN-NC-9-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CMN-WX-1-NORMAL	CMN	WuXi	JiangSu Province	NanJing Region	China
+CHN-BJ-F-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CHN-BJ-H-NORMAL	CHN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-WQ-2-NORMAL	CMN	WuLuMuQi	XinJiang Province	XiAn Region	China
+CMN-GZ-5-NORMAL	CMN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CMN-WQ-1-NORMAL	CMN	WuLuMuQi	XinJiang Province	XiAn Region	China
+CMN-GZ-2-NORMAL	CMN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CMN-GZ-3-NORMAL	CMN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CMN-LZ-3-NORMAL	CMN	LanZhou	GanSu Province	XiAn Region	China
+CHN-SH-1-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CMN-WH-1-NORMAL	CMN	DongXiHuQu	HuBei Province	WuHan Region	China
+CMN-HB-NORMAL	CMN	HaErBin	HeiLongJiang Provinc	ShenYang Region	China
+CHN-ZY-2-NORMAL	CHN	ZiYang	SiChuan Province	ChengDu Region	China
+CMN-TY-6-NORMAL	CMN	XiaoDianQu	ShanXi Province	BeiJing Region	China
+CMN-HK-NORMAL	CMN	HongKong	HongKong Zone	HongKong Region	China
+CMN-HK-2-NORMAL	CMN	HongKong	HongKong Zone	HongKong Region	China
+CHN-MY-1-NORMAL	CHN	MianYang	SiChuan Province	ChengDu Region	China
+CMN-TY-5-NORMAL	CMN	XiaoDianQu	ShanXi Province	BeiJing Region	China
+CHN-SH-A-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CMN-JZ-2-NORMAL	CMN	ShiJiaZhuang	HeBei Province	BeiJing Region	China
+CMN-TY-4-NORMAL	CMN	XiaoDianQu	ShanXi Province	BeiJing Region	China
+CHN-MY-3-NORMAL	CHN	MianYang	SiChuan Province	ChengDu Region	China
+CNC-DG-1-NORMAL	CNC	DongGuan	GuangDong Province	GuangZhou Region	China
+CMN-KM-NORMAL	CMN	KunMing	YunNan Province	ChengDu Region	China
+CHN-MY-I-NORMAL	CHN	MianYang	SiChuan Province	ChengDu Region	China
+CHN-SH-C-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CMN-KM-2-NORMAL	CMN	KunMing	YunNan Province	ChengDu Region	China
+CHN-JJ-1-NORMAL	CHN	Jiujiang	JiangXi Province	ShangHai Region	China
+CHN-JJ-2-NORMAL	CHN	Jiujiang	JiangXi Province	ShangHai Region	China
+CHN-JJ-3-NORMAL	CHN	Jiujiang	JiangXi Province	ShangHai Region	China
+CHN-JJ-4-NORMAL	CHN	Jiujiang	JiangXi Province	ShangHai Region	China
+CHN-SH-E-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CMN-TJ-1-NORMAL	CMN	TianJin	TianJin City	BeiJing Region	China
+CHN-NN-SUPER	CHN	NanNing	GuangXi Zone	GuangZhou Region	China
+CHN-DG-2-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+CHN-DG-3-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+CHN-DG-4-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+CNC-GZ-2-NORMAL	CNC	GuangZhou	GuangDong Province	GuangZhou Region	China
+CNC-CY-SUPER	CNC	ChaoYangQu	BeiJing City	BeiJing Region	China
+CNC-HB-SUPER	CNC	HaErBin	HeiLongJiang Provinc	ShenYang Region	China
+GWB-BJ-1-NORMAL	GWB	BeiJing	BeiJing City	BeiJing Region	China
+GWB-BJ-2-NORMAL	GWB	BeiJing	BeiJing City	BeiJing Region	China
+GWB-BJ-3-NORMAL	GWB	BeiJing	BeiJing City	BeiJing Region	China
+CHN-DG-5-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+GWB-BJ-4-NORMAL	GWB	BeiJing	BeiJing City	BeiJing Region	China
+CHN-DG-6-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+GWB-BJ-5-NORMAL	GWB	BeiJing	BeiJing City	BeiJing Region	China
+CHN-DG-9-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+CHN-DG-C-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+CMN-GZ-6-NORMAL	CMN	GuangZhou	GuangDong Province	GuangZhou Region	China
+GWB-GZ-2-NORMAL	GWB	GuangZhou	GuangDong Province	GuangZhou Region	China
+CNC-HF-1-NORMAL	CNC	HeFei	AnHui Province	NanJing Region	China
+CNC-HT-1-NORMAL	CNC	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+CNC-HT-4-NORMAL	CNC	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+CNC-HT-5-NORMAL	CNC	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+CNC-HT-6-NORMAL	CNC	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+CNC-HT-7-NORMAL	CNC	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+GWB-SH-1-NORMAL	GWB	ShangHai	ShangHai City	ShangHai Region	China
+GWB-SH-2-NORMAL	GWB	ShangHai	ShangHai City	ShangHai Region	China
+GWB-SH-3-NORMAL	GWB	ShangHai	ShangHai City	ShangHai Region	China
+GWB-SH-4-NORMAL	GWB	ShangHai	ShangHai City	ShangHai Region	China
+GWB-SH-5-NORMAL	GWB	ShangHai	ShangHai City	ShangHai Region	China
+CNC-HZ-3-NORMAL	CNC	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-ZJ-1-NORMAL	CHN	ZhanJang	GuangDong Province	GuangZhou Region	China
+CMN-NJ-2-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CHN-ZJ-2-NORMAL	CHN	ZhanJang	GuangDong Province	GuangZhou Region	China
+CHN-ZJ-3-NORMAL	CHN	ZhanJang	GuangDong Province	GuangZhou Region	China
+CHN-ZJ-4-NORMAL	CHN	ZhanJang	GuangDong Province	GuangZhou Region	China
+CNC-HZ-6-NORMAL	CNC	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-SZ-1-NORMAL	CMN	ShenZhen	GuangDong Province	GuangZhou Region	China
+CNC-JJ-1-NORMAL	CNC	Jiujiang	JiangXi Province	ShangHai Region	China
+CNC-JN-3-NORMAL	CNC	JiNan	ShanDong Province	BeiJing Region	China
+CNC-JN-L-NORMAL	CNC	JiNan	ShanDong Province	BeiJing Region	China
+CMN-SY-3-NORMAL	CMN	ShenYang	LiaoNing Province	ShenYang Region	China
+CHN-MZ-2-NORMAL	CHN	MeiZhou	GuangDong Province	GuangZhou Region	China
+CMN-SY-1-NORMAL	CMN	ShenYang	LiaoNing Province	ShenYang Region	China
+CMN-NJ-3-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-SH-1-NORMAL	CMN	ShangHai	ShangHai City	ShangHai Region	China
+CMN-NJ-6-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NN-3-NORMAL	CMN	NanNing	GuangXi Zone	GuangZhou Region	China
+CMN-NJ-C-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-JN-O-NORMAL	CNC	JiNan	ShanDong Province	BeiJing Region	China
+CMN-NJ-D-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+GWB-SY-1-NORMAL	GWB	ShenYang	LiaoNing Province	ShenYang Region	China
+GWB-WH-1-NORMAL	GWB	WuHan	HuBei Province	WuHan Region	China
+CMN-NJ-H-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NJ-Z-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-LY-1-NORMAL	CNC	LuoYang	HeNanProvince	BeiJing Region	China
+CMN-NJ-I-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NJ-Y-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NJ-X-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-QD-1-NORMAL	CNC	QingDao	ShanDong Province	BeiJing Region	China
+CMN-NJ-T-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-QD-2-NORMAL	CNC	QingDao	ShanDong Province	BeiJing Region	China
+CNC-QD-3-NORMAL	CNC	QingDao	ShanDong Province	BeiJing Region	China
+CMN-NJ-V-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-QZ-2-NORMAL	CNC	QuanZhou	FuJian Province	ShangHai Region	China
+CMN-NJ-U-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CRN-BJ-1-NORMAL	CRN	BeiJing	BeiJing City	BeiJing Region	China
+CRN-CC-1-NORMAL	CRN	ChangChun	JiLin Province	ShenYang Region	China
+CRN-CC-2-NORMAL	CRN	ChangChun	JiLin Province	ShenYang Region	China
+CRN-CD-1-NORMAL	CRN	ChengDu	SiChuan Province	ChengDu Region	China
+CRN-CQ-1-NORMAL	CRN	ChongQing	ChongQing City	ChengDu Region	China
+CRN-CS-1-NORMAL	CRN	ChangSha	HuNan Province	WuHan Region	China
+CRN-FZ-1-NORMAL	CRN	FuZhou	FuJian Province	ShangHai Region	China
+CNC-SH-2-NORMAL	CNC	ShangHai	ShangHai City	ShangHai Region	China
+CRN-GY-1-NORMAL	CRN	GuiYang	GuiZhou Province	ChengDu Region	China
+CRN-GZ-1-NORMAL	CRN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CRN-HA-1-NORMAL	CRN	HaiKou	HaiNan Province	GuangZhou Region	China
+CRN-HA-2-NORMAL	CRN	HaiKou	HaiNan Province	GuangZhou Region	China
+CRN-HB-1-NORMAL	CRN	HaErBin	HeiLongJiang Provinc	ShenYang Region	China
+CHN-QZ-6-NORMAL	CHN	QuanZhou	FuJian Province	ShangHai Region	China
+CNC-SN-1-NORMAL	CNC	SuiNing	SiChuan Province	ChengDu Region	China
+CNC-TJ-1-NORMAL	CNC	NanKaiQu	TianJin City	BeiJing Region	China
+CHN-WZ-2-NORMAL	CHN	WenZhou	ZheJiang Province	ShangHai Region	China
+CMN-CC-NORMAL	CMN	ChangChun	JiLin Province	ShenYang Region	China
+CNC-SY-9-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CNC-TY-3-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-TY-C-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-TY-E-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-SY-A-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CNC-SY-M-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CHN-WZ-4-NORMAL	CHN	WenZhou	ZheJiang Province	ShangHai Region	China
+CHN-SH-G-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CHN-WZ-W-NORMAL	CHN	WenZhou	ZheJiang Province	ShangHai Region	China
+CHN-SH-J-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CHN-NB-1-NORMAL	CHN	NingBo	ZheJiang Province	ShangHai Region	China
+CNC-SY-Q-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CHN-NB-4-NORMAL	CHN	NingBo	ZheJiang Province	ShangHai Region	China
+CHN-TJ-SUPER	CHN	TianJin	TianJin City	BeiJing Region	China
+CHN-NB-9-NORMAL	CHN	NingBo	ZheJiang Province	ShangHai Region	China
+CHN-NB-C-NORMAL	CHN	NingBo	ZheJiang Province	ShangHai Region	China
+CNC-WH-2-NORMAL	CNC	DongXiHuQu	HuBei Province	WuHan Region	China
+CNC-WX-1-NORMAL	CNC	WuXi	JiangSu Province	NanJing Region	China
+CNC-XA-2-NORMAL	CNC	XiAn	Shan Xi Province	XiAn Region	China
+CRN-LZ-1-NORMAL	CRN	LanZhou	GanSu Province	XiAn Region	China
+CRN-NJ-1-NORMAL	CRN	NanJing	JiangSu Province	NanJing Region	China
+CRN-NN-1-NORMAL	CRN	NanNing	GuangXi Zone	GuangZhou Region	China
+CRN-NN-2-NORMAL	CRN	NanNing	GuangXi Zone	GuangZhou Region	China
+CRN-NC-1-NORMAL	CRN	NanChang	JiangXi Province	ShangHai Region	China
+CRN-HF-1-NORMAL	CRN	HeFei	AnHui Province	NanJing Region	China
+CRN-HT-1-NORMAL	CRN	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+CRN-HT-2-NORMAL	CRN	HuHeHaoTe	NeiMengGu Zone	BeiJing Region	China
+CRN-KM-1-NORMAL	CRN	KunMing	YunNan Province	ChengDu Region	China
+CNC-XX-1-NORMAL	CNC	XinXiang	HeNanProvince	BeiJing Region	China
+CNC-XZ-1-NORMAL	CNC	XuZhou	JiangSu Province	NanJing Region	China
+CRN-HZ-1-NORMAL	CRN	HangZhou	ZheJiang Province	ShangHai Region	China
+CRN-JN-1-NORMAL	CRN	JiNan	ShanDong Province	BeiJing Region	China
+CHN-CQ-6-NORMAL	CHN	ChongQing	ChongQing City	ChengDu Region	China
+CRN-JZ-2-NORMAL	CRN	ShiJiaZhuang	HeBei Province	BeiJing Region	China
+CRN-JZ-3-NORMAL	CRN	ShiJiaZhuang	HeBei Province	BeiJing Region	China
+CNC-YC-1-NORMAL	CNC	YinChuan	NingXia Zone	XiAn Region	China
+CHN-CQ-Q-NORMAL	CHN	ChongQing	ChongQing City	ChengDu Region	China
+CHN-NJ-Q-NORMAL	CHN	NanJing	JiangSu Province	NanJing Region	China
+UNI-CQ-2-NORMAL	UNI	ChongQing	ChongQing City	ChengDu Region	China
+CNC-ZZ-7-NORMAL	CNC	ZhengZhou	HeNanProvince	BeiJing Region	China
+UNI-ZM-SUPER	UNI	ZhuMaDian	HeNanProvince	BeiJing Region	China
+UNI-HZ-2-NORMAL	UNI	HangZhou	ZheJiang Province	ShangHai Region	China
+CNC-ZZ-D-NORMAL	CNC	ZhengZhou	HeNanProvince	BeiJing Region	China
+CNC-ZZ-H-NORMAL	CNC	ZhengZhou	HeNanProvince	BeiJing Region	China
+CNC-ZZ-E-NORMAL	CNC	ZhengZhou	HeNanProvince	BeiJing Region	China
+CHN-HZ-2-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HZ-3-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HZ-4-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HZ-B-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HZ-6-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HF-5-NORMAL	CHN	HeFei	AnHui Province	NanJing Region	China
+CHN-JN-1-NORMAL	CHN	JiNan	ShanDong Province	BeiJing Region	China
+CHN-JN-3-NORMAL	CHN	JiNan	ShanDong Province	BeiJing Region	China
+BGP-BJ-1-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CHN-YZ-SUPER	CHN	YangZhou	JiangSu Province	NanJing Region	China
+BGP-BJ-2-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-3-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CRN-SH-1-NORMAL	CRN	ShangHai	ShangHai City	ShangHai Region	China
+CRN-SY-2-NORMAL	CRN	ShenYang	LiaoNing Province	ShenYang Region	China
+CRN-TJ-1-NORMAL	CRN	TianJin	TianJin City	BeiJing Region	China
+CRN-TJ-2-NORMAL	CRN	TianJin	TianJin City	BeiJing Region	China
+CRN-TY-1-NORMAL	CRN	TaiYuan	ShanXi Province	BeiJing Region	China
+CRN-WH-1-NORMAL	CRN	WuHan	HuBei Province	WuHan Region	China
+CRN-WH-2-NORMAL	CRN	WuHan	HuBei Province	WuHan Region	China
+BGP-BJ-5-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CRN-WQ-1-NORMAL	CRN	WuLuMuQi	XinJiang Province	XiAn Region	China
+CRN-XA-1-NORMAL	CRN	XiAn	Shan Xi Province	XiAn Region	China
+CRN-XN-1-NORMAL	CRN	XiNing	QingHai Province	XiAn Region	China
+CRN-YC-1-NORMAL	CRN	YinChuan	NingXia Zone	XiAn Region	China
+CRN-ZZ-1-NORMAL	CRN	ZhengZhou	HeNanProvince	BeiJing Region	China
+CHN-FU-1-NORMAL	CHN	FuShun	LiaoNing Province	ShenYang Region	China
+CHN-SH-Q-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CHN-CQ-I-NORMAL	CHN	ChongQing	ChongQing City	ChengDu Region	China
+CHN-XY-3-NORMAL	CHN	XiangYang	HuBei Province	WuHan Region	China
+CHN-WH-B-NORMAL	CHN	WuHan	HuBei Province	WuHan Region	China
+CHN-WH-F-NORMAL	CHN	WuHan	HuBei Province	WuHan Region	China
+CHN-WH-H-NORMAL	CHN	WuHan	HuBei Province	WuHan Region	China
+CHN-XY-5-NORMAL	CHN	XiangYang	HuBei Province	WuHan Region	China
+CHN-SW-1-NORMAL	CHN	ShanWei	GuangDong Province	GuangZhou Region	China
+CHN-SW-2-NORMAL	CHN	ShanWei	GuangDong Province	GuangZhou Region	China
+CHN-SW-3-NORMAL	CHN	ShanWei	GuangDong Province	GuangZhou Region	China
+CHN-XY-6-NORMAL	CHN	XiangYang	HuBei Province	WuHan Region	China
+CHN-LY-1-NORMAL	CHN	LuoYang	HeNanProvince	BeiJing Region	China
+CHN-CD-2-NORMAL	CHN	ChengDu	SiChuan Province	ChengDu Region	China
+CHN-CD-3-NORMAL	CHN	ChengDu	SiChuan Province	ChengDu Region	China
+CHN-XA-1-NORMAL	CHN	XiAn	Shan Xi Province	XiAn Region	China
+CHN-WX-1-NORMAL	CHN	WuXi	JiangSu Province	NanJing Region	China
+CHN-XA-6-NORMAL	CHN	XiAn	Shan Xi Province	XiAn Region	China
+CHN-XA-3-NORMAL	CHN	XiAn	Shan Xi Province	XiAn Region	China
+CHN-XA-Q-NORMAL	CHN	XiAn	Shan Xi Province	XiAn Region	China
+BGP-BJ-8-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-9-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-A-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-H-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-1-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-J-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-C-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-D-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-U-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-H-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-2-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-3-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-K-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-4-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-GZ-1-NORMAL	BGP	GuangZhou	GuangDong Province	GuangZhou Region	China
+CCN-BJ-J-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-Q-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-5-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-R-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-S-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-6-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-GZ-3-NORMAL	BGP	GuangZhou	GuangDong Province	GuangZhou Region	China
+CCN-BJ-7-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-D-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-SH-2-NORMAL	BGP	ShangHai	ShangHai City	ShangHai Region	China
+BGP-BJ-E-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-SH-3-NORMAL	BGP	ShangHai	ShangHai City	ShangHai Region	China
+BGP-BJ-F-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-G-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-M-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+BGP-SH-4-NORMAL	BGP	ShangHai	ShangHai City	ShangHai Region	China
+CCN-HZ-NORMAL	CCN	HangZhou	ZheJiang Province	ShangHai Region	China
+BGP-SZ-1-NORMAL	BGP	ShenZhen	GuangDong Province	GuangZhou Region	China
+CHN-CS-Q-NORMAL	CHN	ChangSha	HuNan Province	WuHan Region	China
+CCN-HZ-3-NORMAL	CCN	HangZhou	ZheJiang Province	ShangHai Region	China
+CCN-JN-NORMAL	CCN	JiNan	ShanDong Province	BeiJing Region	China
+CCN-SH-NORMAL	CCN	ShangHai	ShangHai City	ShangHai Region	China
+CCN-ST-NORMAL	CCN	ShanTou	GuangDong Province	GuangZhou Region	China
+CCN-SW-NORMAL	CCN	ShanWei	GuangDong Province	GuangZhou Region	China
+CHT-KS-1-NORMAL	CHT	Kaohsiung	TaiWan Province	TaiWan Region	China
+LEV-SO-1-NORMAL	LEV	Sao Paulo	Estado de Sao Paulo	Brazil	Brazil
+NTT-TK-1-NORMAL	NTT	Tokyo	Tokyo	Japan	Japan
+PTI-JK-2-NORMAL	PTI	Jakarta	Jakarta Zone	Indonesia	Indonesia
+CMN-JN-6-NORMAL	CMN	JiNan	ShanDong Province	BeiJing Region	China
+USA-CG-1-NORMAL	USA	CHICAGO	Illinois	North America Region	United States
+USA-DA-2-NORMAL	USA	Dallas	TEXAS	North America Region	United States
+USA-DA-3-NORMAL	USA	Dallas	TEXAS	North America Region	United States
+USA-LA-1-NORMAL	USA	LosAngeles	California	North America Region	United States
+USA-LA-3-NORMAL	USA	LosAngeles	California	North America Region	United States
+USA-MI-1-NORMAL	USA	Miami	Florida	North America Region	United States
+USA-SL-1-NORMAL	USA	Seattle	Seattle	North America Region	United States
+USA-WA-1-NORMAL	USA	Washington	Washington	North America Region	United States
+CNC-YZ-SUPER	CNC	YangZhou	JiangSu Province	NanJing Region	China
+CNC-YT-SUPER	CNC	YanTai	ShanDong Province	BeiJing Region	China
+CNC-XT-SUPER	CNC	XingTai	HeBei Province	BeiJing Region	China
+CHN-NN-NORMAL	CHN	NanNing	GuangXi Zone	GuangZhou Region	China
+CHN-ZY-SUPER	CHN	ZiYang	SiChuan Province	ChengDu Region	China
+CHN-XS-SUPER	CHN	NingBoXiangShanXian	ZheJiang Province	ShangHai Region	China
+CBN-TJ-1-NORMAL	CBN	TianJin	TianJin City	BeiJing Region	China
+CHN-NC-7-NORMAL	CHN	NanChang	JiangXi Province	ShangHai Region	China
+CBN-HL-1-NORMAL	CBN	HeZe	ShanDong Province	BeiJing Region	China
+CBN-XA-1-NORMAL	CBN	XiAn	Shan Xi Province	XiAn Region	China
+CHN-LG-SUPER	CHN	LuChengQu	ZheJiang Province	ShangHai Region	China
+CHN-GZ-Q-NORMAL	CHN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CHN-GZ-4-NORMAL	CHN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CER-GZ-3-NORMAL	CER	GuangZhou	GuangDong Province	GuangZhou Region	China
+CMN-DG-1-NORMAL	CMN	DongGuan	GuangDong Province	GuangZhou Region	China
+CMN-BJ-1-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-HZ-H-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-GY-5-NORMAL	CMN	GuiYang	GuiZhou Province	ChengDu Region	China
+CHN-ST-1-NORMAL	CHN	ShanTou	GuangDong Province	GuangZhou Region	China
+CHN-SH-H-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CMN-NJ-M-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NJ-Q-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-PT-1-NORMAL	CMN	PuTian	FuJian Province	ShangHai Region	China
+CMN-TY-1-NORMAL	CMN	TaiYuan	ShanXi Province	BeiJing Region	China
+CMN-LZ-1-NORMAL	CMN	LanZhou	GanSu Province	XiAn Region	China
+CMN-LZ-5-NORMAL	CMN	LanZhou	GanSu Province	XiAn Region	China
+CMN-NJ-K-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NJ-L-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CNC-GZ-Q-NORMAL	CNC	GuangZhou	GuangDong Province	GuangZhou Region	China
+CNC-WQ-1-NORMAL	CNC	WuLuMuQi	XinJiang Province	XiAn Region	China
+CMN-TY-3-NORMAL	CMN	TaiYuan	ShanXi Province	BeiJing Region	China
+CMN-WQ-3-NORMAL	CMN	WuLuMuQi	XinJiang Province	XiAn Region	China
+CMN-XN-1-NORMAL	CMN	XiNing	QingHai Province	XiAn Region	China
+CMN-XN-2-NORMAL	CMN	XiNing	QingHai Province	XiAn Region	China
+CTC-NN-1-NORMAL	CTC	NanNing	GuangXi Zone	GuangZhou Region	China
+CTC-LZ-1-NORMAL	CTC	LanZhou	GanSu Province	XiAn Region	China
+CTC-CD-1-NORMAL	CTC	ChengDu	SiChuan Province	ChengDu Region	China
+CSL-HK-2-NORMAL	CSL	HongKong	HongKong Zone	HongKong Region	China
+CSL-HK-1-NORMAL	CSL	HongKong	HongKong Zone	HongKong Region	China
+CRN-SY-3-NORMAL	CRN	ShenYang	LiaoNing Province	ShenYang Region	China
+CRN-DL-1-NORMAL	CRN	DaLian	LiaoNing Province	ShenYang Region	China
+CRN-AS-1-NORMAL	CRN	AnShan	LiaoNing Province	ShenYang Region	China
+LEV-PR-1-NORMAL	LEV	Paris	Paris	ILE-DE-FRANCE	France
+JTS-KT-1-NORMAL	JTS	YongZhou	HuNan Province	WuHan Region	China
+IQN-FK-1-NORMAL	IQN	Dallas	TEXAS	North America Region	United States
+ICA-HK-2-NORMAL	ICA	HongKong	HongKong Zone	HongKong Region	China
+HER-BJ-1-NORMAL	HER	BeiJing	BeiJing City	BeiJing Region	China
+GLO-MA-1-NORMAL	GLO	Manila	ManilaProvience	PhilippinesRegion	Philippines
+CTC-XM-1-NORMAL	CTC	XiaMen	FuJian Province	ShangHai Region	China
+CTC-SZ-1-NORMAL	CTC	ShenZhen	GuangDong Province	GuangZhou Region	China
+PBL-JN-6-NORMAL	PBL	JiNan	ShanDong Province	BeiJing Region	China
+PBL-LA-1-NORMAL	PBL	CHICAGO	Illinois	North America Region	United States
+PBL-DG-6-NORMAL	PBL	DongGuan	GuangDong Province	GuangZhou Region	China
+PBL-HK-1-NORMAL	PBL	HongKong	HongKong Zone	HongKong Region	China
+PBL-BJ-6-NORMAL	PBL	BeiJing	BeiJing City	BeiJing Region	China
+PBL-DG-1-NORMAL	PBL	DongGuan	GuangDong Province	GuangZhou Region	China
+MBC-UB-1-NORMAL	MBC	Ulanbator	Ulanbator	Mongolia	Mongolia
+PBL-BJ-1-NORMAL	PBL	BeiJing	BeiJing City	BeiJing Region	China
+USA-SJ-2-NORMAL	USA	NewYork	State of New York	North America Region	United States
+WAS-HZ-1-NORMAL	WAS	HangZhou	ZheJiang Province	ShangHai Region	China
+SMT-HK-1-NORMAL	SMT	HongKong	HongKong Zone	HongKong Region	China
+TMY-KL-1-NORMAL	TMY	Kuala Lumpur	Kuala Lumpur	Malaysia	Malaysia
+PCW-HK-3-NORMAL	PCW	HongKong	HongKong Zone	HongKong Region	China
+PCW-HK-4-NORMAL	PCW	HongKong	HongKong Zone	HongKong Region	China
+PBL-NJ-B-NORMAL	PBL	NanJing	JiangSu Province	NanJing Region	China
+PCW-HK-2-NORMAL	PCW	HongKong	HongKong Zone	HongKong Region	China
+XYD-GZ-1-NORMAL	XYD	GuangZhou	GuangDong Province	GuangZhou Region	China
+XYD-GZ-2-NORMAL	XYD	GuangZhou	GuangDong Province	GuangZhou Region	China
+BGC-BJ-6-NORMAL	BGC	BeiJing	BeiJing City	BeiJing Region	China
+BGC-BJ-5-NORMAL	BGC	BeiJing	BeiJing City	BeiJing Region	China
+BGC-BJ-3-NORMAL	BGC	BeiJing	BeiJing City	BeiJing Region	China
+AIP-CD-1-NORMAL	AIP	ChengDu	SiChuan Province	ChengDu Region	China
+BGP-BJ-T-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-I-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-4-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-BJ-0-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-CG-1-NORMAL	BGP	CHICAGO	Illinois	North America Region	United States
+BGP-BL-1-NORMAL	BGP	Sao Paulo	Estado de Sao Paulo	Brazil	Brazil
+BGP-GZ-0-NORMAL	BGP	GuangZhou	GuangDong Province	GuangZhou Region	China
+BGP-SD-1-NORMAL	BGP	Sydney	NewSouthWales	AustraliaRegion	Australia
+BGP-SJ-1-NORMAL	BGP	Washington	Washington	North America Region	United States
+BGP-SP-1-NORMAL	BGP	Singapore	Singapore	Southeast Asia	Singapore
+BGP-SP-2-NORMAL	BGP	Singapore	Singapore	Southeast Asia	Singapore
+BGP-HK-1-NORMAL	BGP	HongKong	HongKong Zone	HongKong Region	China
+BGP-HK-2-NORMAL	BGP	HongKong	HongKong Zone	HongKong Region	China
+BGP-WA-1-NORMAL	BGP	Washington	Washington	North America Region	United States
+BNC-BJ-1-NORMAL	BNC	BeiJing	BeiJing City	BeiJing Region	China
+BNC-BJ-2-NORMAL	BNC	BeiJing	BeiJing City	BeiJing Region	China
+CBN-SH-1-NORMAL	CBN	ShangHai	ShangHai City	ShangHai Region	China
+CBN-WE-1-NORMAL	CBN	WeiHai	ShanDong Province	BeiJing Region	China
+CCN-BJ-8-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+CCO-LD-1-NORMAL	CCO	London	England	United-Kiongdom	United-Kiongdom
+CHN-CY-4-NORMAL	CHN	ChaoYangQu	BeiJing City	BeiJing Region	China
+CER-BJ-3-NORMAL	CER	BeiJing	BeiJing City	BeiJing Region	China
+CER-GZ-2-NORMAL	CER	GuangZhou	GuangDong Province	GuangZhou Region	China
+CHN-JP-SUPER	CHN	QingXiuQu	GuangXi Zone	GuangZhou Region	China
+CHN-JC-SUPER	CHN	JiangXia	HuBei Province	WuHan Region	China
+CMN-XA-3-NORMAL	CMN	XiAn	Shan Xi Province	XiAn Region	China
+CHN-DJ-SUPER	CHN	ZhouShan	ZheJiang Province	ShangHai Region	China
+BGP-BJ-7-NORMAL	BGP	BeiJing	BeiJing City	BeiJing Region	China
+BGP-SP-3-NORMAL	BGP	Singapore	Singapore	Southeast Asia	Singapore
+CCN-BJ-F-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+CCN-BJ-K-NORMAL	CCN	BeiJing	BeiJing City	BeiJing Region	China
+CER-BJ-1-NORMAL	CER	BeiJing	BeiJing City	BeiJing Region	China
+CER-GZ-1-NORMAL	CER	GuangZhou	GuangDong Province	GuangZhou Region	China
+CER-WH-1-NORMAL	CER	WuHan	HuBei Province	WuHan Region	China
+CHN-CD-1-NORMAL	CHN	ChengDu	SiChuan Province	ChengDu Region	China
+CHN-DG-1-NORMAL	CHN	DongGuan	GuangDong Province	GuangZhou Region	China
+CHN-FK-1-NORMAL	CHN	Frankfurt	Hessen	Germany	Germany
+CHN-GZ-3-NORMAL	CHN	GuangZhou	GuangDong Province	GuangZhou Region	China
+CHN-HF-2-NORMAL	CHN	HeFei	AnHui Province	NanJing Region	China
+CHN-HZ-1-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HZ-9-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-HZ-A-NORMAL	CHN	HangZhou	ZheJiang Province	ShangHai Region	China
+CHN-JI-5-NORMAL	CHN	JiangMen	GuangDong Province	GuangZhou Region	China
+CHN-MY-D-NORMAL	CHN	MianYang	SiChuan Province	ChengDu Region	China
+CHN-MY-E-NORMAL	CHN	MianYang	SiChuan Province	ChengDu Region	China
+CHN-MZ-1-NORMAL	CHN	MeiZhou	GuangDong Province	GuangZhou Region	China
+CHN-NB-7-NORMAL	CHN	NingBo	ZheJiang Province	ShangHai Region	China
+CHN-NB-8-NORMAL	CHN	NingBo	ZheJiang Province	ShangHai Region	China
+CHN-NC-2-NORMAL	CHN	NanChang	JiangXi Province	ShangHai Region	China
+CHN-PT-1-NORMAL	CHN	PuTian	FuJian Province	ShangHai Region	China
+CHN-PT-3-NORMAL	CHN	PuTian	FuJian Province	ShangHai Region	China
+CHN-SH-6-NORMAL	CHN	ShangHai	ShangHai City	ShangHai Region	China
+CHN-WH-2-NORMAL	CHN	WuHan	HuBei Province	WuHan Region	China
+CHN-WH-5-NORMAL	CHN	WuHan	HuBei Province	WuHan Region	China
+CHN-WH-6-NORMAL	CHN	WuHan	HuBei Province	WuHan Region	China
+CHN-WX-4-NORMAL	CHN	WuXi	JiangSu Province	NanJing Region	China
+CHN-XI-1-NORMAL	CHN	Xianning	HuBei Province	WuHan Region	China
+CHT-TW-1-NORMAL	CHT	TaiBei	TaiWan Province	TaiWan Region	China
+CHT-TW-3-NORMAL	CHT	TaiBei	TaiWan Province	TaiWan Region	China
+CMN-BJ-2-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-BJ-4-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CMN-HA-1-NORMAL	CMN	HaiKou	HaiNan Province	GuangZhou Region	China
+CMN-HZ-3-NORMAL	CMN	HangZhou	ZheJiang Province	ShangHai Region	China
+CMN-NC-2-NORMAL	CMN	NanChang	JiangXi Province	ShangHai Region	China
+CMN-NJ-N-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NJ-O-NORMAL	CMN	NanJing	JiangSu Province	NanJing Region	China
+CMN-NN-1-NORMAL	CMN	NanNing	GuangXi Zone	GuangZhou Region	China
+CMN-WZ-1-NORMAL	CMN	WenZhou	ZheJiang Province	ShangHai Region	China
+CMN-ZH-1-NORMAL	CMN	ZhangZhou	FuJian Province	ShangHai Region	China
+CNC-BJ-7-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CNC-BJ-9-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CNC-BJ-Z-NORMAL	CNC	BeiJing	BeiJing City	BeiJing Region	China
+CNC-HZ-4-NORMAL	CNC	HangZhou	ZheJiang Province	ShangHai Region	China
+CNC-JY-3-NORMAL	CNC	Jieyang	GuangDong Province	GuangZhou Region	China
+CNC-JZ-H-NORMAL	CNC	ShiJiaZhuang	HeBei Province	BeiJing Region	China
+CNC-SW-2-NORMAL	CNC	ShanWei	GuangDong Province	GuangZhou Region	China
+CNC-SY-2-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CNC-SY-3-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CNC-SY-7-NORMAL	CNC	ShenYang	LiaoNing Province	ShenYang Region	China
+CNC-TJ-2-NORMAL	CNC	TianJin	TianJin City	BeiJing Region	China
+CNC-TJ-6-NORMAL	CNC	TianJin	TianJin City	BeiJing Region	China
+CNC-TY-4-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-TY-7-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-TY-8-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-TY-D-NORMAL	CNC	TaiYuan	ShanXi Province	BeiJing Region	China
+CNC-XM-3-NORMAL	CNC	XiaMen	FuJian Province	ShangHai Region	China
+CNC-XQ-2-NORMAL	CNC	XinChengQu	NeiMengGu Zone	BeiJing Region	China
+ESN-GZ-1-NORMAL	ESN	GuangZhou	GuangDong Province	GuangZhou Region	China
+HGC-HK-1-NORMAL	HGC	HongKong	HongKong Zone	HongKong Region	China
+IDC-BJ-1-NORMAL	IDC	BeiJing	BeiJing City	BeiJing Region	China
+PBL-BJ-J-NORMAL	PBL	BeiJing	BeiJing City	BeiJing Region	China
+PBL-DG-J-NORMAL	PBL	DongGuan	GuangDong Province	GuangZhou Region	China
+PCW-HK-1-NORMAL	PCW	HongKong	HongKong Zone	HongKong Region	China
+PTI-JK-1-NORMAL	PTI	Jakarta	Jakarta Zone	Indonesia	Indonesia
+PTI-SP-1-NORMAL	PTI	Singapore	Singapore	Southeast Asia	Singapore
+QTE-QA-1-NORMAL	QTE	Qatar	Qatar	Qatar	Qatar
+STL-SP-1-NORMAL	STL	Singapore	Singapore	Southeast Asia	Singapore
+TWM-TB-1-NORMAL	TWM	TaiBei	TaiWan Province	TaiWan Region	China
+UNI-CQ-1-NORMAL	UNI	ChongQing	ChongQing City	ChengDu Region	China
+USA-DA-1-NORMAL	USA	Dallas	TEXAS	North America Region	United States
+USA-NE-3-NORMAL	USA	NewYork	State of New York	North America Region	United States
+XWT-PP-1-NORMAL	XWT	Phnom Penh	Phnom Penh	Cambodia Region	Cambodia
+XYD-GZ-3-NORMAL	XYD	GuangZhou	GuangDong Province	GuangZhou Region	China
+CNC-QD-SUPER	CNC	QingDao	ShanDong Province	BeiJing Region	China
+CHN-NG-SUPER	CHN	NeiJiang	SiChuan Province	ChengDu Region	China
+CHN-JJ-SUPER	CHN	Jiujiang	JiangXi Province	ShangHai Region	China
+CNC-YJ-SUPER	CNC	YanJi	JiLin Province	ShenYang Region	China
+CHN-XY-SUPER	CHN	XiangYang	HuBei Province	WuHan Region	China
+CMN-BJ-7-NORMAL	CMN	BeiJing	BeiJing City	BeiJing Region	China
+CNC-CP-SUPER	CNC	BeiBei	ChongQing City	ChengDu Region	China
+CHN-FH-SUPER	CHN	XiangYangFanChengQu	HuBei Province	WuHan Region	China

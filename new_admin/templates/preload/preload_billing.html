@@ -1,0 +1,136 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+
+<style>
+    body {
+    background-color: #fff;
+}
+</style>
+    <div class="text-center">
+         <form class="form-inline" action="/preload_billing" method="post" id="queryForm">
+            <label class="control-label"> <strong>用户名:</strong>
+            <input type="text" class="input-small" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>频道:</strong>
+                <input class="input-large" type="text" name="channel" value="{{ args.channel }}">
+            </label>
+            <label class="control-label"> <strong>开始日期:   </strong> <input type="text" id="datepickera_start_date" name="start_date"  readonly="true" value="{{ args.start_date }}"/>
+            </label>
+            <label class="control-label"> <strong>结束日期:   </strong> <input type="text" id="datepickera_stop_date" name="stop_date"  readonly="true" value="{{ args.stop_date }}"/>
+            </label>
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+
+        <div class="jumbotron">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 40%;">
+                <p class='title'>时段</p>
+                <p class='value'>00:00-07:59</p>
+            </div>
+            <div style="width: 60%;">
+                <p class='title'>任务量</p>
+                <p class='value'>{{ billing.night.count }}</p>
+            </div>
+        </div>
+        <div class='clear'></div>
+        </div>
+
+<div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 40%;">
+                <p class='title'></p>
+                <p class='value'>08:00-17:59</p>
+            </div>
+            <div style="width: 60%;">
+                <p class='title'></p>
+                <p class='value'>{{ billing.standard.count }}</p>
+            </div>
+        </div>
+        <div class='clear'></div>
+        </div>
+
+<div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 40%;">
+                <p class='title'></p>
+                <p class='value'>18:00-23:59</p>
+            </div>
+            <div style="width: 60%;">
+                <p class='title'></p>
+                <p class='value'>{{ billing.gold.count }}</p>
+            </div>
+        </div>
+        <div class='clear'></div>
+        </div>
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+
+    <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+
+        $(function() {
+          $( "#datepickera_stop_date" ).datepicker();
+          $( "#datepickera_stop_date" ).datepicker( 'setDate' , new Date());
+          {% if args.stop_date: %}
+            $( "#datepickera_stop_date" ).val("{{args.stop_date}}")
+          {%endif%}
+          $( "#datepickera_start_date" ).datepicker();
+          $( "#datepickera_start_date" ).datepicker( 'setDate' , new Date());
+          {% if args.start_date: %}
+            $( "#datepickera_start_date" ).val("{{args.start_date}}")
+          {%endif%}
+        });
+
+        $(document).ready(function() {
+        $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+        $("a[rel=result]").fancybox({
+        'width': "1024",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+       });
+  </script>
+
+{% endblock %}

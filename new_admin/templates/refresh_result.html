@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 1024px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 50%;">
+                <p class='title'>设备总数</p>
+                <p class='value'>{{result.count}}</p>
+            </div>
+            <div style="width: 50%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ result.unprocess }}</p>
+            </div>
+        </div>
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+
+                 <div class='div-th' style='width: 30%;' id="hostname">设备名字</div>
+                 <div class='div-th' style='width: 25%;' id="refresh_result">结果</div>
+                 <div class='div-th' style='width: 20%;' id="time">刷新时间</div>
+                 <div class='div-th' style='width: 25%;' id="refresh_gzip">gzip结果</div>
+
+                <div class='clear'></div>
+             </div>
+            {% for re in refresh_results %} 
+                  {% if re.result == '200' and re.result_gzip == '200' %}
+               <div class='div-tr level0' id='tr0'>
+                  {% else %}
+               <div class='div-tr level1' id='tr0'>
+                  {% endif %}
+                    <div class='div-td' style='width: 30%'>{{ re.name }}</div>
+                    <div class='div-td' style='width: 25%'>{{ re.result }}</div>
+                    <div class='div-td' style='width: 20%'>{{ re.time }}</div>
+                    <div class='div-td' style='width: 25%'>{{ re.result_gzip|safe }}</div>
+               </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

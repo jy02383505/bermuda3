@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+
+    <div class="text-center">
+         <form class="form-inline" action="/preload_query" method="post" id="queryForm">
+            <label class="control-label"> <strong>用户名:</strong>
+            <input type="text" class="input-small" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>URL:</strong>
+                <input class="input-large" type="text" name="url" value="{{ args.url }}">
+            </label>
+
+              <label class="control-label"> <strong>状态: </strong>
+             <select name="status">
+                        <option>ALL</option>
+                        <option value="FINISHED"
+                        {% if args.status == "FINISHED" %}
+                          selected="selected"
+                         {% endif %}
+                        >完成</option>
+                        <option value="PROGRESS"
+                          {% if args.status == "PROGRESS" %}
+                          selected="selected"
+                         {% endif %}
+                        >执行中</option>      
+
+                        <option value="FAILED"
+                          {% if args.status == "FAILED" %}
+                          selected="selected"
+                         {% endif %}
+                        >失败</option>
+
+                        <option value="CANCEL"
+                          {% if args.status == "CANCEL" %}
+                          selected="selected"
+                         {% endif %}
+                        >已取消</option>
+
+                        <option value="TIMER"
+                          {% if args.status == "TIMER" %}
+                          selected="selected"
+                         {% endif %}
+                        >未开始的定时任务</option>
+
+                        <option value="INVALID"
+                          {% if args.status == "INVALID" %}
+                          selected="selected"
+                         {% endif %}
+                        >异常任务</option>
+
+                        <option value="EXPIRED"
+                          {% if args.status == "EXPIRED" %}
+                          selected="selected"
+                         {% endif %}
+                        >过期任务</option>
+                      </select>
+            </label>
+            <label class="control-label"> <strong>日期:   </strong> <input type="text" id="datepickera" name="date"  readonly="true" value="{{ args.date }}"/>
+            </label>
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+
+        <div class="jumbotron">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>用户名</center></th>
+                      <th style="width: 350px;"><center>URL</center></th>
+                      <th style="width: 200px;"><center>状态</center></th>            
+                      <th style="width: 150px;"><center>限速</center></th>
+                      <th style="width: 150px;" ><center>创建时间</center></th>
+                      <th style="width: 150px;" ><center>结束时间</center></th>
+                      <th style="width: 100px;" ><center>耗时</center></th>
+                      <th style="width: 100px;" ><center>分中央ack</center></th>
+                      <th style="width: 200px;"><center>任务下发信息</center></th>
+                      <th style="width: 200px;"><center>预加载状态</center></th>
+                      <th style="width: 200px;"><center>反馈信息</center></th>
+                      </tr>
+                    {%for url in urls%}
+                    <tr>
+                      <td><center>{{url.username}}</center> </td>
+{#                      <td style="width:100px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis; border:1px solid red"><center>{{url.url}}</center> </td>#}
+                      <td ><center style="width:350px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><a href="{{url.url}}" onclick="return false" title="{{url.url}}">{{url.url}}</a></center> </td>
+                      <td><center>{{url.status}}</center> </td>
+                      <td><center>{{url.get_url_speed}}</center> </td>
+                      <td><center>{{url.created_time}}</center> </td>
+                      <td><center>{{url.finish_time}}</center> </td>
+                      <td><center>{{url.hs}} </center> </td>
+                      <td><center>
+                          {% if url.retry_branch_id %}
+                             <a class="btn btn-info" href="/retry_branch_device_preload/{{url.retry_branch_id}}" rel="device">
+                                 分中心结果</a>
+                          {% endif %}
+                      </center></td>
+                      <td><center>
+                        {% if url.status == "INVALID" %}
+                            <p class="text-error"><strong>非法频道，请检查！</strong></p>
+                        {% else %}
+                          <a class="btn btn-info" href="/pre_device/{{url.dev_id}}" rel="device">任务下发状态</a>
+                        {% endif %}
+                      </center></td>
+                      <td><center>
+
+                      {% if url.status == "INVALID" %}
+                            <p class="text-error"><strong>非法频道，请检查！</strong></p>
+                      {% elif url.status ==  "EXPIRED" %}
+                            <p class="text-error"><strong>过期任务！</strong></p>
+                      {% else %}
+                           <a class="btn btn-primary" href="/pre_result/{{url._id}}" rel="result">预加载状态</a>
+                      {% endif %}
+
+                      </center></td>
+                    　<td><center><a class="btn btn-primary" href="/callback_result/{{ url._id }}" rel="device">反馈信息</a></center></td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+
+
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/preload_query">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+         {% endif %}
+
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+
+    <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+
+        $(function() {
+          $( "#datepickera" ).datepicker();
+          $( "#datepickera" ).datepicker( 'setDate' , new Date());
+          {% if args.date: %}
+            $( "#datepickera" ).val("{{args.date}}")
+          {%endif%}
+        });
+
+        $(document).ready(function() {
+        $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+        $("a[rel=result]").fancybox({
+        'width': "1024",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+       });
+  </script>
+
+{% endblock %}

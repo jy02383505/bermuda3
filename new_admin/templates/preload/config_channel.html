@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+{% block body %}
+  <link href="{{ url_for('static', filename='css/jquery-ui.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css')}}" rel="stylesheet">
+  <div class="container">
+    <form class="form-inline f_nf_form" action="/config_channel_action" method="post" id="queryForm">
+      <input type="hidden" name="channel_realname"  value="{{channel.channel_name}}">
+      <table class="table table-striped">
+        <tr>
+          <td style="width: 150px;"><center><strong>频道名称 :</strong></center></td>
+          <td>{{channel.channel_name}}</td>
+        </tr>
+        <tr>
+          <td style="width: 150px;"><center><strong>设备类型 :</strong></center></td>
+          <td>
+            {% if channel.device_type == '1' %}
+              {% set all_dev_checked = 'checked' %}
+              {% set f_dev_checked = '' %}
+              {% set manual_checked = '' %}
+            {% elif channel.device_type == '2' %}
+              {% set all_dev_checked = '' %}
+              {% set f_dev_checked = 'checked' %}
+              {% set manual_checked = '' %}
+            {% else %}
+              {% set all_dev_checked = '' %}
+              {% set f_dev_checked = '' %}
+              {% set manual_checked = 'checked' %}
+            {% endif %}
+            <label class="radio"><input type="radio" name="device_radio" value="1" {{all_dev_checked}}>全部设备</label> &nbsp;&nbsp;
+            <label class="radio"><input type="radio" name="device_radio" value="2" {{f_dev_checked}}>上层设备</label> &nbsp;&nbsp;
+            <label class="radio"><input type="radio" name="device_radio" value="3" {{manual_checked}}>手动配置</label> &nbsp;&nbsp;
+          </td>
+        </tr>
+
+{#              
+        <tr>
+          <td><center><strong>限制类型 :</strong></center></td>
+          <td>
+            <select name="type" id="type" class="span2" >
+              <option value="0" >上传条数</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><center><strong>重点保障区域 :</strong></center></td>
+          <td>
+            <select id="region" name="region"  multiple="multiple" >
+              {% for pro in provinces %}
+                <option value="{{ pro }}" {% if pro in channel.region %} selected="selected" {% endif %}>{{ pro }}</option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><center><strong>最高限制 :</strong></center></td>
+          <td><input type="text" name="config_count" id="config_count" value="{% if channel.type == 0 %}{{channel.config_count}}{% else %}500{% endif %}" class="span1"><label id="label_count" >条</label></td>
+        </tr>
+        <tr>
+          <td><center><strong>是否发送结果反馈 :</strong></center></td>
+          <td>
+            <select name="has_callback" id="type" class="span2" >
+              <option value="0" {% if channel.has_callback == 0 %} selected="selected" {% endif %}>不发</option>
+              <option value="1" {% if channel.has_callback == 1 %} selected="selected" {% endif %}>发送</option>
+            </select>
+          </td>
+        </tr>
+#}
+        {% if channel.username in ['qq'] %}
+          <tr>
+            <td><center><strong>是否解析M3U8任务</strong></center></td>
+              {% if channel.parse_m3u8_f %}
+                {% set f_checked = "checked" %}
+              {% else %}
+                {% set f_checked = "" %}
+              {% endif %}
+              {% if channel.parse_m3u8_nf %}
+                {% set nf_checked = "checked" %}
+              {% else %}
+                {% set nf_checked = "" %}
+              {% endif %}
+            <td>
+              <label class="radio"><input type="checkbox" name="parse_m3u8_f" value="{{channel.parse_m3u8_f}}" {{f_checked}}>上层解析</label>&nbsp;&nbsp;&nbsp;
+              <label class="radio"><input type="checkbox" name="parse_m3u8_nf" value="{{channel.parse_m3u8_nf}}" {{nf_checked}}>下层解析</label>
+              <p style="color:red;">可对边缘设备分别配置是否解析M3U8任务</p>
+            </td>
+          </tr>
+        {% endif %}
+        <tr>
+          <td><center><strong>错峰时段设置 :</strong></center></td>
+          <td>
+            <input type="text" name="avoid_period_s" value="{{channel.avoid_period_s}}" class="span3" placeholder="起始时间"> ~
+            <input type="text" name="avoid_period_e" value="{{channel.avoid_period_e}}" class="span3" placeholder="终止时间">
+            <input type="text" name="avoid_extra_minutes" value="{{channel.avoid_extra_minutes}}" class="span2" placeholder="追加分钟数">
+            <p style="color:red;">默认执行时间为推后(终止时间-起始时间)，若追加分钟小于此时间差亦为此差值，当大于此差值，以起始时间+追加分钟数为延迟执行时间。</p>
+            <p style="color:red;">如：终止时间(22:00)-起始时间(20:00)，追加分钟数(100)，无效；追加分钟数(300)，执行时间为01:00起。</p>
+          </td>
+        </tr>          
+        <tr>
+          <td><center><strong>上下层设备执行顺序 :</strong></center></td>
+          {% if not channel.first_layer_not_first %}
+            {% set fl_checked = "checked" %}
+          {% else %}
+            {% set fl_checked = "" %}
+          {% endif %}
+          <td>
+              <label class="radio"><input type="checkbox" name="first_layer_not_first" {{fl_checked}} style="zoom:120%;vertical-align:-3px;"> 先上后下</label>&nbsp;&nbsp;&nbsp;
+              <p style="color:maroon;">默认执行顺序：先进行上层设备，达到上层回调阈值后进行下层设备预加载任务；取消勾选为上下层同时下发。</p>
+              <input type="hidden" name="first_layer_not_first_h">
+          </td>
+        </tr>
+        <tr>
+          <td><center><strong>反馈POST地址 :</strong></center></td>
+          <td><input type="text" name="callback_url"  value="{{channel.callback.url}}" class="span3"></td>
+        </tr>      
+          <tr>
+            <td><center><strong>反馈EMAIL地址 :</strong></center></td>
+            <td rowspan="5"><textarea wrap="virtual" rows="5" name="callback_email" id="callback_email">{% for email in channel.callback.email %}{{email}}
+{% endfor %}</textarea>
+            <span style="color: red">每行输入一个邮箱地址 !</span></td>
+          </tr>   
+        </table>
+        <div class="row">
+          <div class="span2"><center><button type="submit" class="btn">提  交</button></center></div>              
+          <div class="span1"><button type="button" class="btn" onclick="subform({{channel.type}});">重  置</button></div>
+        </div>            
+        <input type="hidden" name="channel_id"  value="{{channel._id}}">
+      </form>
+    </div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap-multiselect.js') }}"></script>
+
+
+<script type="text/javascript">
+    fl_obj = $('input[name=first_layer_not_first]')
+    fl_obj_h = $('input[name=first_layer_not_first_h]')
+    $('.f_nf_form').submit(function(){
+      if(!fl_obj.prop('checked')){
+        fl_obj_h.val(true);
+      }else{
+        fl_obj_h.val(false);
+      }
+    })
+
+    $('input[name=avoid_period_s]').timepicker();
+    $('input[name=avoid_period_e]').timepicker();
+
+    $('#region').multiselect({
+         onChange: function(option, checked) {
+                // Get selected options.
+                var selectedOptions = $('#region option:selected');
+                if (selectedOptions.length >= 5) {
+                    // Disable all other checkboxes.
+                    var nonSelectedOptions = $('#region option').filter(function () {
+                        return !$(this).is(':selected');
+                    });
+                }},
+         maxHeight: 200,
+        buttonWidth: '500px',
+        includeSelectAllOption: true,
+        enableFiltering: true,
+        numberDisplayed: 6
+
+    });
+
+//或取选择项的值
+$("#type").change(function(){
+var type = $(this).children('option:selected').val();
+if(type==0){
+  $("#config_count").val(500);
+  $("#label_count").html("条");
+  }
+else{
+  $("#config_count").val(3.5);
+  $("#label_count").html("TB");
+  }
+});
+function subform(type){
+$('#queryForm')[0].reset();
+if(type==0){
+  $("#label_count").html("条");
+  }
+else{
+  $("#label_count").html("TB");
+  }
+};
+
+</script>
+
+{% endblock %}

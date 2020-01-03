@@ -1,0 +1,234 @@
+{% extends "layout.html" %}
+{% block body %}
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+{#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/link_js/jquery.datetimepicker.css') }}" media="screen" />#}
+     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" />
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+{#    <script src="{{ url_for('static', filename='js/jquery.datetimepicker.full.js') }}"></script>#}
+    <script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+
+    <div class="text-center">
+         <form class="form-inline" action="/operation_log_query" method="post" id="queryForm"  onsubmit="return ckform(this);" >
+            <label class="control-label"> <strong>用户名称:</strong>
+            <input type="text" class="input-small" name="user_email" value="{{ args.user_email }}">
+            </label>
+            <label class="control-label"> <strong>日志类型:</strong>
+{#                <input class="input-large" type="text" name="ip" value="{{ args.ip }}">#}
+                <select name="operation_type" id="operation_type">
+                <option value="" selected="selected"></option>
+                <option value="channel_redirection"
+                        {% if args.operation_type == 'channel_redirection' %}
+                        selected="selected"
+                        {% endif %}>频道重定向配置</option>
+                <option value="mail_list_config"
+                        {% if args.operation_type == 'mail_list_config' %}
+                        selected="selected"
+                        {% endif %}>邮件列表配置</option>
+                <option value="overload"
+                        {% if args.operation_type == 'overload' %}
+                        selected="selected"
+                        {% endif %}>用户超量配置</option>
+                <option value="regular_expression_configuration"
+                        {% if args.operation_type == 'regular_expression_configuration' %}
+                        selected="selected"
+                        {% endif %}>正则表达式配置</option>
+                </select>
+            </label>
+{#            <label class="control-label"> <strong>操作类型:</strong>#}
+{#                <select name="small_operation_type" id="small_operation_type">#}
+{#                <option value="" selected="selected"></option>#}
+{#                <option value="delete"#}
+{#                        {% if args.small_operation_type == 'delete' %}#}
+{#                        selected="selected"#}
+{#                        {% endif %}>删除</option>#}
+{#                <option value="insert"#}
+{#                        {% if args.small_operation_type == 'insert' %}#}
+{#                        selected="selected"#}
+{#                        {% endif %}>新增</option>#}
+{#                <option value="update"#}
+{#                        {% if args.small_operation_type == 'update' %}#}
+{#                        selected="selected"#}
+{#                        {% endif %}>更新</option>#}
+{#                </select>#}
+{#            </label>#}
+             <label class="control-label"> <strong>操作内容:</strong> <input type="text" id="content" name="content" value="{{ args.content }}"/>
+             <label class="control-label"> <strong>开始时间:</strong> <input type="text" id="datepickera_start" name="time_start"  readonly="true" value="{{ args.time_start }}"/>
+            </label>
+             <label class="control-label"> <strong>结束时间:</strong> <input type="text" id="datepickera_end" name="time_end" readonly="true" value="{{ args.time_end }}"/>
+            </label>
+
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+        <div class="jumbotron">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>用户名称</center></th>
+                      <th style="width: 350px;"><center>日志类型</center></th>
+                      <th style="width: 130px;" ><center>操作类型</center></th>
+                      <th style="width: 130px;" ><center>操作内容</center></th>
+                      <th style="width: 130px;" ><center>操作时间</center></th>
+                      <th style="width: 120px;"><center>查看</center></th>
+                  </tr>
+                    {% for res in result %}
+                     <tr>
+
+                      {% if res.user %}
+                         <td><center>{{ res.user }}</center> </td>
+                      {% else %}
+                         <td><center>--</center></td>
+                      {% endif %}
+
+                      {% if res.operation_type %}
+                          {% if res.operation_type == 'channel_redirection' %}
+                              <td><center>频道重定向配置</center> </td>
+                          {% elif res.operation_type == 'mail_list_config' %}
+                              <td><center>邮件列表配置</center> </td>
+                          {% elif res.operation_type == 'overload' %}
+                              <td><center>用户超量配置</center> </td>
+                          {% elif res.operation_type == 'regular_expression_configuration' %}
+                              <td><center>正则表达式配置</center> </td>
+                          {% else %}
+                              <td><center>{{ res.operation_type }}</center> </td>
+                          {% endif %}
+                      {% else %}
+                         <td><center>--</center></td>
+                      {% endif %}
+
+                      {% if res.small_operation_type %}
+                          {% if res.small_operation_type == 'delete' %}
+                              <td><center>删除</center> </td>
+                          {% elif res.small_operation_type == 'update' %}
+                              <td><center>更新</center> </td>
+                          {% elif res.small_operation_type == 'insert' %}
+                              <td><center>新增</center> </td>
+{#                          {% elif res.operation_type == 'regular_expression_configuration' %}#}
+{#                              <td><center>正则表达式配置</center> </td>#}
+                          {% else %}
+                              <td><center>{{ res.small_operation_type }}</center> </td>
+                          {% endif %}
+                      {% else %}
+                         <td><center>--</center></td>
+                      {% endif %}
+
+                      {% if res.content %}
+                          <td><center>{{ res.content }}</center></td>
+                      {% else %}
+                          <td><center>--</center></td>
+                      {% endif %}
+
+
+                      {% if res.operation_time %}
+                         <td><center>{{ res.operation_time }}</center></td>
+                      {% else %}
+                         <td><center>--</center></td>
+                      {% endif %}
+
+                      <td><center>
+                          {% if res.datetime %}
+                            <a class="btn btn-info" href="/query_log_content" rel="device">查看</a>
+                          {% endif %}
+                      </center> </td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+        {% if args.total_page > 1 %}
+        <div class="pagination">
+              <ul>
+                  {% if args.can_pre_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{args.page - 1}});">&laquo;</a></li>
+                  {% endif %}
+                  {%for p in args.page_list %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.page == p %} class="btn" {% endif %} >{{ p + 1 }}</a></li>
+                 {% endfor %}
+                  {% if args.can_next_page %}
+                  <li class="disabled"><a href="javascript:submitFrom({{args.page + 1}});">&raquo;</a></li>
+                  {% endif %}
+              </ul>
+         </div>
+         {% endif %}
+
+    <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+
+       $(document).ready(function(){
+           $('#datepickera_start').datetimepicker({
+                    timeFormat: "HH",
+                    dateFormat: "yy-mm-dd"
+                });
+            $('#datepickera_end').datetimepicker({
+                    timeFormat: "HH",
+                    dateFormat: "yy-mm-dd"
+                });
+            {% if args.start_time %}
+                $( "#datepickera_start" ).val("{{args.time_start}}");
+            {%endif%}
+            {% if args.end_time %}
+                $( "#datepickera_end" ).val("{{args.time_end}}");
+            {%endif%}
+
+
+
+       });
+{##}
+{#        $(function() {#}
+{#          $('#datepickera_start').datetimepicker({step:60,format:"Y-m-d H"});#}
+{#          $('#datepickera_end').datetimepicker({step:60,format:"Y-m-d H"});#}
+{##}
+{#            $('#datepickera_start').datetimepicker({#}
+{#                    timeFormat: "HH",#}
+{#                    dateFormat: "yy-mm-dd"#}
+{#                });#}
+{#            $('#datepickera_end').datetimepicker({#}
+{#                    timeFormat: "HH",#}
+{#                    dateFormat: "yy-mm-dd"#}
+{#                });#}
+{#            {% if args.start_time %}#}
+{#                $( "#datepickera_start" ).val("{{args.start_time}}");#}
+{#            {%endif%}#}
+{#            {% if args.end_time %}#}
+{#                $( "#datepickera_end" ).val("{{args.end_time}}");#}
+{#            {%endif%}#}
+{##}
+{#        });#}
+       function ckform(obj){
+{#           alert(obj.datepickera_start.value);#}
+           if (obj.datepickera_start.value >= obj.datepickera_end.value){
+               alert("开始时间要小于结束时间");
+               return false
+           }
+           return true
+       }
+
+        $(document).ready(function() {
+        $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+      });
+  </script>
+
+{% endblock %}

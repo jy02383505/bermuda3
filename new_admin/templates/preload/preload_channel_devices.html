@@ -1,0 +1,121 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="text-center" style="display:none">
+{#    <div class="text-center" >#}
+         <form class="form-inline" action="/preload_channel_devices?username={{ args.username }}&channel_name={{ args.channel_name }}"
+               method="post" id="queryForm">
+            <label class="control-label"> <strong>客户:</strong>
+            <input type="text" class="input-large" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>频道:</strong>
+                <input class="input-large" type="text" name="channel_name" value="{{ args.channel_name }}">
+            </label>
+            <label class="control-label"> <strong>设备:</strong>
+                <input class="input-large" type="text" name="dev_name" value="{{ args.dev_name }}">
+            </label>
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+    </div>
+
+        <div class="container">
+           <p class="text-right">
+               <a class="btn btn-success" id="return_preload_channel" onclick="return_preload_channel()">返回</a>
+               <a class="btn btn-success" id="delSelectedDevIds" onclick="delSelectedDevs()">删除选中设备</a>
+               <a class="btn btn-success" id="del_all_device" onclick="delAllDevs()">删除所有设备</a>
+               <a class="btn btn-success" href="/get_devs_by_channel_new?channel_name={{ args.channel_name }}">新增设备</a>
+               <a class="btn btn-success" href="/dev_list_input?channel_name={{ args.channel_name }}">键入设备列表</a></p>
+
+              <table class="table table-striped">
+                  <th style="width: 200px;">
+                      <center>
+                          <label class="checkbox">
+                              <input type="checkbox" value="000" onclick="selectAll()" name="checkbox_all">
+                          </label>
+                      </center>
+                  </th>
+                      <th style="width: 200px;"><center>客户</center></th>
+                      <th style="width: 200px;" ><center>频道</center></th>
+                      <th style="width: 200px;"><center>设备</center></th>
+                      <th style="width: 120px;" ><center>层级</center></th>
+                      <th style="width: 120px;" ><center>操作</center></th>
+                      </tr>
+                    {%for dev in devs%}
+                    <tr>
+                        <td>
+                            <center><label class="checkbox">
+                                <input type="checkbox" value="{{dev._id}}"
+                                       name="checkbox">
+                            </label></center>
+                        </td>
+
+                      <td><center>{{dev.username}}</center> </td>
+                      <td><center>{{dev.channel_name}}</center> </td>
+                      <td><center>{{dev.name}}</center> </td>
+                        {% if dev.firstLayer %}
+                      <td><center>上层</center> </td>
+                      {% else %}
+                      <td><center>下层</center> </td>
+                       {% endif %}
+                      <td><center><a class="btn btn-danger" href="/del_preload_channel_device?id={{ dev._id }}&channel_name={{ dev.channel_name }}&username={{ dev.username }}" rel="rewrite">删除</a></center> </td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/#">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitForm({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+         {% endif %}
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+   function selectAll() {
+      $("input[name='checkbox']").each(function(){
+          if($(this).attr("checked")) {
+            $(this).removeAttr("checked");
+          } else {
+            $(this).attr("checked","true");
+          }
+        })
+   }
+   function delSelectedDevs() {
+        var devs="";
+        $("input[name='checkbox']:checkbox:checked").each(function(){
+        devs+=$(this).val()
+        devs+=";"
+        })
+        if(devs=='') {
+           alert('请选择要删除设备！')
+           return;
+        } else {
+          devs=devs.substring(0,devs.lastIndexOf(";"))
+        }
+        top.location.href="/del_preload_channel_device?id="+ devs + '&channel_name={{ args.channel_name }}&username={{ args.username }}'
+
+   }
+   function delAllDevs(){
+       top.location.href='/del_all_preload_channel_device?channel_name={{ args.channel_name }}&username={{ args.username }}'
+   }
+   function return_preload_channel(){
+       top.location.href= '/preload_channels'
+   }
+   function submitForm(curpage){
+      var f = document.getElementById("queryForm");
+      var input = document.createElement("input");
+      input.setAttribute("type","hidden");
+      input.setAttribute("value",curpage);
+      input.setAttribute("name","curpage");
+      f.appendChild(input);
+      f.submit();
+    };
+</script>
+
+
+{% endblock %}

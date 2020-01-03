@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% block body %}
+
+{#    <div class="text-center" style="display:none">#}
+{#         <form class="form-inline" action="/get_devs_by_channel_new" method="post" id="queryForm">#}
+{#            <label class="control-label"> <strong>频道名:</strong>#}
+{#                <input class="input-large" type="text" id="channel1" value="" >#}
+{##}
+{#<input type="hidden" name="channel" id="channel" value="{{channels[0].channel_code}}${{channels[0].channel_name}}${{channels[0].username}}" >#}
+{##}
+{##}
+{#            <label class="control-label"> <strong>设备:</strong>#}
+{#                <input class="input-large" type="text" name="dev_name" value="{{args.dev_name}}">#}
+{#            </label>#}
+{#            <button type="button" id="btn_smt" class="btn btn-primary ">查询</button>#}
+{#            </form>#}
+{#    </div>#}
+
+        <div class="container">
+            <form class="form-inline" action="/add_preload_channel_device" method="post" id="add_form">
+              <input type="hidden" name="devs"  id="channels">
+              <input type="hidden" name="channel_name"  value="{{args.channel_name}}">
+              <input type="hidden" name="channel_code"  value="{{args.channel_code}}">
+              <input type="hidden" name="username"  value="{{args.username}}">
+              <p><input type="button" class="btn" id="btn1" value="全选">
+              <input type="button" class="btn" id="btn2" value="取消全选">
+              <input type="button" class="btn" id="btn6" value="选择全部上层">
+              <input type="button" class="btn" id="btn7" value="取消选择全部上层">
+              <input type="button"  class="btn" id="btn3" value="反选"></p>
+              <table class="table table-striped">
+                <th style="width: 100px;"></th>
+                <th style="width: 200px;" ><center>设备名</center></th>
+                <th style="width: 200px;"><center>ip</center></th>
+                <th style="width: 200px;"><center>层级</center></th>
+                <th style="width: 120px;" ><center>状态</center></th>
+                </tr>
+                {% for dev in args.devs %}
+                  <tr>
+                      <td><center><label class="checkbox">
+                      {% if dev.firstLayer %}
+                      <input type="checkbox" value="{{dev.name}}${{dev.host}}${{dev.firstLayer}}" name="first_checkbox">
+                      {% else %}
+                      <input type="checkbox" value="{{dev.name}}${{dev.host}}${{dev.firstLayer}}" name="other_checkbox">
+                      {% endif %}
+                      </label></center></td>
+                        <td><center>{{dev.name}}</center> </td>
+                        <td><center>{{dev.host}}</center> </td>
+                          {% if dev.firstLayer %}
+                        <td><center>上层</center> </td>
+                        {% else %}
+                        <td><center>下层</center> </td>
+                         {% endif %}
+                      <td><center>{{dev.status}}</center> </td>
+                  </tr>
+              {% endfor %}
+              <tr><td COLSPAN="5"><center><button type="button" class="btn" id="btn5">确认开通</button></center></td></tr>
+            </table>
+            </form>
+        </div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+jQuery(
+  function($){
+    //全选
+    $("#btn1").click(function(){
+    $("input[type='checkbox']").attr("checked","true");
+    })
+    //取消全选
+    $("#btn2").click(function(){
+    $("input[type='checkbox']").removeAttr("checked");
+    })
+    //选择全部上层
+    $("#btn6").click(function(){
+         $("input[name='first_checkbox']").attr("checked","true");
+    })
+    //取消选择全部上层
+    $("#btn7").click(function(){
+         $("input[name='first_checkbox']").removeAttr("checked");
+    })
+    //反选
+    $("#btn3").click(function(){
+    $("input[type='checkbox']").each(function(){
+    if($(this).attr("checked"))
+      {
+      $(this).removeAttr("checked");
+      }
+    else
+      {
+      $(this).attr("checked","true");
+      }
+    })
+    })
+    //获取选择项的值
+    var devs="";
+    $("#btn5").click(function(){
+    $("input[type='checkbox']:checkbox:checked").each(function(){
+    devs+=$(this).val()
+    devs+=";"
+    })
+    $("#channels").attr("value" , devs);
+    $('#add_form').submit();
+    })
+
+
+{#    var channels=[]#}
+    
+{#    {% for channel in channels %}#}
+{#        var channel_obj={}#}
+{#        channel_obj.channel_code ='{{channel.channel_code}}'#}
+{#        channel_obj.channel_name ='{{channel.channel_name}}'#}
+{#        channel_obj.username='{{channel.username}}'#}
+{#        channels.push(channel_obj)#}
+{#     {% endfor %}#}
+{##}
+{##}
+{#  $("#btn_smt").click(function(){#}
+{#     #}
+{#      var chnlname = document.getElementById("channel1").value;#}
+{##}
+{##}
+{#        for (var chnl in channels) {#}
+{#             if (channels[chnl].channel_name==chnlname) {#}
+{#                  var channel = channels[chnl]#}
+{#                  document.getElementById("channel").value=#}
+{#                          channel.channel_code+'$'+channel.channel_name+'$'+channel.username#}
+{##}
+{#                         document.getElementById('queryForm').submit();#}
+{#                  return;#}
+{#               }#}
+{#             }#}
+{#         alert("频道不存在，请重新填写已配置频道")#}
+{#     #}
+{#   })  #}
+  }
+)
+</script>
+
+{% endblock %}

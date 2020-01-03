@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block body %}
+  <link href="{{ url_for('static', filename='css/jquery-ui.css')}}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css')}}" rel="stylesheet">
+  <div class="container">
+    <form class="form-inline dev_list_form" action="/dev_list_input" method="post">
+      <input type="hidden" name="channel_name" value="{{channel.channel_name}}">
+      <input type="hidden" name="channel" value="{{channel|tojson}}">
+      <input type="hidden" name="username" value="{{channel.username}}">
+      <table class="table table-striped">
+        <tr>
+          <td style="width: 150px;"><center><strong>频道名称 :</strong></center></td>
+          <td>{{channel.channel_name}}</td>
+        </tr>
+
+        <tr>
+          <td><center><strong>请键入设备列表<br>(换行分隔)</strong></center></td>
+          <td><textarea style="width:60%" rows="30" name="dev_list" class="dev_list">{{ channel.dev_list }}</textarea><span style="color: red">键入设备名称或ip即可</span></td>
+        </tr>
+      </table>
+      <div class="row">
+        <div class="span2"><center><button type="button" class="btn btn-success submit">提  交</button></center></div>
+        <div class="span2"><center><button type="button" class="btn btn-default back">返  回</button></center></div>
+      </div>
+    </form>
+  </div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap-multiselect.js') }}"></script>
+
+
+<script type="text/javascript">
+
+dev_list_val = $('.dev_list').val().trim();
+
+$('.submit').click(function(){
+  if($('.dev_list').val().trim() != dev_list_val){
+    $('.dev_list_form').submit();
+  }else{
+    alert('Nothing changed.');
+  }
+})
+
+$('.back').click(function(){
+  location.href="{{ url_for('preload.preload_channel_devices', channel_name=channel.channel_name) }}"
+})
+</script>
+
+{% endblock %}

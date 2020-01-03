@@ -1,0 +1,273 @@
+<!DOCTYPE HTML >
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <link href="./css/blitzer/jquery-ui-1.9.0.custom.css" rel="stylesheet">
+    <script src="/js/jquery-1.7.1.min.js"></script>
+    <script src="/js/jquery-ui-1.9.0.custom.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
+    <script src="/js/cvi_busy_lib.js"></script>
+    <title>chinacache内容管理</title>
+    <link rel="shortcut icon" href="/images/ico.ico">
+</head>
+<style type="text/css">
+	body{
+		padding-top: 6px;
+		padding-bottom: 6px;
+		margin: 0px auto;
+		text-align: center;
+		font: 12.8px/1.3em Verdana, sans-serif;
+		font-family: 微软雅黑 !important;
+		background-color: #555;
+	}
+    section#top-3{
+    	border-bottom: solid 1px red;
+        width:100%;
+        clear:both;
+        margin: 0 auto;
+        overflow: hidden;
+        height:69px;
+        background-image: url(../images/banner.png);
+    }
+    td{
+    	text-align:left;
+    }
+    .titlebox{
+   	 	border: solid 1px #cccccc;
+		background-color: #f9f9f9;
+		background-color: #D93531;
+    }
+    .titleboxinside{
+    	padding: 4px;
+		font-weight: bold;
+		color: white;
+		background-color: #D93531;
+		text-align:left;
+    }
+    .graphbox{
+    	border: solid 1px #d93531;
+		background-color: #f9f9f9;
+		min-height: 80px;
+    }
+    .input_text{
+    	border: solid 1px black;
+    }
+   .graphboxinside{
+    	padding: 6px;
+    }
+   .description{
+    	color: gray;
+		border-top: #999999 dotted 1px;
+		background-color: white;
+		padding-top: 5px;
+		padding-left: 10px;
+		padding-right: 10px;
+		text-align:left;
+    }
+    a.helpUnderline{
+	    text-decoration:none;
+	    cursor:pointer;
+	    font-size:14px;
+	    float:right;
+	}
+	
+	a.helpUnderline img{
+	    float:left;
+	}
+	
+	a.helpUnderline span{
+	    float:left;
+	}
+</style>
+<body>  
+<section id="content" style="width: 1000px;height:600px;background-color:white;text-align: center;margin-left:10%;">
+    <section id="top-3">
+    	<div style="padding-left: 5px;float:left;">
+    		<img style="height:57px" src="/images/cc-logo.png">
+    	</div>
+    	<div style="float:left;color: black;float: left;font-size: 18px;font-weight: bold;padding-top: 14px;">
+    	内容管理
+    	</div>
+    </section>
+    <section style="float:right;padding-right:40px;padding-top:20px;">
+		<a class="helpUnderline" href="https://portal.chinacache.com/help/profile/content-profile.html" target="_blank">
+		<img src="/images/help_icon.gif"><span>帮助</span>
+		</a>
+	</section>
+    <section style="width:1000px;padding-top:15px;background-color:white;">
+        <table style="width:1000px;">
+            <tr>
+                <td colspan="2" >
+                    <label>username :</label><input id="username" name="username" type="text" class="input_text"/>
+                    <label>password :</label><input id="password" name="password" type="password" class="input_text"/>
+                	<input type="checkbox" name="remember" id="remember" class="custom" checked="true" />
+            		<label for="remember">记住密码</label>
+                </td>
+            </tr>
+        </table>
+        <form>
+			<div class="titlebox">
+				<div class="titleboxinside">
+					URL刷新
+				</div>
+			</div>
+			<div class="graphbox">
+				<div class="graphboxinside">
+					<textarea id="urls" name="urls" style="width: 99%;resize: none;" rows="7"></textarea>
+					<div class="description">
+						注意：请输入需要刷新的URL，每个<font color="#FF0000">URL</font>一行，必须以<font color="#FF0000">http://</font>或者<font color="#FF0000">https://</font>开头。<br>提交后5－10分钟生效。<br>例如：http://www.chinacache.com/news/test.html
+					</div>
+				</div>
+			</div>
+			<br>
+			
+			<div class="titlebox">
+				<div class="titleboxinside">
+					目录刷新
+				</div>
+			</div>
+			<div class="graphbox">
+				<div class="graphboxinside">
+					<textarea id="dirs" name="dirs" style="width: 99%;resize: none;" rows="7"></textarea>
+					<div class="description">
+						注意：刷新目录请以<font color="#FF0000">/</font>结尾，每个<font color="#FF0000">目录</font>一行，必须以<font color="#FF0000">http://</font>或者<font color="#FF0000">https://</font>开头。<br>提交后5－10分钟生效。如果目录下URL数量很大，建议不要使用目录刷新。<br>例如：http://www.chinacache.com/news/
+					</div>
+				</div>
+			</div>
+			<br/>
+			<br/>
+			<div style="text-align: center;">
+				<a id="refresh" class="ui-state-default ui-corner-all" style="font-size:14pt;cursor:pointer">&nbsp;&nbsp;提交&nbsp;&nbsp;</a>
+			</div>
+			<br/>
+			<br/>
+		</form>
+		<hr/>
+		<div id="footer">
+			Copyright © 北京蓝汛通信技术有限责任公司
+		</div>
+    </section>
+</section>
+<!-- ui-dialog -->
+<div id="refresh-msg"  title="刷新结果" style="text-align:center;resize: none;">
+</div>
+
+<script type="text/javascript">
+	var remember = $.cookie('remember');
+    if (remember == 'true') 
+    {
+        var username = $.cookie('username');
+        var password = $.cookie('password');
+        // autofill the fields
+        $('#username').val(username);
+        $('#password').val(password);
+    }
+    $("#refresh-msg").dialog({
+            autoOpen: false,
+            width: 400,
+            resizable:"false",
+            modal: true,
+            buttons: [
+                {
+                    text: "Ok",
+                    click: function() {
+                        $(this).dialog("close");
+                        $("#refresh-msg").html("");
+                    }
+                }
+            ]
+    });
+    $("#refresh").click(function(event) {
+    	var username = $("#username").val().trim();
+    	var password = $("#password").val().trim();
+        if ($('#remember').is(':checked')) {
+            // set cookies to expire in 14 days
+            $.cookie('username', username, { expires: 14 });
+            $.cookie('password', password, { expires: 14 });
+            $.cookie('remember', true, { expires: 14 });                
+        }
+        else
+        {
+            // reset cookies
+            $.cookie('username', null);
+            $.cookie('password', null);
+            $.cookie('remember', null);
+        }
+		if(username == ""){
+			var text = "username不能都为空！" 
+        	$("#refresh-msg").html(text);
+        	$("#refresh-msg").dialog("open");
+    		event.preventDefault();
+    		return;
+		}
+		if(password == ""){
+			var text = "password不能都为空！" 
+        	$("#refresh-msg").html(text);
+        	$("#refresh-msg").dialog("open");
+    		event.preventDefault();
+    		return;
+		}
+    	if($("#urls").val().trim() == "" && $("#dirs").val().trim() == "" ){
+		    var text = "URLS和DIRS不能都为空！" 
+        	$("#refresh-msg").html(text);
+        	$("#refresh-msg").dialog("open");
+    		event.preventDefault();
+    		return;
+    	}
+    	var urlsArr = $("#urls").val().trim().split("\n");
+    	var dirsArr = $("#dirs").val().trim().split("\n");
+		var urls = '["'+urlsArr.join('","')+'"]';
+		var dirs = '["'+dirsArr.join('","')+'"]';
+		xval=getBusyOverlay(
+		'viewport',
+		{
+			color:'black',
+			opacity:0.5, 
+			text:'refresh: waiting result...', 
+			style:'text-shadow: 0 0 3px black;font-weight:bold;font-size:16px;color:white'
+		},
+		{
+			color:'#fff', 
+			size:156, 
+			type:'o'
+		});
+    	$.ajax({
+            type: "POST",
+            url: "/content/refresh",
+            data:{'username': username, 'password': password, 'task': '{"urls":'+urls+',"dirs":'+dirs+'}'},
+            statusCode: {
+                403: function(data) {
+                	xval.remove();xval='';
+        		    var text = data['responseText']; 
+			    	$("#refresh-msg").html(text);
+			    	$("#refresh-msg").dialog("open");
+					event.preventDefault();
+                },
+                400: function(data) {
+                	xval.remove();xval='';
+        		    var text = data['responseText']; 
+			    	$("#refresh-msg").html(text);
+			    	$("#refresh-msg").dialog("open");
+					event.preventDefault();
+                },
+                500: function(data) {
+                	xval.remove();xval='';
+        		    var text = data['responseText']; 
+			    	$("#refresh-msg").html(text);
+			    	$("#refresh-msg").dialog("open");
+					event.preventDefault();
+                }
+            },
+            success: function(data){
+            	xval.remove(); xval='';
+            	var text = "刷新成功！" 
+            	$("#refresh-msg").html(text);
+            	$("#refresh-msg").dialog("open");
+        		event.preventDefault();
+                }
+        });
+    });
+</script>
+
+</body>
+</html>

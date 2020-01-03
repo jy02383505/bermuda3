@@ -1,0 +1,43 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 768px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 50%;">
+                <p class='title'>设备数</p>
+                <p class='value'>{{ count }}</p>
+            </div>
+            <div style="width: 50%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ unprocess }}</p>
+            </div>
+        </div>
+	成功设备如下：
+	<hr />
+	<textarea rows="10" style="width: 740px">{{'\n'.join(success_devs)}}</textarea>
+	<hr />
+        <div class='clear'></div>
+	失败设备如下：
+	<hr />
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <div class='div-th' style='width: 25%;' id="hostname">设备名字</div>
+                <div class='div-th' style='width: 25%;' id="status">设备类型</div>
+                <div class='div-th' style='width: 25%;' id="code">Code</div>
+                <div class='div-th' style='width: 25%;' id="ip">IP</div>
+                <div class='clear'></div>
+             </div>
+            {% for dev in failed_devs %}
+                <div class='div-tr level2' id='tr0'>
+                    <div class='div-td' style='width: 25%'>{{ dev.name }}</div>
+		        {% if dev.type %}
+                    <div class='div-th' style='width: 25%'>{{ dev.type }}</div>
+		        {% else %}
+                    <div class='div-th' style='width: 25%'>unknown</div>
+                {% endif %}
+                    <div class='div-td' style='width: 25%'>{{ dev.result_status }}</div>
+                    <div class='div-td' style='width: 25%'>{{ dev.host }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" /> 
+<h3>您当前的加密 seed 为  {{seed}}</h3>
+<hr>
+
+<form class="form-search">
+  <h3>当前证书库证书总数为  {{total_count}} </h3>
+<!--
+  <button type="submit" class="btn"  data-toggle="modal" data-target="#myModal">DownLoad</button>
+  <div class="modal hide fade" id="myModal" tabindex="-1" role="dialog">
+      <div class="modal-header">
+          确认下载全部证书（加密）吗
+      <a href='/cert_download_all'>确认下载</a>
+      </div>
+      <p class="text-warning">&nbsp;&nbsp;下载后的证书需要用解密脚本及您的加密seed解密才可以用于商业环境</p>
+   </div>
+-->
+</form>
+
+<hr>
+
+<h3>证书回调(RCMS&PORTAL)</h3>
+  <input type="text" class="input-large search-query" id='cert_id'>
+  <button type="submit" class="btn" id="callback">Down</button>
+<hr>
+
+<!--
+<h3>解密脚本下载 -> 点击此处 </h3>
+-->
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $("#callback").click(function(){
+      var c_id = $('#cert_id').val()
+    
+      if (c_id == ''){
+         alert('please enter cert id')
+      }else{
+          $.post("/cert_callback",
+              {
+                cert_id: c_id
+              },
+              function(data,status){
+		alert(data)
+	        return
+            });
+         }
+      });
+})
+
+</script>
+
+
+{% endblock %}
+
+

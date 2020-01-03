@@ -1,0 +1,156 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+
+    <div class="text-center">
+         <form class="form-inline" action="/monitor/device" method="post" id="queryForm" onsubmit="return ckform(this);">
+            <label class="control-label"> <strong>HOSTNAME:</strong>
+            <input type="text" class="input-large" name="hostname" value="{{ res.hostname }}">
+            </label>
+
+            <label class="control-label"><strong>日期: </strong> <input type="text" id="datepickera_from" name="datefrom"  readonly="true" value="{{ res.datefrom }}"/>~</label>
+            <label class="control-label"><input type="text" id="datepickera_to" name="dateto"  readonly="true" value="{{ res.dateto }}"/></label>
+            
+            <button type="submit" class="btn btn-primary ">查询</button>
+        </form>
+    </div>
+
+        <div class="jumbotron">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>hostname</center></th>
+                      <th style="width: 350px;"><center>成功</center></th>
+                      <th style="width: 130px;" ><center>失败</center></th>
+                      <th style="width: 130px;" ><center>生成txt</center></th>
+                      </tr>
+                    {%for dev in res.devs%}
+                    <tr>
+                      <td><center>{{dev.hostname}}</center> </td>
+                      <td><center>{{dev.success}}</center> </td>
+          <td>
+          {% if dev.failed > 0 %}
+                          <center><a href="/monitor/device/detail/{{dev.hostname}}?qdfrom={{res.datefrom}}&qdto={{res.dateto}}" >{{dev.failed}}</a></center>
+          {% else %}
+                          <center>{{dev.failed}}</center>
+          {% endif %}
+          </td>
+          {% if dev.failed > 0 %}
+                          <td><center><a href="/monitor/device/txt/{{dev.hostname}}?qdfrom={{res.datefrom}}&qdto={{res.dateto}}" rel='to_txt'><button type="submit" class="btn btn-primary ">导出</button></a></center> </td>
+          {% else %}
+        <td><center>无失败任务</center></td>
+          {% endif %}
+
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+
+        {% if res.total_page > 1 %}
+        <div class="pagination">
+              <ul>
+                  {% if res.can_pre_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{res.page-1}});">&laquo;</a></li>
+                  {% endif %}
+                  {%for p in res.page_list %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if res.page == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+                  {% if res.can_next_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{res.page+1}});">&raquo;</a></li>
+                  {% endif %}
+              </ul>
+         </div>
+         {% endif %}
+
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+
+    <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","page");
+          f.appendChild(input);
+          f.submit();
+        };
+
+        $(function() {
+          $( "#datepickera_from" ).datepicker();
+          $( "#datepickera_from" ).datepicker( 'setDate' , new Date());
+          $( "#datepickera_to" ).datepicker();
+          $( "#datepickera_to" ).datepicker( 'setDate' , new Date());
+
+          {% if res.datefrom: %}
+            $( "#datepickera_from" ).val("{{res.datefrom}}")
+          {%endif%}
+
+          {% if res.dateto: %}
+            $( "#datepickera_to" ).val("{{res.dateto}}")
+          {%endif%}
+
+        });
+          
+        function ckform(obj){
+           if (obj.datepickera_from.value > obj.datepickera_to.value){
+               alert("开始时间要小于结束时间");
+               return false
+           }
+           return true
+       }
+        $(document).ready(function() {
+        $("a[rel=to_txt_2]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+        $("a[rel=retry]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+
+        $("a[rel=retryDevice]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+      });
+  </script>
+
+{% endblock %}

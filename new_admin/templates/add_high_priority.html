@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="text-center">
+         <form class="form-inline" action="/refresh/high_priority/add/detail" method="post" id="queryForm">
+            <label class="control-label"> <strong>用户名:</strong>
+                  <input class="input-large" type="text" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label">
+            </label>
+            <button type="submit" class="btn btn-primary ">查询未配置高优先级频道</button>
+            </form>
+    </div>
+
+        <div class="container">
+            {% if not args.channels %}
+               暂无频道
+            {% else %}
+                <form class="form-inline" action="/refresh/high_priority/add" method="post" id="add_form">
+                  <input type="hidden" name="channels"  id="channels">
+                  <input type="hidden" name="username"  value="{{args.username}}">
+                  <p><input type="button" class="btn" id="btn1" value="全选">
+                  <input type="button" class="btn" id="btn2" value="取消全选">
+                  <input type="button"  class="btn" id="btn3" value="反选"></p>
+                  <table class="table">
+                      {% for channel in args.channels %}
+                            <tr><td><label class="checkbox">
+                            <input type="checkbox" value="{{channel.code}}${{channel.name}}" name="checkbox">{{channel.name}}
+                            </label></td></tr>
+                      {% endfor %}
+                      <tr><td><label class="control-label"> <strong>开始日期:   </strong> <input type="text" id="start_time" name="start_time"  readonly="true" value="{{args.start_time}}" /></td></tr>
+                      <tr><td><label class="control-label"> <strong>结束日期:   </strong> <input type="text" id="end_time" name="end_time"  readonly="true" value="{{args.end_time}}" /></td></tr>
+                      <tr><td><button type="button" class="btn" id="btn5">确认开通</button></td></tr>
+                </table>
+                </form>
+            {% endif %}
+        </div>
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+<script type="text/javascript">
+
+$('#start_time').datetimepicker();
+$('#end_time').datetimepicker();
+
+jQuery(function($){
+//全选
+$("#btn1").click(function(){
+$("input[name='checkbox']").attr("checked","true");
+})
+//取消全选
+$("#btn2").click(function(){
+$("input[name='checkbox']").removeAttr("checked");
+})
+//反选
+$("#btn3").click(function(){
+$("input[name='checkbox']").each(function(){
+if($(this).attr("checked"))
+  {
+  $(this).removeAttr("checked");
+  }
+else
+  {
+  $(this).attr("checked","true");
+  }
+})
+})
+//或取选择项的值
+var channels="";
+$("#btn5").click(function(){
+$("input[name='checkbox']:checkbox:checked").each(function(){
+channels+=$(this).val()
+channels+=";"
+})
+$("#channels").attr("value" , channels);
+$('#add_form').submit();
+
+})
+})
+</script>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="text-center">
+        <form class="form-inline" action="/get_channels_by_user" method="post" id="queryForm">
+            <label class="control-label"> <strong>客户:</strong>
+
+                  <input class="input-large" type="text" name="username" value="{{ args.username }}">
+            <!--<select name="username" >
+              {% for user in users %}
+               <option value="{{user.name}}"
+                       {% if args.username == user.name %}
+                          selected="selected"
+                         {% endif %} >{{user.name}}</option>
+              {% endfor %}
+             </select> -->
+                  <select name="usertype">
+                      {% if args.usertype == '2' %}
+                          <option value="1">主账户</option>
+                          <option value="2" selected="selected">子账户</option>
+                      {% else %}
+                      <option value="1" selected="selected">主账户</option>
+                      <option value="2">子账户</option>
+                      {% endif %}
+                  </select>
+            </label>
+            <label class="control-label">
+            </label>
+            <button type="submit" class="btn btn-primary ">查询未开通频道</button>
+        </form>
+    </div>
+
+        <div class="container">
+            <form class="form-inline" action="/add_preload_channel" method="post" id="add_form">
+              <input type="hidden" name="channels" id="channels">
+              <input type="hidden" name="device_type" id="device_type">
+              <input type="hidden" name="username" value="{{args.username}}">
+              {# <input type="hidden" name="username_bf" value="{{args.channels}}"> #}
+              <p><input type="button" class="btn" id="btn1" value="全选">
+              <input type="button" class="btn" id="btn2" value="取消全选">
+              <input type="button" class="btn" id="btn3" value="反选"></p>
+              <table class="table">
+                  {% for channel in args.channels %}
+                        <tr><td><label class="checkbox">
+                        <input type="checkbox" value="{{channel.code}}${{channel.name}}" name="checkbox">{{channel.name}}
+                        </label></td></tr>
+                    {% endfor %}
+                    <tr><td>
+                    <div class="control-group"><br/>
+                       <label class="control-label">默认开通设备:</label>&nbsp;&nbsp;&nbsp;
+                              <label class="radio"><input type="radio" name="device_radio" value="1" />全部设备</label>&nbsp;&nbsp;&nbsp;
+                              <label class="radio"><input type="radio" name="device_radio" value="2" checked/>上层设备</label>&nbsp;&nbsp;&nbsp;
+                              <label class="radio"><input type="radio" name="device_radio" value="3"/>我要手动配置</label>
+		    </div>
+                    </td></tr>
+                    <tr><td><button type="button" class="btn" id="btn5">确认开通</button></td></tr>
+            </table>
+
+            </form>
+        </div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript">
+jQuery(function($){
+  //全选
+  $("#btn1").click(function(){
+    $("input[name='checkbox']").attr("checked","true");
+  })
+  //取消全选
+  $("#btn2").click(function(){
+    $("input[name='checkbox']").removeAttr("checked");
+  })
+  //反选
+  $("#btn3").click(function(){
+    $("input[name='checkbox']").each(function(){
+      if($(this).attr("checked")){
+        $(this).removeAttr("checked");
+      }else{
+        $(this).attr("checked","true");
+      }
+    })
+  })
+  //或取选择项的值
+  var channels="";
+  var device_type="";
+  $("#btn5").click(function(){
+    $("input[name='checkbox']:checkbox:checked").each(function(){
+      channels+=$(this).val();
+      channels+=";";
+    });
+    device_type = $("input[name='device_radio']:checked").val()
+    $("#channels").attr("value" , channels);
+    $("#device_type").attr("value" , device_type);
+    $('#add_form').submit();
+
+  })
+})
+</script>
+
+{% endblock %}

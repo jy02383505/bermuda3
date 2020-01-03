@@ -1,0 +1,26 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width:1068px;">
+    <div class="middle-div">
+详细信息如下：
+    	<hr />
+        <div class='div-table' id="table-devices">
+            <div class='div-tr'>
+                <div class="div-th" style="width: 12%; line-height: 235%;background: #C0C0C0"><strong>type</strong></div>
+                <div class='div-td' style='width: 84%;word-wrap: break-word; background: #eee;'>{{ type_info }}</div>
+            </div>
+            <div class='div-tr'>
+                <div class="div-th" style="width: 12%; line-height: 235%;background: #C0C0C0"><strong>DNS</strong></div>
+                <div class='div-td' style='width: 84%;word-wrap: break-word; background: #eee;'>{{ ', '.join(DNS_info)}}</div>
+                <!-- <textarea cols="120" rows="3">{{ ' || '.join(DNS_info)}}</textarea> -->
+            </div>
+            <div class='div-tr'>
+                <div class="div-th" style="width: 12%; line-height: 235%;background: #C0C0C0"><strong>subject</strong></div>
+                <div class='div-td' style='width: 84%;word-wrap: break-word; background: #eee;'>{{ subject_info.strip('[{}]')}}</div>
+            </div>
+            <div class='div-tr'>
+                <div class="div-th" style="width: 12%; line-height: 235%;background: #C0C0C0"><strong>issuer</strong></div>
+                <div class='div-td' style='width: 84%;word-wrap: break-word; background: #eee;'>{{ issuer_info.strip('[{}]')}}</div>
+            </div>
+        </div>
+    </div>
+</div>

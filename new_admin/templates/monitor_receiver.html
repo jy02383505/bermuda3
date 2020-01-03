@@ -1,0 +1,219 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src={{ url_for('static', filename='js/echarts.js') }}></script>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+
+<div id="main" style="width:1000px;height:400px;"></div>
+
+{% for g in range(res.refresh_group_count) %}
+    <div id="refresh_{{g}}" style="width:1000px;height:400px;"></div>
+{% endfor %}
+    
+<script type="text/javascript">
+
+//refresh 相关
+var refresh_options = []
+var refresh_chart = []
+
+{% for g in  range(res.refresh_group_count) %}
+    var r_dom = document.getElementById("refresh_{{g}}");
+    refresh_chart[{{g}}] = echarts.init(r_dom)
+    
+    refresh_options[{{g}}] = {
+        title: {
+            text: '{{res.refresh_group[g][0]|safe}}' + ' refresh worker数据',
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: {{res.refresh_group[g][1]|safe}},
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataView: {readOnly: false},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        dataZoom: {
+            show: false,
+            start: 0,
+            end: 100
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: true,
+                data: (function (){
+                    //var now = new Date();
+                    var server_t = {{res.ts}}
+                    var _now = new Date(server_t - 1000)
+                    var res = [];
+                    var len = 10;
+                    while (len--) {
+                        res.unshift(_now.toLocaleTimeString().replace(/^\D*/,''));
+                        _now = new Date(_now - 2000);
+                    }
+                    return res;
+                })()
+           }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                scale: true,
+                name: '任务数',
+                min: 0,
+                boundaryGap: [0.2, 0.2]
+            }
+        ],
+        series: {{res.refresh_data[g]|safe}}
+
+    };    
+{% endfor %}
+$.each(refresh_options,function(n, value){
+    refresh_chart[n].setOption(value, true);
+});
+
+//console.log(refresh_options)
+//refresh end
+
+
+var legend_arry = []
+var series_arry = []
+
+{% for i in range(res.servers_count) %}
+    var _txt = "{{res.servers[i][0]|safe}}" + '任务' 
+    legend_arry.push(_txt)
+    series_arry.push({name:_txt,type:'line',data:{{res.init_data[i]}}})
+{% endfor %}
+
+var dom = document.getElementById("main");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '接收数据',
+        //subtext: '1~4组'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: legend_arry,
+	//selected:{'all':false}
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataView: {readOnly: false},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
+    dataZoom: {
+        show: false,
+        start: 0,
+        end: 100
+    },
+    xAxis: [
+        {
+            type: 'category',
+            boundaryGap: true,
+            data: (function (){
+                //var now = new Date();
+                var server_t = {{res.ts}}
+                var _now = new Date(server_t - 1000)
+                var res = [];
+                var len = 10;
+                while (len--) {
+                    res.unshift(_now.toLocaleTimeString().replace(/^\D*/,''));
+                    _now = new Date(_now - 2000);
+                }
+                return res;
+            })()
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value',
+            scale: true,
+            name: '任务数',
+         //   max: 1000,
+            min: 0,
+            boundaryGap: [0.2, 0.2]
+        }
+    ],
+    series: series_arry
+
+};
+clearInterval(app.timeTicket);
+app.count = 11;
+app.timeTicket = setInterval(function (){
+   // var now = new Date()
+   // var _now = new Date(now - 1000)
+   // axisData = _now.toLocaleTimeString().replace(/^\D*/,'');
+    $.post('/monitor/receiver/result', JSON.stringify({'date':''}), 
+        function(res){
+	    $.each(res.receiver,function(n, value){
+           // console.log(n + ' ' + value);
+            var _data = option.series[n].data
+            _data.shift()
+            _data.push(value)
+            });
+           //refresh 数据
+           $.each(res.refresh, function(m, _value){
+              $.each(_value, function(_m, v){
+                  var m_data = refresh_options[m].series[_m].data 
+                  m_data.shift()
+                  m_data.push(v)
+              });
+           });
+
+           var _now = new Date(res.ts - 1000)
+    	   var axisData = _now.toLocaleTimeString().replace(/^\D*/,'');
+
+           option.xAxis[0].data.shift();
+           option.xAxis[0].data.push(axisData);
+           // refresh组时间
+           $.each(refresh_options, function(o, p){
+               p.xAxis[0].data.shift();
+               p.xAxis[0].data.push(axisData);
+           });
+           myChart.setOption(option);
+           // refresh组重新初始化
+           
+           $.each(refresh_options,function(n, value){
+               refresh_chart[n].setOption(value, true);
+           });
+        }
+    ,'json');
+
+   // var data0 = option.series[0].data;
+   // var data1 = option.series[1].data;
+   // data0.shift();
+   // data0.push(Math.round(Math.random() * 100));
+   // data0.push(120);
+   // data1.shift();
+   // data0.push(Math.round(Math.random() * 100));
+   // data1.push(100);
+
+
+}, 2000);
+;
+
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+
+</script>
+
+
+{% endblock %}

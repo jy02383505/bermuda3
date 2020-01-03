@@ -1,0 +1,135 @@
+{% extends "layout.html" %}
+{% block body %}
+    <link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" />
+    <div class="container">
+         <form class="form-inline" action="/cert_portal_action" method="post" id="queryForm">
+         <table class="table table-striped">
+           <tr>
+                <td><center><strong>证书名称:</strong></center></td>
+                <td><input type="text" name="cert_name" id="cert_name"  value="" class="span3">
+                <span style="color: Brown">&nbsp;&nbsp;&nbsp;不带后缀名!</span></td>
+           </tr>  
+		   <tr>
+                <td><center><strong>查询时间:</strong></center></td>
+            <td><input type="text" readonly="true" value="{{ args.timing }}"/></td>
+		   </tr>
+           <tr>
+                <td><center><strong style="line-height: 20px">查询类型:</strong></center></td>
+                <td>
+                    <select name="cert_type" class="dev_select" style="width: 60%;">
+                        <option value="cer"
+                        {% if args.status == "cer" %}
+                          selected="selected"
+                         {% endif %}
+                        >cer</option>
+                        <option value="crt"
+                          {% if args.status == "crt" %}
+                          selected="selected"
+                         {% endif %}
+                        >crt</option>
+                    </select>
+                </td>
+           </tr>
+           <tr>
+           
+                <td><center><strong>查询设备 :</strong></center></td>
+                <td>
+                    <textarea wrap="virtual"  rows="10" style="width:60%;height:100%;"  name="query_ip" id="query_ip"></textarea>
+				    <div style="color:brown;width:30%;position: relative;float: right;top: 46px;right: 5%;">每行输入一个设备IP ! <br>例子：<br>223.202.203.31 <br>223.202.203.52<br>223.202.203.76</div>
+                </td>
+           </tr>
+         </table>  
+           <div class="row">
+                <div class="span2"><center><button type ="button" class="btn cert_query_submit">提  交</button></center></div>
+           </div>    
+        </form>
+    </div>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+<script type="text/javascript">
+    $('.cert_query_submit').click(function(){
+        var f = $('form');
+        var res = ckform(f);
+        if (res == false)
+            return;
+        var f_data = f.serializeArray();
+        var cert_data = {};
+        $(f_data).each(function(){
+            cert_data[this.name] = this.value;
+        })
+        console.log(cert_data);
+        $.post('/cert_portal_action', cert_data, function(re){
+			if (re == 200)
+			    alert('\n'+'任务接收成功');
+			else
+				alert('任务接收失败'+'\n'+'\n'+ re)
+            console.log(re);
+        })
+    })
+
+    $(document).ready(function(){
+        $('#cert_portal').datetimepicker({
+                timeFormat: "HH:mm",
+                 dateFormat: "yy-mm-dd"
+                
+            }); 
+        {% if args.timing %}
+            $( "#cert_portal" ).val("{{args.timing}}");
+        {%endif%}
+    });
+    function ckform(obj){
+        var cert_name=$('#cert_name').val();
+        if(cert_name==''){
+            alert('证书名不能为空');
+            return false;
+        }
+        var query_ip=$('#query_ip').val();
+        if(query_ip==''){
+            alert('设备不能为空');
+            return false;
+        }
+        var cert_type=$('#cert_type').val();
+        return true
+    }
+    (function($) {
+    $.extend({
+        myTime: {
+            /**
+             * 当前时间戳
+             * @return <int>        unix时间戳(秒)  
+             */
+            CurTime: function(){
+                return Date.parse(new Date())/1000;
+            },
+            /**              
+             * 日期 转换为 Unix时间戳
+             * @param <string> 2014-01-01 20:20:20  日期格式              
+             * @return <int>        unix时间戳(秒)              
+             */
+            DateToUnix: function(string) {
+                var f = string.split(' ', 2);
+                var d = (f[0] ? f[0] : '').split('-', 3);
+                var t = (f[1] ? f[1] : '').split(':', 3);
+                return (new Date(
+                        parseInt(d[0], 10) || null,
+                        (parseInt(d[1], 10) || 1) - 1,
+                        parseInt(d[2], 10) || null,
+                        parseInt(t[0], 10) || null,
+                        parseInt(t[1], 10) || null,
+                        parseInt(t[2], 10) || null
+                        )).getTime() / 1000;
+            }
+        }
+    });
+})(jQuery);
+</script>
+
+{% endblock %}
+
+
+
+

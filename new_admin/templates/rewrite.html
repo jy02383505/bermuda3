@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block body %}
+        <div class="text-center">
+
+            <form class="form-inline" action="/add_rewrite" method="post">
+
+            <label class="control-label"> <strong>CHANNEL_NAME ( 频道名称 ) :</strong>
+            <input type="text" class="input-xlarge" name="channel_name" >
+            </label>
+
+            <label class="control-label"> <strong>REWRITE_NAME ( 重定向频道名称 ): </strong>
+            <input type="text" class="input-xlarge" name="rewrite_name" >
+
+             </label>
+             <button type="submit" class="btn btn-primary ">新增配置</button>
+            </form>
+        </div>
+        <div class="text-center">
+         <form class="form-inline" action="/rewrite" method="post" id="queryForm">
+            <label class="control-label"> <strong>频道名称:</strong>
+                <input class="input-large" type="text" name="CHANNEL_NAME" value="{{ args.CHANNEL_NAME }}">
+            </label>
+            <label class="control-label"> <strong>重定向频道名称:</strong>
+                <input class="input-large" type="text" name="REWRITE_NAME" value="{{ args.REWRITE_NAME }}">
+            </label>
+
+            <button type="submit" class="btn btn-primary ">查询</button>
+            </form>
+         </div>
+        <div class="container">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>频道名称</center></th>
+                      <th style="width: 150px;" ><center>重定向频道名称</center></th>
+                      <th style="width: 150px;"><center>删除配置</center></th>
+                      </tr>
+                    {% for rewrite in rewrite_list %}
+                    <tr>
+                      <td><center>{{rewrite.CHANNEL_NAME}}</center> </td>
+                      <td><center>{{rewrite.REWRITE_NAME}}</center> </td>
+                      <td><center><a class="btn btn-info" href="/del_rewrite?rewrite_name={{rewrite.REWRITE_NAME}}&channel_name={{rewrite.CHANNEL_NAME}}" rel="rewrite">删除</a></center> </td>
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+           {% if args.totalpage >1 %}
+       <div class="container">
+        <div class="pagination">
+              <ul>
+                  <li class="disabled"><a href="/rewrite">&laquo;</a></li>
+                  {%for p in range(args.totalpage) %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+              </ul>
+         </div>
+        </div>
+         {% endif %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+     <script type="text/javascript">
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          input.setAttribute("type","hidden");
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.submit();
+        };
+
+  </script>
+{% endblock %}

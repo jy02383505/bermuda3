@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+        <div class="text-center">
+
+            <form class="form-inline" action="/add_overloads_config" method="post">
+                <label class="control-label"> <strong>username :</strong>
+                <input type="text" class="input-xlarge" name="username" >  
+                </label>  
+                <label class="control-label"> <strong>MAX_URL :</strong>
+                <input type="text" class="input-xlarge" name="max_url" >  
+                </label>  
+                <label class="control-label"> <strong>MAX_DIR  :</strong>
+                <input type="text" class="input-xlarge" name="max_dir" >  
+                </label>
+                <label class="control-label"> <strong>MAX_PRELOAD  :</strong>
+                <input type="text" class="input-xlarge" name="max_preload" >
+                </label>
+                 <button type="submit" class="btn btn-primary ">新增</button>
+{#                 <input type="hidden" name="overloads" value="{{ overloads }}">#}
+                <input type="hidden" name="user_email" id="user_email" value="{{ session.get("user").account }}">
+            </form>
+        </div>        
+        <div class="container">
+              <h1></h1>
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>username</center></th>
+                      <th style="width: 200px;" ><center>MAX_URL</center></th>
+                      <th style="width: 200px;" ><center>MAX_DIR</center></th>
+                      <th style="width: 200px;"><center>MAX_PRELOAD</center></th>
+                      <th style="width: 200px;"><center>删除配置</center></th>
+                   </tr>
+                    {% for overload in overloads %}
+                    <tr>
+                      <td><center>{{overload.USERNAME}}</center> </td>
+                      <td><center>{{overload.URL}}</center> </td>
+                      <td><center>{{overload.DIR}}</center> </td>
+                        {% if overload.PRELOAD_URL %}
+                            <td><center>{{ overload.PRELOAD_URL }}</center></td>
+                        {% else %}
+                            <td><center>--</center></td>
+                        {% endif %}
+                      <td><center><a class="btn btn-info" href="/del_overloads_config/{{overload.USERNAME}}?user_email={{ session.get("user").account }}" rel="rewrite">删除</a></center> </td>
+                    </tr>                  
+                    {% endfor %}
+              </table>
+        </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+{% endblock %}

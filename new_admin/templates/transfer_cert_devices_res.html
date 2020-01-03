@@ -1,0 +1,39 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div class="midd5le-div">
+    <div class='drop-shadow curved curved-vt-2'>
+        <div style="width: 100%;">
+            <center><h3 style="color: #fff;">转移证书及转移结果</h3></center>
+        </div>
+    </div>
+<br/>
+<h4 style="color: #996600;">此次转移的证书：</h4>
+    <h5 style="color: #000033;">{{all_certs[:-1]}}</h5>
+<h4 style="color: #996600;">转移结果:</h4>
+    {% for str in success_strs %}
+    <h5 style="color: #000033;">{{str + ":" + "      " + "全部成功"}}</h5>
+    {% endfor %}
+
+    {% for k,v in failed_certs.items() %}
+    <h5 style="color: #000033;">{{k}}</h5>
+    <div class='div-table' id="table-devices">
+        <div class='div-head'>
+            <div class='div-th' style='width: 25%;' id="hostname">设备名字</div>
+            <div class='div-th' style='width: 25%;' id="status">设备类型</div>
+            <div class='div-th' style='width: 25%;' id="code">code</div>
+            <div class='div-th' style='width: 25%;' id="ip">IP</div>
+            <div class='clear'></div>
+        </div>
+        {% for m,n in v.items() %}
+        {% if n!= 200 %}
+            <div class='div-tr level1' style="overflow-y: scroll; height: 30px; width: 900px;" id='tr0'>
+                <div class='div-td' style='width: 25%'>{{ dic_res[m] }}</div>
+                <div class='div-th' style='width: 25%'>{{ "HPCC"}}</div>
+                <div class='div-td' style='width: 25%'>{{n}}</div>
+                <div class='div-td' style='width: 25%'>{{m}}</div>
+            </div>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+    <div class='clear'></div>
+    {% endfor %}

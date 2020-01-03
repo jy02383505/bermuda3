@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block body %}
+        <div class="text-center">
+
+            <form class="form-inline" action="/grant_role" method="post">
+
+            <label class="control-label"> <strong>用户名:</strong>
+            <input type="text" class="input-xlarge" name="username" id ="username">  
+            </label>  
+
+            <label class="control-label"> <strong>角色: </strong>
+             <select name="role" id="role">
+                        <option value="admin">管理员</option>
+                        <option value="operator">操作员</option>
+                      </select>    
+             </label>
+             <button type="submit" class="btn btn-primary ">授权</button>
+             <input type="hidden" name="users" value="{{ users }}">
+            </form>
+        </div>        
+        <div class="container">
+              <table class="table table-striped">
+                  <tr>
+                      <th style="width: 200px;"><center>用户名</center></th>
+                      <th style="width: 150px;" ><center>系统角色</center></th>
+                      <th style="width: 150px;"><center>删除权限</center></th>
+                      </tr>
+                    {% for user in users %}
+                    <tr>
+                      <td><center><a href="javascript:cn('{{user._id}}','{{user.role}}');" class="" > {{user._id}}</a></center> </td>
+                      <td><center>{{user.role}}</center> </td>
+                      <td><center><a class="btn btn-info" href="/del_role/{{user._id}}" rel="device">删除权限</a></center> </td>
+                    </tr>                  
+                    {% endfor %}
+              </table>
+        </div>
+        <script type="text/javascript">
+        function cn(account,role){
+          $("#username").val(account);
+          $("#role").val(role)
+        }
+        </script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+
+{% endblock %}

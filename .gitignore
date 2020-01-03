@@ -1,0 +1,10 @@
+*.pyc
+*/*.pyc
+*.log
+*/*.log
+__pycache__
+*/__pycache__
+*/.tags*
+nohup.out
+*/nohup.out
+build/*

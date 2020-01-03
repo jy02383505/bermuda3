@@ -1,0 +1,96 @@
+<link href="{{ url_for('static', filename='css/style.css')}}" rel="stylesheet">
+<div id="container" style="width: 868px;">
+    <div class="middle-div">
+        <div id='summary' class='drop-shadow curved curved-vt-2'>
+            <div style="width: 50%;">
+                <p class='title'>刷新设备数</p>
+                <p class='value'>{{ count }}</p>
+            </div>
+            <div style="width: 50%;">
+                <p class='title'>没有处理的设备数</p>
+                <p class='value'>{{ unprocess }}</p>
+            </div>
+        </div>
+        <div class='clear'></div>
+        <div class='div-table' id="table-devices">
+             <div class='div-head'>
+                <!--<div class='div-th' style='width: 15%;' id="hostname">设备名字</div> -->
+                <div class='div-th' style='width: 10%;' id="status">状态</div>
+                <div class='div-th' style='width: 10%;' id="status">设备类型</div>
+                <div class='div-th' style='width: 10%;' id="code">Code</div>
+                <!--<div class='div-th' style='width: 12.5%;' id="ip">IP</div> -->
+                 <div class='div-th' style='width: 10%; ' id="isfirstlayer">是否上层</div>
+                 <div class='div-th' style='width: 15%; ' id="subCenterIp">分中央IP</div>
+                 <div class='div-th' style='width: 15%; ' id="subCenterIp">分中央花费时间</div>
+                 <div class='div-th' style='width: 30%; ' id="xml_body">失败信息</div>
+
+                <div class='clear'></div>
+             </div>
+            {% for name ,devs in devs.iteritems() %}
+                    <div class='div-td' style='width: 100%;text-align: center;background-color: #a2a294;line-height: 32px;font-size: 15px;;font-weight:900;'>{{ name}}</div>
+                {% for dev in devs %}
+                    {% if dev.edge_result in (200,206) %}
+                    <div class='div-tr level0' style="width: 868px;" id='tr0'>
+                    {% elif dev.edge_result ==204 %}
+                    <div class='div-tr level1'  style="width: 868px;"  id='tr0'>
+                    {% elif dev.edge_result >206 or dev.edge_result == 0 %}
+                    <div class='div-tr level2'  style="width: 868px;"  id='tr0'>
+                        {% endif %}
+                           <!-- <div class='div-td' style='width: 15%'>{{ dev.name }}</div> -->
+                        {% if dev.status %}
+                            <div class='div-td' style='width: 10%'>{{ dev.status }}</div>
+                        {% else %}
+                             <div class='div-td' style='width: 10%'>--</div>
+                        {% endif %}
+                        {% if dev.type %}
+                            <div class='div-th' style='width: 10%'>{{ dev.type }}</div>
+                        {% else %}
+                            <div class='div-th' style='width: 10%'>unknown</div>
+                        {% endif %}
+                        {% if dev.cent_link_sub != 200 %}
+                            <div class='div-td' style='width: 10%'>未连接</div>
+
+                        {% else %}
+                            {% if dev.edge_result == 503 %}
+                                <div class='div-td' style='width: 10%'>失败</div>
+                            {% else %}
+                                {% if dev.edge_result == 0 %}
+                                      <div class='div-td' style='width: 10%'>失败</div>
+                                {% else %}
+                                      <div class='div-td' style='width: 10%'>{{ dev.edge_result }}</div>
+                                {% endif%}
+                            {% endif %}
+                        {% endif %}
+                           <!-- <div class='div-td' style='width: 12.5%'>{{ dev.edge_host }}</div> -->
+                            <div class='div-td' style='width: 10%'>{{ dev.firstLayer }}</div>
+                        {% if dev.subcenter_host %}
+                            <div class='div-td' style='width: 15%'>{{ dev.subcenter_host }}</div>
+                        {% else %}
+                            <div class='div-td' style='width: 15%'>--</div>
+                        {% endif %}
+                        {% if dev.finish_time %}
+                            <!--<div class='div-td' style='width: 15%'>{{ dev.finish_time -dev.created_time}}秒</div> -->
+                            {# <div class='div-td' style='width: 15%'>{{ dev.finish_time -dev.created_time}}秒</div> #}
+                            <div class='div-td' style='width: 15%'>{{ dev.consume_time}}秒</div>
+                        {% else %}
+                            <div class='div-td' style='width: 15%'>--</div>
+                        {% endif %}
+
+                        {% if dev.xml_body %}
+                            <!--<div class='div-td' style='width: 15%'>{{ dev.finish_time -dev.created_time}}秒</div> -->
+                            <div class='div-td' style='width: 26%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' title="{{ dev.xml_body}}">{{ dev.xml_body}}</div>
+                        {% else %}
+                            {% if dev.edge_result == 0 and dev.cent_link_sub ==200%}
+                                     <!-- <div class='div-td' style='width: 10%'>失败</div> -->
+                                       <div class='div-td' style='width: 26%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;' title="sessionid={{dev.r_id}}id=5code=404">sessionid={{dev.r_id}}id=5code=404</div>
+                            {% else %}
+                                 <div class='div-td' style='width: 30%'>--</div>
+                            {% endif%}
+                        {% endif %}
+
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

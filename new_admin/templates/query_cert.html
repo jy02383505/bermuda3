@@ -1,0 +1,256 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+<link href="{{ url_for('static', filename='css/jquery-ui.css') }}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery.fancybox-1.3.4.css') }}" media="screen" />
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/jquery-ui-timepicker-addon.css') }}" /> 
+
+<div class="text-left">
+    <label class="control-label"> <strong>您当前的seed: {{seed}} </strong>
+</div>
+
+    <div class="text-center">
+         <form class="form-inline" action="/query_cert" method="post" id="queryForm">
+            <label class="control-label"> <strong>用户名:</strong>
+            <input type="text" class="input-small" name="username" value="{{ args.username }}">
+            </label>
+            <label class="control-label"> <strong>证书ID:</strong>
+                <input class="input-large" type="text" name="cert_id" value="{{ args.cert_id }}">
+            </label>
+            <label class="control-label"> <strong>证书别名:</strong>
+                <input class="input-large" type="text" name="cert_alias" value="{{ args.cert_alias }}">
+            </label>
+            <label class="control-label"> <strong>证书存储名:</strong>
+                <input class="input-large" type="text" name="save_name" value="{{ args.save_name }}">
+            </label>
+            <label class="control-label"> <strong>类型: </strong>
+              <select name="type" class="input-medium">
+                        <option value="all"
+                        {% if args.type == "all" %}
+                          selected="selected"
+                         {% endif %}
+                        >全部证书</option>
+                        <option value="expired"
+                          {% if args.type == "expired" %}
+                          selected="selected"
+                         {% endif %}
+                        >已过期证书</option>
+                        <option value="transfered"
+                          {% if args.type == "transfered" %}
+                          selected="selected"
+                         {% endif %}
+                        >已转移证书</option>
+              </select>
+            </label>
+                <button type="button" class="btn btn-primary " onclick="to_query()">查询</button>
+          </form>
+            {% if certs %}
+            <div class="text-right">
+                <form class="form-inline" action="/cert_download" method="post" id="downForm">
+                    <button type="button" class="btn btn-primary " onclick="to_download()">下载选中证书</button>
+                    <input type="hidden" name="download_ids" id="download_ids" value="" />
+                </form>
+            </div>
+            {% endif %}
+    </div>
+
+        <div class="jumbotron">
+              <table class="table table-striped" style="table-layout:fixed;">
+                  <tr>
+                      <th style="width: 10%;"><center>用户名</center></th>
+                      <th style="width: 10%;" ><center>证书ID</center></th>
+                      <th style="width: 10%;" ><center>证书别名</center></th>
+                      <th style="width: 10%;" ><center>存储文件名</center></th>
+                      <th style="width: 10%;" ><center>有效期</center></th>
+                      <th style="width: 10%;" ><center>上传时间</center></th>
+                      <th style="width: 10%;" ><center>详细信息</center></th>
+                      <th style="width: 10%;" ><center>证书状态</center></th>
+                      <th style="width: 10%;" ><center>下载选中</center></th>
+                      </tr>
+                    {%for t in certs %}
+                    <tr>
+                      <td><center>{{t.username}}</center> </td>
+                      <td><center>{{t._id}}</center> </td>
+                      <td><center>{{t.cert_alias}}</center> </td>
+                      <td><center>{{t.save_name}}</center> </td>
+                      {% if t.c_type == 'expired' %}
+                      <td><center><span style="color: maroon;">{{t.validity_china.begin_time}}</span> <br><span style="color: maroon;">{{t.validity_china.end_time}}</span></center> </td>
+                      {% else %}
+                      <td><center>{{t.validity_china.begin_time}} <br>{{t.validity_china.end_time}}</center> </td>
+                      {% endif %}
+                      {% if t.created_time %}
+                      <td><center>{{t.created_time}}</center> </td>
+                      {% else %}
+                      <td><center>暂无</center> </td>
+                      {% endif %}
+                      <td>
+                        <center>
+                                <a  class="btn btn-info" href="/expired_cert_res/{{t._id}}" rel="device">详细信息</a>
+                        </center> 
+                      </td>
+                      <td>
+                        <center>
+                                {% if t.has_key('c_type') == False %}
+                                {% if t.has_key('t_id') == True %}
+                                <button type="button" class="btn btn-warning disabled">已转移</button>
+                                {% else %}
+                                <button type="button" class="btn btn-success disabled">未转移</button>
+                                {% endif %}
+                                {% elif t.c_type == 'expired' %}
+                                {% if t.has_key('t_id') == True %}
+                                <button type="button" class="btn btn-warning disabled">已转移</button>
+                                {% else %}
+                                <a class="btn btn-info" href="/transfer_expired_cert/{{t.save_name}}" rel="device">转移证书</a>
+                                {% endif %}
+                                {% elif t.c_type == 'transfered' %}
+                                <button type="button" class="btn btn-warning disabled">已转移</button>
+                                {% endif %}
+                        </center> 
+                      </td>
+
+                      <td><center>
+                              <input name="download_box" type='checkbox' value={{t._id}}>
+                      </center> </td>
+
+                    </tr>
+                    {% endfor %}
+              </table>
+        </div>
+
+        {% if args.totalpage >1 %}
+        <div class="pagination">
+              <ul>
+                  {% if args.can_pre_page%}
+                  <li class="disabled"><a href="javascript:submitFrom({{args.curpage-1}});">&laquo;</a></li>
+                  {% endif %}
+                  {%for p in args.page_list %}
+                  <li ><a href="javascript:submitFrom({{p}});" {% if args.curpage == p %} class="btn" {% endif %} >{{ p+1 }}</a></li>
+                 {% endfor %}
+                  {% if args.can_next_page%}
+                   <li class="disabled"><a href="javascript:submitFrom({{args.curpage+1}});">&raquo;</a></li>
+                  {% endif %}
+              </ul>
+         </div>
+         {% endif %}
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.fancybox-1.3.4.pack.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery-ui-timepicker-addon.js') }}"></script>
+
+    <script type="text/javascript">
+       $('input[type=checkbox]').change(function(){
+            $('#download_ids').val($('input[type=checkbox]:checked').map(function(){return this.value}).get().join(','))
+        })
+
+       function to_query(){
+           $('#queryForm').attr('action', '/query_cert')
+           $('#queryForm').submit()
+       }
+       $(document).ready(function(){
+           $('#datepickera_start').datetimepicker({
+         timeFormat: "HH",
+               dateFormat: "yy-mm-dd"
+            })
+           $('#datepickera_end').datetimepicker({
+               timeFormat: "HH",
+               dateFormat: "yy-mm-dd"
+            });
+
+       {% if args.query_type == 'normal_query' %}
+           $('.exact_query').hide();
+           $('#normal_query').show();
+       {% else %}
+           $('#normal_query').hide();
+           $('.exact_query').show();
+       {% endif %}
+                
+             $('#query_type').change(function(){
+           var _type = $('#query_type').val() 
+                 if (_type == 'normal_query'){
+         $('.exact_query').hide();
+         $('#normal_query').show();
+                 }else{
+         $('#normal_query').hide();
+         $('.exact_query').show();
+                 }
+            })
+         }) 
+
+       function to_download(){
+           if ($('#download_ids').val() == ''){
+               alert('Please select at least one certificate!!')
+           }else{
+
+           $('#downForm').attr('action', '/cert_download')
+           $('#downForm').submit()
+
+           }
+        }
+
+       function submitFrom(curpage){
+          var f = document.getElementById("queryForm");
+          var input = document.createElement("input");
+          <!--input.setAttribute("type","hidden");-->
+          input.setAttribute("value",curpage);
+          input.setAttribute("name","curpage");
+          f.appendChild(input);
+          f.action = '/query_cert';
+          f.submit();
+        };
+
+
+        $(document).ready(function() {
+        $("a[rel=device]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+        $("a[rel=retry]").fancybox({
+        'width': "768",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+
+        $("a[rel=retryDevice]").fancybox({
+        'width': "1024",
+        'height': "1024",
+        'autoScale': false,
+        'centerOnScroll': false,
+        'padding': 28,
+        'margin': 48,
+        'scrolling': "no",
+        'overlayOpacity': 0.4,
+        'overlayColor': "#979b8f",
+        'transitionIn': "elastic",
+        'transitionOut': "elastic",
+        'enableEscapeButton': true,
+        'showNavArrows':false
+        });
+      });
+  </script>
+
+{% endblock %}
+
+
