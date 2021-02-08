@@ -71,7 +71,7 @@ setup(
 
         'simplejson==3.16.0',
         'celery==4.2.0',
-        'httplib2==0.11.3',
+        'httplib2==0.19.0',
         'redis==2.10.6',
         'flask==1.0.2',
         'flask_principal==0.4.0',
