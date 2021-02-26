@@ -88,7 +88,7 @@ setup(
         'pyOpenSSL==18.0.0',
         'pycrypto==2.6.1',
         'gunicorn==19.9.0',
-        'aiohttp==3.4.4'
+        'aiohttp==3.7.4'
 
     ]
 )
