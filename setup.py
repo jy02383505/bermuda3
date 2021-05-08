@@ -80,7 +80,7 @@ setup(
         'pymongo==3.7.1',
         # 'paramiko==1.15.2',
         'pika==0.12.0',
-        'eventlet==0.24.0',
+        'eventlet==0.31.0',
         'gevent==1.3.5',
         'requests==2.19.1',
         'python-etcd==0.4.5',
