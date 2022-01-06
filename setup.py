@@ -70,7 +70,7 @@ setup(
     install_requires=[
 
         'simplejson==3.16.0',
-        'celery==4.2.0',
+        'celery==5.2.2',
         'httplib2==0.11.3',
         'redis==2.10.6',
         'flask==1.0.2',
